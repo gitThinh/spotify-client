@@ -1,0 +1,57 @@
+form {
+    min-width: 350px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+form label {
+    display: block;
+    margin: 20px 0 8px 0;
+}
+form input {
+    width: 100%;
+    font-size: 16px;
+    padding: .8em .5em;
+}
+
+.rememberMe{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    font-size: 18px;
+}
+#toggleRM {
+    width: 40px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+#toggleRM .ball{
+    display: block;
+    width: 20px;
+    scale: .8;
+    height: 20px;
+    border-radius: 100%;
+    background-color: #000;
+    transition: all .3s linear;
+}
+#toggleRM.active{
+    background-color: #1ED760;
+}
+#toggleRM.active .ball{
+    transform: translateX(24px);
+}
+button[type="submit"]{
+    border-radius: 30px;
+}
+
+.groupInput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
