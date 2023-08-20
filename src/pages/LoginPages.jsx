@@ -1,26 +1,9 @@
+import { useState } from 'react';
 import '../assets/LogAndSign/LoginPages.css'
-import FormRender from '../components/FormComponent/FormRender';
-import InputBox from '../components/FormComponent/InputBox';
+import LoginFormRender from '../components/FormComponent/LoginFormRender';
 
-const inputLogin = [
-    {
-        name: 'username',
-        text: 'Tên đăng nhập',
-        type: 'text',
-    },
-    {
-        name: 'password',
-        text: 'Mật khẩu',
-        type: 'password',
-    }
-]
 
-const dataForm = {
-    nameform: 'loginForm',
-    inputLogin,
-    submit: 'Log In',
-    rememberMe: true
-}
+
 
 const LoginPages = () => {
     return (
@@ -48,11 +31,13 @@ const LoginPages = () => {
                         <h4>Continue with phone number</h4>
                     </div>
                 </div>
+                {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
-                <FormRender data={dataForm} />
+                <LoginFormRender />
                 <a href="#" style={{ textDecoration: 'underline' }}>
                     Forgot your password?
                 </a>
+                {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
                 <p>Don't have an account?
                     <a href="#" style={{
@@ -62,7 +47,6 @@ const LoginPages = () => {
                         Sign up for Spotify
                     </a>
                 </p>
-
             </div>
         </div>
     );
