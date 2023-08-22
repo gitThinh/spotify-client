@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../../assets/LogAndSign/FormRender.css'
-import { isEmail, isMinLength, isNull } from './validation';
+import { isEmail, isMinLength, isNull } from '../../services/validation.jsx'
 import InputRender from './InputRender';
 
 
@@ -14,26 +14,31 @@ const LoginFormRender = () => {
     // showErrorMessage.innerHTML = isEmail(username)
 
 
+    // ------------------------------------------------- FUNCTIONS ----------------------------------------------------------------
     const handleLogin = async (e) => {
+        showErrorMessage.innerHTML = ""
         e.preventDefault();
-        const response = await fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(username, password)
-        });
-        if (response.status === 200) {
-            const user = response.data;
-            // Lưu trạng thái người dùng vào session
-            // store.dispatch("setUser", user);
-            router.push("/");
-        } else {
-            alert(response.statusText);
+        if (isNull(username) && isNull(password)) {
+            // const response = await fetch('/login', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(username, password)
+            // });
+            // if (response.status === 200) {
+            //     const user = response.data;
+            //     router.push("/");
+            // } else {
+            //     alert(response.statusText);
+            // }
         }
+        else showErrorMessage.innerHTML = "Vui Lòng Nhập Đầy Đủ Thông Tin"
+
     }
 
 
+    // ------------------------------------------------- RENDER ----------------------------------------------------------------
     return (
-        <form className='loginForm'>
+        <form>
             <div className="groupInput">
                 <InputRender
                     data={{
@@ -59,8 +64,8 @@ const LoginFormRender = () => {
                 </div>
                 <p>Remember me</p>
             </div>
-            <button type="submit" onClick={handleLogin}>Log In</button>
-            <p className='msg'></p>
+            <button className='active' type="submit" onClick={handleLogin}>Đăng Nhập</button>
+            <p className='msg' style={{ maxWidth: '350px', marginTop: '15px' }}></p>
         </form>
     );
 };

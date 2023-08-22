@@ -1,6 +1,15 @@
 #root {
   width: 100%;
   margin: 0 auto;
-  text-align: center;
+  min-height: 100vh;
+  background-color: #000;
 }
 
+.tranferPages {
+  display: block;
+  font-size: 18px;
+  background-color: #FFF;
+  padding: .5em 1.5em;
+  border-radius: 30px;
+  color: #000;
+}

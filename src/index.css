@@ -18,6 +18,10 @@
   filter: invert(100%);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 *{
   padding: 0;
   margin: 0;
@@ -56,9 +60,6 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-}
-button:hover {
-  border-color: #ccc;
 }
 button:focus,
 button:focus-visible {

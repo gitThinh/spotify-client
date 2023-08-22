@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import '../assets/LogAndSign/LoginPages.css'
+import '../assets/LogAndSign/Layout1.css'
 import LoginFormRender from '../components/FormComponent/LoginFormRender';
-
-
 
 
 const LoginPages = () => {
     return (
-        <div className='containerLogin'>
-            <div className="haederLogin">
+        <div className='containerL1'>
+            <div className="headerPage">
                 <i className="fa-brands fa-spotify"></i>
-                <h2>Spotify</h2>
+                <h2>Spotify Clone</h2>
             </div>
             <div className="contentLogin">
                 <h2>Log in to Spotify</h2>
@@ -31,6 +29,7 @@ const LoginPages = () => {
                         <h4>Continue with phone number</h4>
                     </div>
                 </div>
+
                 {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
                 <LoginFormRender />
@@ -39,12 +38,12 @@ const LoginPages = () => {
                 </a>
                 {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
-                <p>Don't have an account?
+                <p>Chưa có tài khoản
                     <a href="#" style={{
                         textDecoration: 'underline',
                         marginLeft: '8px'
                     }}>
-                        Sign up for Spotify
+                        Đăng ký ngay
                     </a>
                 </p>
             </div>

@@ -1,17 +1,21 @@
-.lineCut{
-    display: block;width: 100%;
+.lineCut {
+    display: block;
+    width: 100%;
     height: 1px;
     background-color: #333;
 }
 
 
-.containerLogin{
+.containerL1 {
+    position: relative;
     min-width: 730px;
     background-color: transparent;
     background-image: linear-gradient(#222, #000);
+    text-align: center;
 }
 
-.haederLogin{
+.headerPage {
+    width: 100%;
     height: 3.5em;
     color: #eee;
     display: flex;
@@ -21,25 +25,28 @@
     font-size: 30px;
     background-color: #000;
 }
-.haederLogin i{
+.headerPage i {
     margin-right: 20px;
     font-size: 2em;
 }
 
 
-.contentLogin{
+.contentLogin, .contentSignin, .contentForgotPass {
     display: flex;
     flex-direction: column;
     width: 730px;
     gap: 50px;
     margin: 30px auto 10px auto;
     padding: 50px;
-
     border-radius: 10px;
     background-color: #000;
     font-size: 18px;
-    color:#eee;
+    color: #eee;
 }
+.contentLogin>h2, .contentSignin>h2, .contentForgotPass>h2 {
+    font-size: 30px;
+}
+
 .groupOptionsLogin {
     display: flex;
     flex-direction: column;
@@ -47,7 +54,7 @@
     justify-content: center;
     align-items: center;
 }
-.optionLogin{
+.optionLogin {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -59,10 +66,10 @@
     opacity: .6;
     transition: all .3s linear;
 }
-.optionLogin i{
+.optionLogin i {
     font-size: 1.2em;
 }
-.optionLogin:hover{
+.optionLogin:hover {
     cursor: pointer;
     border: 1px solid #fff;
     opacity: 1;
@@ -73,27 +80,15 @@
     display: flex;
     flex-direction: column;
 }
-.groupInput input{
+.groupInput input {
     background-color: #121212;
     color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-button[type='submit']{
-    background-color: #1ED760;
-    color: #fff;
-    font-weight: 700;
-    opacity: 0.8;
-    transition: all .2s linear;
-}
-button[type='submit']:hover{
-    opacity: 1;
-}
-
-
-.msg{
-    margin-top: 12px;
+.msg {
+    text-align: center;
     height: 14px;
     color: rgb(243, 61, 61);
 }
