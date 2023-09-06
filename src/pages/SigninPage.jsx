@@ -1,39 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
+
 import '../assets/LogAndSign/Layout1.css'
+
+import { isEmail, isPassword, isNull } from "../services/validation";
 import InputRender from "../components/FormComponent/InputRender";
-import { isEmail, isMinLength, isNull } from "../services/validation";
+
+
 
 const SigninPage = () => {
-    const showErrorMessage = document.querySelector('.msg')
     const [email, setEmail] = useState("")
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState("")
     const [cpass, setCpass] = useState("")
-    const submitButton = document.querySelector('button[type="submit"]')
-    // showErrorMessage.innerHTML = isNull(username)
-    // showErrorMessage.innerHTML = isMinLength(8, password)
-    // showErrorMessage.innerHTML = isEmail(email)
+    const [error, setError] = useState("")
+    const [isChecked, setIsChecked] = useState(false)
 
 
     // -------------------------------------- FUNCTION --------------------------------
-    const activeSubmit = () => {
-        const checkBox = document.querySelector('input[name="policy"]')
-        if (checkBox.checked) {
-            submitButton.classList.add('active')
-        } else submitButton.classList.remove('active')
-    }
     const fetchData = () => { }
 
-    const handleSignin = async (e) => {
-        showErrorMessage.innerHTML = ""
+    const handleSignin = (e) => {
+        console.log(isChecked);
         e.preventDefault();
-        if(submitButton.classList.value === 'active') {
-            if (isNull(email) && isNull(username) && isNull(password) && isNull(cpass)) {
-                alert('oke')  // xử lý fetch data
+        setError('')
+        if (isChecked) {
+            window.scrollTo(0, 150)
+            if (!isNull(email) || !isNull(username) || !isNull(password) || !isNull(cpass)) {
+                setError('Vui Lòng Nhập Đủ Thông Tin')
+                return
             }
-            else {
-                window.scrollTo(0, 150)
-                showErrorMessage.innerHTML = 'Vui Lòng Nhập Đầy Đủ Thông Tin'
+            if (!isEmail(email)) {
+                setError('Email sai định dạng')
+                return
+            }
+            if (!isPassword(password)) {
+                setError('Mật khẩu phải có kí tự số, in hoa, kí tự đặc biệt và dài hơn 8 kí tự')
+                return
+            }
+            if (password !== cpass) {
+                setError('Mật khẩu xác nhận phải giống với mật khẩu đã nhập')
+                return
             }
         }
     }
@@ -81,26 +88,28 @@ const SigninPage = () => {
                             }} />
                     </div>
                     <div className="policy">
-                        <input type="checkbox" name="policy" onClick={activeSubmit} />
+                        <input type="checkbox" name="policy" onClick={() => setIsChecked(!isChecked)} />
                         <span className="checkmark"></span>
                         <p>Bạn đã đồng ý với các điều khoản và điều kiện</p>
                     </div>
-                    <button type="submit" onClick={handleSignin}>Đăng Ký</button>
+                    <button type="submit" className={isChecked ? 'active' : ''} id='submitSignin' onClick={handleSignin}>Đăng Ký</button>
                 </form>
-                <p className='msg'></p>
+                <p className='msg'>{error}</p>
                 {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
                 <p>Bạn đã có tài khoản
-                    <a href="#" style={{
+                    <Link to="/login" style={{
                         textDecoration: 'underline',
                         marginLeft: '8px'
                     }}>
                         Đăng nhập
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>
     );
+
+
 };
 
 export default SigninPage;
