@@ -1,9 +1,22 @@
-import NavBar from "../components/NavBar";
+import { Route, Routes } from 'react-router-dom'
+
+import NavBar from "../components/NavBar"
+import Playing from "../components/Playing"
+import HomeLayout from '../components/LayoutComponents/HomeLayout'
+
+import '../assets/Home/layout2.css'
+
 
 const HomePage = () => {
     return (
-        <div>
-            <NavBar />
+        <div className="homeContainer">
+            <div className="container">
+                <NavBar />
+                <Routes>
+                    <Route path='/' element={<HomeLayout />} />
+                </Routes>
+            </div>
+            <Playing />
         </div>
     );
 };

@@ -2,14 +2,13 @@ const isNull = (value) => {
     if (value !== "")
         return true
 }
-const isMinLength = (index, value) => {
-    if (value.length > index) {
-        return true
-    }
-}
 const isEmail = (value) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(value);
 }
+const isPassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[1-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    return passwordRegex.test(password);
+  };
 
-export { isNull, isMinLength, isEmail }
+export { isNull, isPassword, isEmail }

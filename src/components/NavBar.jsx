@@ -1,18 +1,30 @@
-
+import { Link } from 'react-router-dom'
 
 
 const NavBar = () => {
     return (
         <div className="navBar">
+            <div className="infoUser">
+                <img src="https://khoinguonsangtao.vn/wp-content/uploads/2022/11/hinh-anh-nguoi-dep-chup-goc-nghieng.jpg" />
+                <h3 className='userName'>User Name</h3>
+            </div>
+            <div className="loginSignin">
+                <a href="/login" className='navBtn'>
+                    Log In
+                </a>
+                <a href="/signin" className='navBtn'>
+                    Sign In
+                </a>
+            </div>
             <nav className="navBar_options">
-                <a href="">
-                    <i className="fa-solid fa-house" style={{ color: '#fff' }}></i>
+                <Link to="/home">
+                    <i className="fa-solid fa-house"></i>
                     Home
-                </a>
-                <a href="">
-                    <i className="fa-solid fa-magnifying-glass" style={{ color: '#fff' }}></i>
+                </Link>
+                <Link to="/search">
+                    <i className="fa-solid fa-magnifying-glass"></i>
                     Search
-                </a>
+                </Link>
             </nav>
             {/* components Library */}
         </div>

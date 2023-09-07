@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useHistory } from "react";
 import { Link } from 'react-router-dom'
 
 import '../assets/LogAndSign/Layout1.css'
@@ -16,13 +16,9 @@ const SigninPage = () => {
     const [error, setError] = useState("")
     const [isChecked, setIsChecked] = useState(false)
 
-
     // -------------------------------------- FUNCTION --------------------------------
-    const fetchData = () => { }
-
-    const handleSignin = (e) => {
-        console.log(isChecked);
-        e.preventDefault();
+    const handleSignin = async (e) => {
+        e.preventDefault()
         setError('')
         if (isChecked) {
             window.scrollTo(0, 150)
@@ -42,6 +38,30 @@ const SigninPage = () => {
                 setError('Mật khẩu xác nhận phải giống với mật khẩu đã nhập')
                 return
             }
+            const data = {
+                username,
+                email,
+                password
+            }
+            const response = await fetch('http://116.110.85.13:8080/api/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                },
+                body: JSON.stringify(data)
+            })
+            await response.json()
+                .then(result =>{
+                    console.log(result)
+                    if(result.statusCode === 200) {
+                        if (confirm("Đăng kí thành Công chuyển sang trang Đăng nhập nagy") == true)
+                            route.push("/login") 
+                    }else{
+                        setError(result.message)
+                    }
+                }
+                )
         }
     }
 

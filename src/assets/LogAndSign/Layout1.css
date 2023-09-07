@@ -31,7 +31,7 @@
 }
 
 
-.contentLogin, .contentSignin, .contentForgotPass {
+.contentLogin, .contentSignin, .contentForgotPass, .contentRepass {
     display: flex;
     flex-direction: column;
     width: 730px;

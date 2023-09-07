@@ -5,6 +5,12 @@
   background-color: #000;
 }
 
+.underLink:hover{
+  text-decoration: underline;
+  color: inherit;
+  transition: all .2s ease;
+}
+
 .tranferPages {
   display: block;
   font-size: 18px;

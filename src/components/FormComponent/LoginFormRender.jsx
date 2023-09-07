@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import '../../assets/LogAndSign/FormRender.css'
-import { isEmail, isMinLength, isNull } from '../../services/validation.jsx'
+import { isEmail, isNull } from '../../services/validation.jsx'
 import InputRender from './InputRender';
 
 
 
+
 const LoginFormRender = () => {
-    const showErrorMessage = document.querySelector('.msg')
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
     // showErrorMessage.innerHTML = isNull(username)
     // showErrorMessage.innerHTML = isMinLength(8, password)
     // showErrorMessage.innerHTML = isEmail(username)
@@ -16,23 +17,32 @@ const LoginFormRender = () => {
 
     // ------------------------------------------------- FUNCTIONS ----------------------------------------------------------------
     const handleLogin = async (e) => {
-        showErrorMessage.innerHTML = ""
         e.preventDefault();
-        if (isNull(username) && isNull(password)) {
-            // const response = await fetch('/login', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(username, password)
-            // });
-            // if (response.status === 200) {
-            //     const user = response.data;
-            //     router.push("/");
-            // } else {
-            //     alert(response.statusText);
-            // }
+        setError('')
+        if (!isNull(username) || !isNull(password)) {
+            setError("Vui Lòng Nhập Đầy Đủ Thông Tin")
+            return
         }
-        else showErrorMessage.innerHTML = "Vui Lòng Nhập Đầy Đủ Thông Tin"
-
+        const response = await fetch('http://116.110.85.13:8080/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+            },
+            body: JSON.stringify({ username, password })
+        })
+        response.json()
+            .then(
+                function (result) {
+                    if (result.status === 200) {
+                        console.log(result)
+                        router.push("/home");
+                    } else {
+                        setError(result.message)
+                    }
+                }
+            )
+            .catch( err => console.log(err))
     }
 
 
@@ -65,7 +75,7 @@ const LoginFormRender = () => {
                 <p>Remember me</p>
             </div>
             <button className='active' type="submit" onClick={handleLogin}>Đăng Nhập</button>
-            <p className='msg' style={{ maxWidth: '350px', marginTop: '15px' }}></p>
+            <p className='msg' style={{ maxWidth: '350px', marginTop: '15px' }}>{error}</p>
         </form>
     );
 };

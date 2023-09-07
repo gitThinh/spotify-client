@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom'
 import '../assets/LogAndSign/Layout1.css'
 import LoginFormRender from '../components/FormComponent/LoginFormRender';
 
 
+
+
 const LoginPages = () => {
+    window.scrollTo(0, 0)
     return (
         <div className='containerL1'>
             <div className="headerPage">
@@ -33,18 +36,18 @@ const LoginPages = () => {
                 {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
                 <LoginFormRender />
-                <a href="#" style={{ textDecoration: 'underline' }}>
+                <Link to="/forgot" style={{ textDecoration: 'underline' }}>
                     Forgot your password?
-                </a>
+                </Link>
                 {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>
                 <p>Chưa có tài khoản
-                    <a href="#" style={{
+                    <Link to="/signin" style={{
                         textDecoration: 'underline',
                         marginLeft: '8px'
                     }}>
                         Đăng ký ngay
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>
