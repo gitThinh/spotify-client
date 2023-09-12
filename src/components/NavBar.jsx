@@ -7,6 +7,7 @@ const NavBar = () => {
             <div className="infoUser">
                 <img src="https://khoinguonsangtao.vn/wp-content/uploads/2022/11/hinh-anh-nguoi-dep-chup-goc-nghieng.jpg" />
                 <h3 className='userName'>User Name</h3>
+                <i className="fa-solid fa-power-off"></i>
             </div>
             <div className="loginSignin">
                 <a href="/login" className='navBtn'>

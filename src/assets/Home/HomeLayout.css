@@ -1,0 +1,61 @@
+.homeLayout {
+    width: 100%;
+    border-radius: 8px;
+    background-color: #141414;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+
+
+.homeLayout .titlePages {
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #333;
+}
+
+.homeLayout .renderPages {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 30px;
+}
+
+.songsBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 12px 15px 25px 15px;
+    border-radius: 8px;
+    background-color: transparent;
+    background-image: linear-gradient(#181818, #222);
+    flex: 0;
+    transition: background-color .3s ease;
+    cursor: pointer;
+}
+.songsBox:hover{
+    background-image: linear-gradient(#333, #353535);
+}
+
+.songsThumb {
+    width: 100%;
+    flex-shrink: 1;
+    border-radius: inherit;
+    flex: 0;
+}
+
+.detailSong {
+    display: flex;
+    flex-direction: column;
+}
+
+.songsTitle {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

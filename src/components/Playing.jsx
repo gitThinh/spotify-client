@@ -45,6 +45,36 @@ const Playing = (props) => {
             audioRef.current.play()
         }
     }
+    // next and prev btn
+    const handleNextBtn = () => {
+        setIsplaying(false)
+        const progressBar = document.querySelector('.progress_bar')
+        console.log(audioRef.current);
+        audioRef.current.currentTime = 0
+        progressBar.style.width = '0%'
+        if (indexTrack === tracks.length - 1) {
+            setIndexTrack(0)
+            setCurrentTrack(tracks[indexTrack])
+        }
+        else {
+            setIndexTrack(prev => prev + 1)
+            setCurrentTrack(tracks[indexTrack])
+        }
+    }
+    const handlePrevBtn = () => {
+        const progressBar = document.querySelector('.progress_bar')
+        progressBar.style.width = '0%'
+        setIsplaying(false)
+        audioRef.current.current = 0
+        if (indexTrack === 0) {
+            setIndexTrack(tracks.length - 1)
+            setCurrentTrack(tracks[indexTrack])
+        }
+        else {
+            setIndexTrack(prev => prev - 1)
+            setCurrentTrack(tracks[indexTrack])
+        }
+    }
 
 
     // control progressBar
@@ -118,36 +148,6 @@ const Playing = (props) => {
             return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
         }
     }, [])
-
-    // next and prev btn
-    const handleNextBtn = () => {
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
-        audioRef.current.current = 0
-        setIsplaying(false)
-        if (indexTrack === tracks.length - 1) {
-            setIndexTrack(0)
-            setCurrentTrack(tracks[indexTrack])
-        }
-        else {
-            setIndexTrack(prev => prev + 1)
-            setCurrentTrack(tracks[indexTrack])
-        }
-    }
-    const handlePrevBtn = () => {
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
-        setIsplaying(false)
-        audioRef.current.current = 0
-        if (indexTrack === 0) {
-            setIndexTrack(tracks.length - 1)
-            setCurrentTrack(tracks[indexTrack])
-        }
-        else {
-            setIndexTrack(prev => prev - 1)
-            setCurrentTrack(tracks[indexTrack])
-        }
-    }
 
 
     // volume control 

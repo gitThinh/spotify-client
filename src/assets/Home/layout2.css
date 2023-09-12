@@ -7,9 +7,8 @@
 .container{
     width: 100%;
     height: calc(100vh - 120px);
-    background-color: #444;
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 5fr;
     gap: 10px;
 }
 
@@ -19,21 +18,29 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    height: 100%;
 }
 .navBar .infoUser{
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
-    padding: 20px 0;
-    background-color: #121212;
+    padding: 20px 10px;
+    background-color: #141414;
     border-radius: 8px;
 }
 .navBar .infoUser img{
     width: 50px;
     height: 50px;
     border-radius: 50pc;
+}
+.navBar .infoUser i{
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .3s linear;
+}
+.navBar .infoUser i:hover{
+    opacity: 0.6;
 }
 .navBar .loginSignin{
     display: flex;
@@ -75,7 +82,3 @@
 }
 
 
-.homeLayout{
-    width: 100%;
-    background-color: #fff;
-}
