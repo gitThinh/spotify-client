@@ -6,22 +6,22 @@ import { Link } from 'react-router-dom'
 
 const Playing = (props) => {
     const [tracks, setTracks] = useState([
-        {
-            name: '3107 - 4',
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMtwq5iPsJ0bw8cO7ZVoBQV0q2QvNxTO-A4hGLaMDKw&s',
-            thumbnail: 'https://tailieumoi.vn/storage/uploads/images/post/banner/17-1659434564.png',
-            author: 'W/N ft Erik',
-            timer: 162, // seconds
-            src: 'src/assets/thegirl.mp3'
-        },
-        {
-            name: '3107',
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMtwq5iPsJ0bw8cO7ZVoBQV0q2QvNxTO-A4hGLaMDKw&s',
-            thumbnail: 'https://tailieumoi.vn/storage/uploads/images/post/banner/17-1659434564.png',
-            author: 'W/N ft Erik',
-            timer: 162, // seconds
-            src: 'src/assets/girls.mp3'
-        }
+        // {
+        //     name: '3107 - 4',
+        //     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMtwq5iPsJ0bw8cO7ZVoBQV0q2QvNxTO-A4hGLaMDKw&s',
+        //     thumbnail: 'https://tailieumoi.vn/storage/uploads/images/post/banner/17-1659434564.png',
+        //     author: 'W/N ft Erik',
+        //     timer: 162, // seconds
+        //     src: 'src/assets/thegirl.mp3'
+        // },
+        // {
+        //     name: '3107',
+        //     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMtwq5iPsJ0bw8cO7ZVoBQV0q2QvNxTO-A4hGLaMDKw&s',
+        //     thumbnail: 'https://tailieumoi.vn/storage/uploads/images/post/banner/17-1659434564.png',
+        //     author: 'W/N ft Erik',
+        //     timer: 162, // seconds
+        //     src: 'src/assets/girls.mp3'
+        // }
     ])
     const [isplaying, setIsplaying] = useState(false)
     const [israndom, setIsrandom] = useState(false)
