@@ -82,11 +82,3 @@
 }
 
 
-/* layout page  */
-.homeLayout , .showSong, .queuePage{
-    width: 100%;
-    border-radius: 8px;
-    background-color: #141414;
-    overflow-y: scroll;
-    padding: 20px;
-}

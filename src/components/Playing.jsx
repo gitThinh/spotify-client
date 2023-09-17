@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import '../assets/Playing.css'
 import ProgressLine from './ProgressLine'
-import { Link } from 'react-router-dom'
 
 
 const Playing = (props) => {
@@ -46,12 +45,13 @@ const Playing = (props) => {
             audioRef.current.play()
         }
     }
-
-
     // next and prev btn
     const handleNextBtn = () => {
-        // setIsplaying(true)
+        setIsplaying(false)
         const progressBar = document.querySelector('.progress_bar')
+        console.log(audioRef.current);
+        audioRef.current.currentTime = 0
+        progressBar.style.width = '0%'
         if (indexTrack === tracks.length - 1) {
             setIndexTrack(0)
             setCurrentTrack(tracks[indexTrack])
@@ -60,9 +60,6 @@ const Playing = (props) => {
             setIndexTrack(prev => prev + 1)
             setCurrentTrack(tracks[indexTrack])
         }
-        audioRef.current.currentTime = 0
-        audioRef.current.play()
-        progressBar.style.width = '0%'
     }
     const handlePrevBtn = () => {
         const progressBar = document.querySelector('.progress_bar')
@@ -135,10 +132,9 @@ const Playing = (props) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
-                // handleNextBtn()
                 currentTimeDisplay.innerHTML = formatTime(0)
                 progressBar.style.width = '0%'
-                audioRef.current.play()
+                setIsplaying(false)
             } else {
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
@@ -236,16 +232,16 @@ const Playing = (props) => {
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)} >
                         <i className="fas fa-random"></i>
                     </div>
-                    <div className="btn btn_prev" onClick={tracks.length > 0 ? handlePrevBtn : () => { }} >
+                    <div className="btn btn_prev" onClick={tracks.length > 0 ? handlePrevBtn : ()=>{}} >
                         <i className="fas fa-step-backward"></i>
                     </div>
-                    <div className="btn btn_toggle_play" onClick={tracks.length > 0 ? handPlayPause : () => { }}>
+                    <div className="btn btn_toggle_play" onClick={tracks.length > 0 ? handPlayPause : ()=>{}}>
                         {isplaying
                             ? <i className="fas fa-pause icon-pause"></i>
                             : <i className="fas fa-play icon-play"></i>
                         }
                     </div>
-                    <div className="btn btn_next" onClick={tracks.length > 0 ? handleNextBtn : () => { }}>
+                    <div className="btn btn_next" onClick={tracks.length > 0 ? handleNextBtn : ()=>{}}>
                         <i className="fas fa-step-forward"></i>
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
@@ -255,11 +251,9 @@ const Playing = (props) => {
                 <ProgressLine currentTrack={currentTrack} audioRef={audioRef} />
             </div>
             <div className="toolMusic">
-                <Link to='/queue'>
-                    <div className="btn btn_list">
-                        <i className="fas fa-list"></i>
-                    </div>
-                </Link>
+                <div className="btn btn_list">
+                    <i className="fas fa-list"></i>
+                </div>
                 <div className="btn btn_lyrics">
                     <i className="fas fa-music"></i>
                 </div>

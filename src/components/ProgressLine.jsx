@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
 
 const ProgressLine = ({ currentTrack, audioRef }) => {
+    
 
     return (
         <div className="timeLine" >
@@ -14,7 +15,7 @@ const ProgressLine = ({ currentTrack, audioRef }) => {
                     (currentTrack && 
                     (Math.floor((currentTrack.timer / 60))
                     + ':' +
-                    (Math.ceil(currentTrack.timer % 60))))
+                    ((currentTrack.timer % 60))))
                     || '--:--'
                 }
             </p>
