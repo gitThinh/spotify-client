@@ -19,3 +19,19 @@
   border-radius: 30px;
   color: #000;
 }
+
+
+/* custom scroll bar  */
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #666;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: #888;
+}

@@ -11,7 +11,7 @@ const HomeLayout = () => {
     // ------------------------------------------------ FUNCTION ----------------------------------------------------------------
     useEffect(() => {
         const loadSongs = async () => {
-            const response = await fetch('http://116.110.85.13:8080/api/songs/page/1', {
+            const response = await fetch('http://nth-audio.site/api/songs/page/1', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
