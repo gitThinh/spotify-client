@@ -10,9 +10,27 @@ const Playing = ({ playingSong, audioRef, playSong, pauseSong, nextSong, prevSon
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
     const [imageUrl, setImageUrl] = useState()
+    const [urlSong, setUrlSong] = useState()
 
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
-    
+    useEffect(() => {
+        playingSong &&
+            fetch(`http://nth-audio.site/api/resources/audio/${playingSong.file_name}`, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok')
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    setUrlSong(URL.createObjectURL(blob))
+                })
+    }, [playingSong])
 
 
     const handPlayPause = () => {
@@ -234,7 +252,7 @@ const Playing = ({ playingSong, audioRef, playSong, pauseSong, nextSong, prevSon
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
-                <ProgressLine playingSong={playingSong} audioRef={audioRef} />
+                <ProgressLine playingSong={playingSong} audioRef={audioRef} urlSong={urlSong} />
             </div>
             <div className="toolMusic">
                 <Link to='/queue'>
