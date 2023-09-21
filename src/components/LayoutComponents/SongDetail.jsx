@@ -4,11 +4,14 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 
 
-const SongDetail = () => {
+const SongDetail = ({ updatePlayingList }) => {
     const id = useParams().id
     const [imageUrl, setImageUrl] = useState()
     const [songDetail, setSongDetail] = useState({})
 
+    const addPlayingList = () =>{
+        updatePlayingList(songDetail)
+    }
 
     useEffect(() => {
         const handleLoadSong = async () => {
@@ -24,17 +27,19 @@ const SongDetail = () => {
         handleLoadSong()
     }, [songDetail._id])
 
+
     useEffect(() => {
-        fetch(`http://nth-audio.site/${songDetail.coverArt}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                setImageUrl(URL.createObjectURL(blob))
-            })
+        songDetail.coverArt &&
+            fetch(`http://nth-audio.site/${songDetail.coverArt}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok')
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    setImageUrl(URL.createObjectURL(blob))
+                })
     }, [songDetail.coverArt])
 
     return (
@@ -42,22 +47,35 @@ const SongDetail = () => {
             <div className="headerSongPage">
                 <SkeletonTheme baseColor="#202020" highlightColor="#444">
                     <div className="thumbSong">
-                        <img src={imageUrl} alt={songDetail.title} />
+                        {
+                            imageUrl ?
+                                <img src={imageUrl} alt={songDetail.title} />
+                                :
+                                <Skeleton className="thumbSong" />
+                        }
                     </div>
                     <div className="detailSong">
-                        <h1 className="titleSong">{songDetail.title || <Skeleton />}</h1>
+                        <h1 className="titleSong">{songDetail.title || ''}</h1>
                         <div className="artistDuration">
                             <p className="actist">{songDetail.artist_name}</p>
+                            <i className="fa-solid fa-circle" style={{ fontSize: '8px' }}></i>
                             <p>{songDetail.year}</p>
-                            {/* <p className="duration">{Math.floor(songDetail.duration / 60) + ' min ' + Math.ceil(songDetail.duration % 60) + ' sec'}</p> */}
+                            {/* <p className="duration">
+                                {Math.floor(songDetail.duration / 60) + ' min ' + Math.ceil(songDetail.duration % 60) + ' sec'}
+                            </p> */}
                         </div>
                     </div>
                 </SkeletonTheme>
             </div>
             <div className="bodySongPage">
-                <button className="addPlaylist">
-                    <i className="fa-solid fa-play"></i>
-                </button>
+                <div className="detailPageOption">
+                    <button className="startSong">
+                        <i className="fa-solid fa-play"></i>
+                    </button>
+                    <button className="addPlaylist" onClick={addPlayingList}>
+                        <i className="fa-solid fa-plus"></i>
+                    </button>
+                </div>
             </div>
         </div>
     );

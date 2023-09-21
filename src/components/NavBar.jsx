@@ -26,6 +26,7 @@ const NavBar = () => {
                     <i className="fa-solid fa-magnifying-glass"></i>
                     Search
                 </Link>
+                <p>Lỗi chuyển bài khi nghe xong</p>
             </nav>
             {/* components Library */}
         </div>

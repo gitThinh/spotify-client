@@ -19,7 +19,7 @@ const SongBox = (prop) => {
             .then(blob => {
                 setImageUrl(URL.createObjectURL(blob))
             })
-    }, [imageUrl])
+    }, [])
 
     // --------------------------------------- RENDER ------------------------------------
 

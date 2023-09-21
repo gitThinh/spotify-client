@@ -1,85 +1,87 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../assets/Playing.css'
 import ProgressLine from './ProgressLine'
 import { Link } from 'react-router-dom'
 
 
-const Playing = (props) => {
-    const [tracks, setTracks] = useState([
-        {
-            name: '3107 - 4',
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMtwq5iPsJ0bw8cO7ZVoBQV0q2QvNxTO-A4hGLaMDKw&s',
-            thumbnail: 'https://tailieumoi.vn/storage/uploads/images/post/banner/17-1659434564.png',
-            author: 'W/N ft Erik',
-            timer: 162, // seconds
-            src: 'src/assets/thegirl.mp3'
-        },
-        {
-            name: '3107',
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMtwq5iPsJ0bw8cO7ZVoBQV0q2QvNxTO-A4hGLaMDKw&s',
-            thumbnail: 'https://tailieumoi.vn/storage/uploads/images/post/banner/17-1659434564.png',
-            author: 'W/N ft Erik',
-            timer: 162, // seconds
-            src: 'src/assets/girls.mp3'
-        }
-    ])
+const Playing = ({ playingSong, audioRef, playSong, pauseSong, nextSong, prevSong }) => {
     const [isplaying, setIsplaying] = useState(false)
     const [israndom, setIsrandom] = useState(false)
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
-    const [indexTrack, setIndexTrack] = useState(0)
-    const [currentTrack, setCurrentTrack] =
-        useState(tracks[indexTrack])
+    const [imageUrl, setImageUrl] = useState()
+    const [urlSong, setUrlSong] = useState()
 
-    const audioRef = useRef()
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
-
-
+    useEffect(() => {
+        playingSong &&
+            fetch(`http://nth-audio.site/api/resources/audio/${playingSong.file_name}`, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok')
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    setUrlSong(URL.createObjectURL(blob))
+                })
+    }, [playingSong])
 
 
     const handPlayPause = () => {
         setIsplaying(!isplaying)
         if (isplaying) {
-            audioRef.current.pause()
+            pauseSong()
         }
         else {
-            audioRef.current.play()
+            playSong()
         }
     }
-
 
     // next and prev btn
     const handleNextBtn = () => {
-        // setIsplaying(true)
+        setIsplaying(false)
         const progressBar = document.querySelector('.progress_bar')
-        if (indexTrack === tracks.length - 1) {
-            setIndexTrack(0)
-            setCurrentTrack(tracks[indexTrack])
-        }
-        else {
-            setIndexTrack(prev => prev + 1)
-            setCurrentTrack(tracks[indexTrack])
-        }
-        audioRef.current.currentTime = 0
-        audioRef.current.play()
         progressBar.style.width = '0%'
+        audioRef.current.currentTime = 0
+        nextSong()
     }
     const handlePrevBtn = () => {
+        setIsplaying(false)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
-        setIsplaying(false)
         audioRef.current.current = 0
-        if (indexTrack === 0) {
-            setIndexTrack(tracks.length - 1)
-            setCurrentTrack(tracks[indexTrack])
-        }
-        else {
-            setIndexTrack(prev => prev - 1)
-            setCurrentTrack(tracks[indexTrack])
-        }
+        prevSong()
     }
 
 
+    // get thumbnails song
+    useEffect(() => {
+        playingSong &&
+            fetch(`http://nth-audio.site/${playingSong.coverArt}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok')
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    setImageUrl(URL.createObjectURL(blob))
+                })
+    }, [playingSong])
+
+
+
+    function formatTime(timeInSeconds) {
+        const minutes = Math.floor(timeInSeconds / 60)
+        const seconds = Math.floor(timeInSeconds % 60)
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+    }
     // control progressBar
     useEffect(() => {
         const progressBar = document.querySelector('.progress_bar')
@@ -135,10 +137,12 @@ const Playing = (props) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
-                // handleNextBtn()
-                currentTimeDisplay.innerHTML = formatTime(0)
+                setIsplaying(false)
+                const progressBar = document.querySelector('.progress_bar')
                 progressBar.style.width = '0%'
-                audioRef.current.play()
+                audioRef.current.currentTime = 0
+                nextSong()
+                // handleNextBtn()
             } else {
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
@@ -146,19 +150,15 @@ const Playing = (props) => {
             }
         })
 
-        function formatTime(timeInSeconds) {
-            const minutes = Math.floor(timeInSeconds / 60)
-            const seconds = Math.floor(timeInSeconds % 60)
-            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-        }
-    }, [])
 
+    }, [])
+    
+    
 
     // volume control 
     useEffect(() => {
         const volumeBar = document.querySelector('.volume_bar')
         const volumeContainer = document.querySelector('.volume_area')
-        const volumeBtn = document.querySelector('.btn_volume_control')
         let volumeControl = 1
 
         function updateVolumeFromMousePosition(event) {
@@ -215,15 +215,15 @@ const Playing = (props) => {
     return (
         <div className="playingBlock">
             <div className="infoMusic">
-                {tracks.length > 0 &&
+                {playingSong &&
                     <div className='boxInfo'>
-                        <img src={currentTrack.thumbnail} alt="thumbnail" />
+                        <img src={imageUrl} alt="thumbnail" />
                         <div className="infoMusic_details">
                             <a href='' className='underLink'>
-                                <h3 className="details_name">{currentTrack.name || ''}</h3>
+                                <h3 className="details_name">{playingSong.title || ''}</h3>
                             </a>
                             <a href='' className='underLink'>
-                                <p className="details_singer">{currentTrack.author || ''}</p>
+                                <p className="details_singer">{playingSong.artist_name || ''}</p>
                             </a>
                         </div>
                         {/* tim với thêm vào playlist */}
@@ -236,23 +236,23 @@ const Playing = (props) => {
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)} >
                         <i className="fas fa-random"></i>
                     </div>
-                    <div className="btn btn_prev" onClick={tracks.length > 0 ? handlePrevBtn : () => { }} >
+                    <div className="btn btn_prev" onClick={playingSong ? handlePrevBtn : () => { }} >
                         <i className="fas fa-step-backward"></i>
                     </div>
-                    <div className="btn btn_toggle_play" onClick={tracks.length > 0 ? handPlayPause : () => { }}>
+                    <div className="btn btn_toggle_play" onClick={playingSong ? handPlayPause : () => { }}>
                         {isplaying
                             ? <i className="fas fa-pause icon-pause"></i>
                             : <i className="fas fa-play icon-play"></i>
                         }
                     </div>
-                    <div className="btn btn_next" onClick={tracks.length > 0 ? handleNextBtn : () => { }}>
+                    <div className="btn btn_next" onClick={playingSong ? handleNextBtn : () => { }}>
                         <i className="fas fa-step-forward"></i>
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
-                <ProgressLine currentTrack={currentTrack} audioRef={audioRef} />
+                <ProgressLine playingSong={playingSong} audioRef={audioRef} urlSong={urlSong} />
             </div>
             <div className="toolMusic">
                 <Link to='/queue'>

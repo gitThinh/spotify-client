@@ -35,7 +35,7 @@
 }
 
 .infoMusic {
-    width: 15%;
+    width: 20%;
 }
 .infoMusic .boxInfo{
     width: 100%;
@@ -49,6 +49,12 @@
     width: 80px;
     height: 80px;
     border-radius: 10px;
+}
+.details_name{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 

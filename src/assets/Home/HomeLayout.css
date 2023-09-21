@@ -11,8 +11,10 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 20px;
     row-gap: 30px;
+    padding: 20px;
 }
 
+/* Song box  */
 .songsBox {
     display: flex;
     flex-direction: column;
@@ -46,19 +48,23 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+/* song box */
 
+/* -------------------------------------------------------------------- */
 
-/* Song box  */
+/* detail song page  */
 .headerSongPage{
     width: 100%;
     display: flex;
     flex-direction: row;
     gap: 30px;
     align-items: end;
-    padding: 22px;
+    padding: 30px;
     cursor: default;
+    border-bottom: 1px solid #222;
 }
 .thumbSong{
+    flex-shrink: 0;
     width: 250px;
     height: 250px;
 }
@@ -72,16 +78,34 @@
     transition: scale .3s ease-in-out;
 }
 
-.detailSong{
-
-}
 .detailSong .titleSong{
-    font-size: 96px;
+    font-size: 86px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 20px 0;
+}
+.artistDuration{
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
+.bodySongPage{
+    padding: 30px;
+}
 
-
-.addPlaylist{
+.detailPageOption{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+.addPlaylist, 
+.startSong{
     border-radius: 50%;
     padding: 2px 0 0 2px;
     margin: 0;
@@ -93,10 +117,14 @@
     background-color: #1ED760;
     transition: all .3s ease;
 }
-.addPlaylist:hover{
+.addPlaylist:hover, 
+.startSong:hover{
     box-shadow: 1px 0px 8px #51996a;
     scale: 1.1;
 }
-.addPlaylist i{
+.addPlaylist i,
+.startSong i
+{
     font-size: 23px;
 }
+/* detail song page  */
