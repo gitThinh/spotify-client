@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -26,11 +27,10 @@ const NavBar = () => {
                     <i className="fa-solid fa-magnifying-glass"></i>
                     Search
                 </Link>
-                <p>Lỗi chuyển bài khi nghe xong</p>
             </nav>
             {/* components Library */}
         </div>
-    );
-};
+    )
+}
 
-export default NavBar;
+export default memo(NavBar)

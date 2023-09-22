@@ -12,34 +12,10 @@ import '../assets/Home/layout2.css'
 
 
 const HomePage = () => {
-    const [playingList, setPlayingList] = useState([
-        // {
-        //     _id: "64f8710cea1bf550c3029689",
-        //     file_name: "A Great Big World - Say Something.mp3",
-        //     title: "Say Something",
-        //     artist_name: "A Great Big World",
-        //     artist: [],
-        //     album: "Say Something",
-        //     genre: "",
-        //     duration: 229.65,
-        //     year: 2013,
-        //     coverArt: "Say Something.jpg"
-        // },
-        // {
-        //     _id: "64f8710cea1bf550c302968f",
-        //     file_name: "Bruno Mars - 24K Magic.mp3",
-        //     title: "24K Magic",
-        //     artist_name: "Bruno Mars",
-        //     artist: [],
-        //     album: "24K Magic",
-        //     genre: "",
-        //     duration: 226.23,
-        //     year: 2016,
-        //     coverArt: "24K Magic.jpg"
-        // }
-    ])
+    const [playingList, setPlayingList] = useState([])
     const [playingSong, setPlayingSong] = useState(playingList[0])
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [isReady, setIsReady] = useState(false)
 
     const audioRef = useRef()
 
@@ -54,26 +30,27 @@ const HomePage = () => {
         })
     }
 
+    
+
     //rerender when add playing list
     useEffect(() => {
         setPlayingSong(playingList[currentIndex])
-    }, [playingList])
+    }, [playingList, currentIndex, isReady])
 
 
-    // play and pause 
-    const playSong = () => {
-        audioRef.current.play()
+
+    //set playing song
+    const updatePlayingSong = (index) => {
+        setCurrentIndex(index)
     }
-    const pauseSong = () => {
-        audioRef.current.pause()
-    }
+
 
     // next and prev song
     const nextSong = () => {
         const nextIndex = (currentIndex + 1) % playingList.length
-        console.log(currentIndex, playingList.length, nextIndex)
+        console.log(nextIndex, currentIndex, playingList.length);
         setCurrentIndex(nextIndex)
-        setPlayingSong(playingList[nextIndex])
+        updatePlayingSong(nextIndex)
         audioRef.current.pause()
     }
     const prevSong = () => {
@@ -90,15 +67,20 @@ const HomePage = () => {
                 <NavBar />
                 <Routes>
                     <Route index element={<HomeLayout />} />
-                    <Route path='/queue' element={<Queue playingList={playingList} updatePlayingList={updatePlayingList} />} />
+                    <Route path='/queue' element={<Queue
+                        setIsReady={setIsReady}
+                        playingList={playingList}
+                        updatePlayingSong={updatePlayingSong} 
+                        currentIndex={currentIndex}/>}
+                    />
                     <Route path='/songs/:id' element={<SongDetail updatePlayingList={updatePlayingList} />} />
                 </Routes>
             </div>
             <Playing
                 playingSong={playingSong}
                 audioRef={audioRef}
-                playSong={playSong}
-                pauseSong={pauseSong}
+                isReady={isReady}
+                setIsReady={setIsReady}
                 nextSong={nextSong}
                 prevSong={prevSong}
             />
