@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
-import { Link } from 'react-router-dom'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 
 

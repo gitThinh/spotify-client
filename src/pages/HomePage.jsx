@@ -18,7 +18,6 @@ const HomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isReady, setIsReady] = useState(false)
 
-    const audioRef = useRef()
 
     // -------------------------------------------- FUNCTION ------------------------------------------
     const updatePlayingList = (pList) => {
@@ -31,7 +30,7 @@ const HomePage = () => {
         })
     }
 
-    
+
 
     //rerender when add playing list
     useEffect(() => {
@@ -66,18 +65,17 @@ const HomePage = () => {
                 <Routes>
                     <Route index element={<HomeLayout />} />
                     <Route path='/queue' element={<Queue
-                        setIsReady={setIsReady}
                         playingList={playingList}
-                        updatePlayingSong={updatePlayingSong} 
-                        currentIndex={currentIndex}/>}
+                        updatePlayingSong={updatePlayingSong}
+                        setIsReady={setIsReady}
+                        currentIndex={currentIndex} />}
                     />
                     <Route path='/songs/:id' element={<SongDetail updatePlayingList={updatePlayingList} />} />
-                    <Route path='/search' element={<SearchPage/>} />
+                    <Route path='/search' element={<SearchPage />} />
                 </Routes>
             </div>
             <Playing
                 playingSong={playingSong}
-                audioRef={audioRef}
                 nextSong={nextSong}
                 prevSong={prevSong}
             />

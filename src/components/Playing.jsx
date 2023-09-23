@@ -1,15 +1,15 @@
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useState, useRef, memo } from 'react'
 import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
 
 
-const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
+const Playing = ({ playingSong, nextSong, prevSong }) => {
     const [isplaying, setIsplaying] = useState(false)
     const [israndom, setIsrandom] = useState(false)
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
 
-
+    const audioRef = useRef()
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
 
@@ -17,14 +17,36 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
         playingSong && setIsplaying(true)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
-        audioRef.current.currentTime = 0
+
+        const audioElement = document.getElementById('audioBox')
+
+        while (audioElement.firstChild) {
+            audioElement.removeChild(audioElement.firstChild);
+        }
+
+        const newAudioElement = document.createElement('audio')
+        
+        const newSourceElement = document.createElement('source')
+        
+        newSourceElement.src = playingSong ? `http://nth-audio.site/api/resources/audio/${playingSong.file_name}` : ''
+        
+        newAudioElement.appendChild(newSourceElement)
+        newAudioElement.crossOrigin = "anonymous"
+        newAudioElement.id = 'audio'
+        newAudioElement.controls = true;
+        audioRef.current = newAudioElement
+        audioElement.appendChild(newAudioElement)
         audioRef.current.play()
     }, [playingSong])
 
 
 
+    console.log(audioRef.current);
+
+
     // play and pause
     const handPlayPause = () => {
+        console.log(audioRef.current)
         setIsplaying(!isplaying)
         if (isplaying) {
             audioRef.current.pause()
@@ -38,13 +60,11 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
     const handleNextBtn = () => {
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
-        audioRef.current.currentTime = 0
         nextSong()
     }
     const handlePrevBtn = () => {
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
-        audioRef.current.current = 0
         prevSong()
     }
 
@@ -113,14 +133,14 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
                 setIsplaying(false)
                 const progressBar = document.querySelector('.progress_bar')
                 progressBar.style.width = '0%'
-                audioRef.current.currentTime = 0
+
             } else {
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
                 progressBar.style.width = `${progress}%`
             }
         })
-    }, [])
+    }, [audioRef.current])
 
 
 
@@ -175,7 +195,7 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
 
             volumeBar.style.width = `${volumes * 100}%`
         })
-    }, [])
+    }, [audioRef.current])
 
 
 
@@ -221,7 +241,6 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
-                {/* <ProgressLine playingSong={playingSong} audioRef={audioRef} /> */}
                 <div className="timeLine" >
                     <p className="startTime">--:--</p>
                     <div className="progress_area">
@@ -232,8 +251,9 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
                             playingSong && Math.floor(playingSong.duration / 60) + ':' + Math.ceil(playingSong.duration % 60) || '--:--'
                         }
                     </p>
-                    <audio id="audio" src={playingSong && `http://nth-audio.site/api/resources/audio/${playingSong.file_name}`} ref={audioRef} >
-                    </audio>
+                    <div id="audioBox">
+                        <audio id="audio" ref={audioRef}></audio>
+                    </div>
                 </div>
             </div>
             <div className="toolMusic">
