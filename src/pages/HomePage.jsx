@@ -49,16 +49,13 @@ const HomePage = () => {
     // next and prev song
     const nextSong = () => {
         const nextIndex = (currentIndex + 1) % playingList.length
-        console.log(nextIndex, currentIndex, playingList.length);
         setCurrentIndex(nextIndex)
         updatePlayingSong(nextIndex)
-        // audioRef.current.pause()
     }
     const prevSong = () => {
         const prevIndex = (currentIndex - 1 + playingList.length) % playingList.length
         setPlayingSong(playingList[prevIndex])
         setCurrentIndex(prevIndex)
-        // audioRef.current.pause()
     }
 
     // -------------------------------------------- RENDER ------------------------------------------

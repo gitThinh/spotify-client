@@ -14,7 +14,6 @@ const HomeLayout = () => {
             const response = await fetch('http://nth-audio.site/api/songs/page/1', {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
                     'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
                 },
             })
@@ -23,21 +22,6 @@ const HomeLayout = () => {
         }
         loadSongs()
     }, [])
-
-    // useEffect(() => {
-    //     const loadSongs = async () => {
-    //         const response = await fetch('http://nth-audio.site/api/songs/page/2', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
-    //             },
-    //         })
-    //         const data = await response.json()
-    //         setSongs(prev => [...prev, ...data.metadata.songs])
-    //     }
-    //     loadSongs()
-    // }, [])
 
 
 

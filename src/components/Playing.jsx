@@ -1,6 +1,5 @@
 import { useEffect, useState, memo } from 'react'
 import '../assets/Playing.css'
-import ProgressLine from './ProgressLine'
 import { Link } from 'react-router-dom'
 
 
@@ -9,17 +8,17 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
     const [israndom, setIsrandom] = useState(false)
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
- 
+
 
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
 
     useEffect(() => {
-        setIsplaying(false)
+        setIsplaying(true)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         audioRef.current.currentTime = 0
-        audioRef.current.pause()
+        audioRef.current.play()
     }, [playingSong])
 
 
@@ -37,14 +36,12 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
 
     // next and prev btn
     const handleNextBtn = () => {
-        setIsplaying(false)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         audioRef.current.currentTime = 0
         nextSong()
     }
     const handlePrevBtn = () => {
-        setIsplaying(false)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         audioRef.current.current = 0
@@ -208,23 +205,36 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)} >
                         <i className="fas fa-random"></i>
                     </div>
-                    <div className="btn btn_prev" onClick={playingSong ? handlePrevBtn : () => { }} >
+                    <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
                         <i className="fas fa-step-backward"></i>
                     </div>
-                    <div className="btn btn_toggle_play" onClick={playingSong ? handPlayPause : () => { }}>
+                    <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                         {isplaying
                             ? <i className="fas fa-pause icon-pause"></i>
                             : <i className="fas fa-play icon-play"></i>
                         }
                     </div>
-                    <div className="btn btn_next" onClick={playingSong ? handleNextBtn : () => { }}>
+                    <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
                         <i className="fas fa-step-forward"></i>
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
-                <ProgressLine playingSong={playingSong} audioRef={audioRef} />
+                {/* <ProgressLine playingSong={playingSong} audioRef={audioRef} /> */}
+                <div className="timeLine" >
+                    <p className="startTime">--:--</p>
+                    <div className="progress_area">
+                        <div className="progress_bar"></div>
+                    </div>
+                    <p className="durationSong">
+                        {
+                            playingSong && Math.floor(playingSong.duration / 60) + ':' + Math.ceil(playingSong.duration % 60) || '--:--'
+                        }
+                    </p>
+                    <audio id="audio" src={playingSong && `http://nth-audio.site/api/resources/audio/${playingSong.file_name}`} ref={audioRef} >
+                    </audio>
+                </div>
             </div>
             <div className="toolMusic">
                 <Link to='/queue'>
