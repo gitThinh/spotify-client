@@ -83,7 +83,10 @@
 
 
 /* layout page  */
-.homeLayout , .showSong, .queueLayout{
+.homeLayout , 
+.showSong, 
+.queueLayout, 
+.searchLayout{
     padding-top: 20px;
     width: 100%;
     border-radius: 8px;

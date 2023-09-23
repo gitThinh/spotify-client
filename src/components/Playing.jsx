@@ -4,59 +4,24 @@ import ProgressLine from './ProgressLine'
 import { Link } from 'react-router-dom'
 
 
-const Playing = ({ playingSong, audioRef, isReady, setIsReady, nextSong, prevSong }) => {
+const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
     const [isplaying, setIsplaying] = useState(false)
     const [israndom, setIsrandom] = useState(false)
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
-    const [imageUrl, setImageUrl] = useState()
-    const [urlSong, setUrlSong] = useState()
+ 
 
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
-    useEffect(() => {
-        playingSong &&
-            fetch(`http://nth-audio.site/api/resources/audio/${playingSong.file_name}`, {
-                method: 'GET',
-                headers: {
-                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok')
-                    }
-                    return response.blob();
-                })
-                .then(blob => {
-                    setUrlSong(URL.createObjectURL(blob))
-                    setIsReady(true)
-                })
-    }, [playingSong])
 
 
     useEffect(() => {
         setIsplaying(false)
-        setIsReady(false)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         audioRef.current.currentTime = 0
         audioRef.current.pause()
     }, [playingSong])
 
-    // get thumbnails song
-    useEffect(() => {
-        playingSong &&
-            fetch(`http://nth-audio.site/${playingSong.coverArt}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok')
-                    }
-                    return response.blob();
-                })
-                .then(blob => {
-                    setImageUrl(URL.createObjectURL(blob))
-                })
-    }, [playingSong])
 
 
     // play and pause
@@ -224,7 +189,7 @@ const Playing = ({ playingSong, audioRef, isReady, setIsReady, nextSong, prevSon
             <div className="infoMusic">
                 {playingSong &&
                     <div className='boxInfo'>
-                        <img src={imageUrl} alt="thumbnail" />
+                        <img src={playingSong && `http://nth-audio.site/${playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
                         <div className="infoMusic_details">
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
                                 <h3 className="details_name">{playingSong.title || ''}</h3>
@@ -243,23 +208,23 @@ const Playing = ({ playingSong, audioRef, isReady, setIsReady, nextSong, prevSon
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)} >
                         <i className="fas fa-random"></i>
                     </div>
-                    <div className="btn btn_prev" onClick={isReady ? handlePrevBtn : () => { }} >
+                    <div className="btn btn_prev" onClick={playingSong ? handlePrevBtn : () => { }} >
                         <i className="fas fa-step-backward"></i>
                     </div>
-                    <div className="btn btn_toggle_play" onClick={isReady ? handPlayPause : () => { }}>
+                    <div className="btn btn_toggle_play" onClick={playingSong ? handPlayPause : () => { }}>
                         {isplaying
                             ? <i className="fas fa-pause icon-pause"></i>
                             : <i className="fas fa-play icon-play"></i>
                         }
                     </div>
-                    <div className="btn btn_next" onClick={isReady ? handleNextBtn : () => { }}>
+                    <div className="btn btn_next" onClick={playingSong ? handleNextBtn : () => { }}>
                         <i className="fas fa-step-forward"></i>
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
-                <ProgressLine playingSong={playingSong} audioRef={audioRef} urlSong={urlSong} />
+                <ProgressLine playingSong={playingSong} audioRef={audioRef} />
             </div>
             <div className="toolMusic">
                 <Link to='/queue'>

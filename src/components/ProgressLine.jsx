@@ -1,18 +1,4 @@
-import { useEffect, useState } from "react";
-
-
-const ProgressLine = ({ playingSong, audioRef, urlSong }) => {
-    const [duration, setDuration] = useState()
-    
-
-    useEffect(() => {
-        playingSong ?
-            setDuration(Math.floor(playingSong.duration / 60) + ':' + Math.ceil(playingSong.duration % 60))
-            :
-            setDuration('--:--')
-    }, [playingSong])
-
-
+const ProgressLine = ({ playingSong, audioRef }) => {
 
     return (
         <div className="timeLine" >
@@ -22,12 +8,13 @@ const ProgressLine = ({ playingSong, audioRef, urlSong }) => {
             </div>
             <p className="durationSong">
                 {
-                    duration
+                    playingSong && Math.floor(playingSong.duration / 60) + ':' + Math.ceil(playingSong.duration % 60) || '--:--'
                 }
             </p>
-            <audio id="audio" src={playingSong && urlSong || ''} ref={audioRef}></audio>
+            <audio id="audio" src={playingSong && `http://nth-audio.site/api/resources/audio/${playingSong.file_name}`} ref={audioRef} >
+            </audio>
         </div>
-    );
-};
+    )
+}
 
-export default ProgressLine;
+export default ProgressLine

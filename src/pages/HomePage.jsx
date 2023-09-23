@@ -9,6 +9,7 @@ import Queue from '../components/LayoutComponents/Queue'
 
 
 import '../assets/Home/layout2.css'
+import SearchPage from '../components/LayoutComponents/SearchPage'
 
 
 const HomePage = () => {
@@ -51,13 +52,13 @@ const HomePage = () => {
         console.log(nextIndex, currentIndex, playingList.length);
         setCurrentIndex(nextIndex)
         updatePlayingSong(nextIndex)
-        audioRef.current.pause()
+        // audioRef.current.pause()
     }
     const prevSong = () => {
         const prevIndex = (currentIndex - 1 + playingList.length) % playingList.length
         setPlayingSong(playingList[prevIndex])
         setCurrentIndex(prevIndex)
-        audioRef.current.pause()
+        // audioRef.current.pause()
     }
 
     // -------------------------------------------- RENDER ------------------------------------------
@@ -74,13 +75,12 @@ const HomePage = () => {
                         currentIndex={currentIndex}/>}
                     />
                     <Route path='/songs/:id' element={<SongDetail updatePlayingList={updatePlayingList} />} />
+                    <Route path='/search' element={<SearchPage/>} />
                 </Routes>
             </div>
             <Playing
                 playingSong={playingSong}
                 audioRef={audioRef}
-                isReady={isReady}
-                setIsReady={setIsReady}
                 nextSong={nextSong}
                 prevSong={prevSong}
             />

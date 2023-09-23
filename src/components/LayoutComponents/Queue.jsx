@@ -15,7 +15,11 @@ const Queue = ({ playingList, updatePlayingSong, setIsReady, currentIndex }) => 
                             </div>
                             :
                             playingList.map(((song, index) => {
-                                return <div key={index} className={index === currentIndex ? 'activeSong' : ''}><SongLine song={song} index={index} updatePlayingSong={updatePlayingSong} setIsReady={setIsReady} /></div>
+                                return (
+                                    <div key={index} className={index === currentIndex ? 'activeSong' : ''}>
+                                        <SongLine song={song} index={index} updatePlayingSong={updatePlayingSong} setIsReady={setIsReady} />
+                                    </div>
+                                )
                             }))
                     }
                 </div>
