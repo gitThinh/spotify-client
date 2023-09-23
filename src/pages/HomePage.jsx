@@ -35,7 +35,7 @@ const HomePage = () => {
     //rerender when add playing list
     useEffect(() => {
         setPlayingSong(playingList[currentIndex])
-    }, [playingList, currentIndex, isReady])
+    }, [playingList, currentIndex, isReady, playingSong])
 
 
 
@@ -43,7 +43,6 @@ const HomePage = () => {
     const updatePlayingSong = (index) => {
         setCurrentIndex(index)
     }
-
 
     // next and prev song
     const nextSong = () => {

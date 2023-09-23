@@ -33,7 +33,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         newAudioElement.appendChild(newSourceElement)
         newAudioElement.crossOrigin = "anonymous"
         newAudioElement.id = 'audio'
-        newAudioElement.controls = true;
         audioRef.current = newAudioElement
         audioElement.appendChild(newAudioElement)
         audioRef.current.play()
@@ -77,6 +76,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     }
     // control progressBar
     useEffect(() => {
+        console.log(audioRef.current);
         const progressBar = document.querySelector('.progress_bar')
         const progressContainer = document.querySelector('.progress_area')
         const currentTimeDisplay = document.querySelector('.startTime')
@@ -140,7 +140,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                 progressBar.style.width = `${progress}%`
             }
         })
-    }, [audioRef.current])
+    }, [playingSong])
 
 
 
@@ -195,7 +195,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
             volumeBar.style.width = `${volumes * 100}%`
         })
-    }, [audioRef.current])
+    }, [playingSong])
 
 
 
