@@ -14,7 +14,7 @@ const Playing = ({ playingSong, audioRef, nextSong, prevSong }) => {
 
 
     useEffect(() => {
-        setIsplaying(true)
+        playingSong && setIsplaying(true)
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         audioRef.current.currentTime = 0
