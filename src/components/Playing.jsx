@@ -25,27 +25,22 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         }
 
         const newAudioElement = document.createElement('audio')
-        
+
         const newSourceElement = document.createElement('source')
-        
+
         newSourceElement.src = playingSong ? `http://nth-audio.site/api/resources/audio/${playingSong.file_name}` : ''
-        
+
         newAudioElement.appendChild(newSourceElement)
         newAudioElement.crossOrigin = "anonymous"
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
         audioElement.appendChild(newAudioElement)
-        audioRef.current.play()
+        playingSong && audioRef.current.play()
     }, [playingSong])
-
-
-
-    console.log(audioRef.current);
 
 
     // play and pause
     const handPlayPause = () => {
-        console.log(audioRef.current)
         setIsplaying(!isplaying)
         if (isplaying) {
             audioRef.current.pause()
@@ -59,14 +54,21 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     const handleNextBtn = () => {
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
+        if (israndom) {
+            nextSong(1)
+            return
+        }
         nextSong()
     }
     const handlePrevBtn = () => {
+        if (israndom) {
+            nextSong(1)
+            return
+        }
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         prevSong()
     }
-
 
 
     function formatTime(timeInSeconds) {
@@ -76,7 +78,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     }
     // control progressBar
     useEffect(() => {
-        console.log(audioRef.current);
         const progressBar = document.querySelector('.progress_bar')
         const progressContainer = document.querySelector('.progress_area')
         const currentTimeDisplay = document.querySelector('.startTime')
@@ -130,10 +131,10 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
-                setIsplaying(false)
                 const progressBar = document.querySelector('.progress_bar')
                 progressBar.style.width = '0%'
-
+                if (isrepeat) { audioRef.current.play(); return }
+                handleNextBtn()
             } else {
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
@@ -143,18 +144,21 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     }, [playingSong])
 
 
+    useEffect(() => { }, [volumes])
 
     // volume control 
     useEffect(() => {
         const volumeBar = document.querySelector('.volume_bar')
         const volumeContainer = document.querySelector('.volume_area')
+
+        audioRef.current.volume = volumes < 0.08 ? 0 : volumes
         let volumeControl = 1
 
         function updateVolumeFromMousePosition(event) {
             const volumeContainerWidth = volumeContainer.clientWidth
             const volumeClickX = event.clientX - volumeContainer.getBoundingClientRect().left
             volumeControl = (volumeClickX / volumeContainerWidth)
-            setVolumes(volumeControl)
+            setVolumes(volumeControl < 0 ? 0 : volumeControl)
 
             if (volumeClickX / volumeContainerWidth < .08) {
                 audioRef.current.muted = true

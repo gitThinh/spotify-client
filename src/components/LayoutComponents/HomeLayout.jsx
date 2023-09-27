@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SongBox from "./SongBox";
 import '../../assets/Home/HomeLayout.css'
+import ShowList from "./ShowList";
 
 
 
@@ -8,7 +9,8 @@ const HomeLayout = () => {
     const [songs, setSongs] = useState([])
 
 
-    // ------------------------------------------------ FUNCTION ----------------------------------------------------------------
+
+    // ------------------------------------------------ FUNCTION -----------------------------------------------------
     useEffect(() => {
         const loadSongs = async () => {
             const response = await fetch('http://nth-audio.site/api/songs/page/1', {
@@ -25,11 +27,11 @@ const HomeLayout = () => {
 
 
 
-    // ------------------------------------------------ RENDER ----------------------------------------------------------------
+    // ------------------------------------------------ RENDER --------------------------------------------------------
     return (
         <div className="homeLayout">
             <h2 className="titlePages">Songs</h2>
-            <div className="renderPages">
+            <div className="renderRows">
                 {
                     songs.map((song) => {
                         return (
@@ -40,6 +42,7 @@ const HomeLayout = () => {
                     })
                 }
             </div>
+            <ShowList link={'/3'} title={'Đề Xuất'} />
         </div>
     );
 };

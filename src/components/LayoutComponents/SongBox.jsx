@@ -6,8 +6,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 const SongBox = (prop) => {
     const song = prop.data
-    // Alan Walker - Faded.mp3
-    
 
     // --------------------------------------- RENDER ------------------------------------
 
@@ -15,7 +13,7 @@ const SongBox = (prop) => {
         <Link to={`/songs/${song._id}`}>
             <SkeletonTheme baseColor="#444" highlightColor="#888">
                 <div className="songsBox">
-                    {song !== '' ? <img className="songsThumb" src={`http://nth-audio.site/${song.coverArt}`} crossOrigin="anonymous"/> : <Skeleton height={155}/>}
+                    <img className="songsThumb" src={`http://nth-audio.site/${song.coverArt}`} crossOrigin="anonymous"/>
                     <div className="detailSong">
                         <h3 className="songsTitle">{song.title}</h3>
                         <p className="songsAuthor">{song.artist_name}</p>
@@ -23,7 +21,6 @@ const SongBox = (prop) => {
                 </div>
             </SkeletonTheme>
         </Link>
-
     )
 
 }

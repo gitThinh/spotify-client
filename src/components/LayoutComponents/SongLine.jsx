@@ -2,16 +2,15 @@ import { SkeletonTheme } from 'react-loading-skeleton'
 
 
 
-const SongLine = ({ song, index, updatePlayingSong, setIsReady }) => {
+const SongLine = ({ song, index, updatePlayingSong }) => {
 
     const changeSong = () => {
-        setIsReady(false)
         updatePlayingSong(index)
     }
 
     return (
         <SkeletonTheme baseColor="#444" highlightColor="#888">
-            <div className="songsBox typeLine" key={index} onDoubleClick={changeSong}>
+            <div className="songsLine" key={index} onDoubleClick={changeSong}>
                 <p className="songsNumber">{index + 1}</p>
                 <img className="songsThumb" src={`http://nth-audio.site/${song.coverArt}`} crossorigin="anonymous" />
                 <h3 className="songsTitle" style={{ textAlign: 'left' }}>{song.title}</h3>

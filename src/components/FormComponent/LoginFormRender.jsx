@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import { useNavigate } from "react-router-dom"
+import Cookies from 'js-cookie'
 import '../../assets/LogAndSign/FormRender.css'
-import { isEmail, isNull } from '../../services/validation.jsx'
-import InputRender from './InputRender';
+import { isNull } from '../../services/validation.jsx'
+import InputRender from './InputRender'
 
 
 
@@ -10,14 +12,11 @@ const LoginFormRender = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
-    // showErrorMessage.innerHTML = isNull(username)
-    // showErrorMessage.innerHTML = isMinLength(8, password)
-    // showErrorMessage.innerHTML = isEmail(username)
 
-
+    const history = useNavigate()
     // ------------------------------------------------- FUNCTIONS ----------------------------------------------------------------
     const handleLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setError('')
         if (!isNull(username) || !isNull(password)) {
             setError("Vui Lòng Nhập Đầy Đủ Thông Tin")
@@ -34,15 +33,16 @@ const LoginFormRender = () => {
         response.json()
             .then(
                 function (result) {
-                    if (result.status === 200) {
-                        console.log(result)
-                        router.push("/home");
+                    if (result.statusCode === 200) {
+                        Cookies.set('Tokens', JSON.stringify(result.metadata.tokens))
+                        Cookies.set('User', JSON.stringify(result.metadata.user))
+                        history('/')
                     } else {
                         setError(result.message)
                     }
                 }
             )
-            .catch( err => console.log(err))
+            .catch(err => console.log(err))
     }
 
 
@@ -68,7 +68,7 @@ const LoginFormRender = () => {
             <div className='rememberMe'>
                 <div id="toggleRM"
                     onClick={(e) => {
-                        e.currentTarget.classList.toggle('active');
+                        e.currentTarget.classList.toggle('active')
                     }}>
                     <span className="ball"></span>
                 </div>
@@ -77,7 +77,7 @@ const LoginFormRender = () => {
             <button className='active' type="submit" onClick={handleLogin}>Đăng Nhập</button>
             <p className='msg' style={{ maxWidth: '350px', marginTop: '15px' }}>{error}</p>
         </form>
-    );
-};
+    )
+}
 
-export default LoginFormRender;
+export default LoginFormRender

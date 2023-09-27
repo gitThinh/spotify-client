@@ -21,7 +21,6 @@ const SigninPage = () => {
         e.preventDefault()
         setError('')
         if (isChecked) {
-            window.scrollTo(0, 150)
             if (!isNull(email) || !isNull(username) || !isNull(password) || !isNull(cpass)) {
                 setError('Vui Lòng Nhập Đủ Thông Tin')
                 return
@@ -52,12 +51,12 @@ const SigninPage = () => {
                 body: JSON.stringify(data)
             })
             await response.json()
-                .then(result =>{
+                .then(result => {
                     console.log(result)
-                    if(result.statusCode === 200) {
-                        if (confirm("Đăng kí thành Công chuyển sang trang Đăng nhập nagy") == true)
-                            route.push("/login") 
-                    }else{
+                    if (result.statusCode === 200) {
+                        if (confirm("Đăng kí thành Công chuyển sang trang Đăng nhập ngay") == true)
+                            route.push("/login")
+                    } else {
                         setError(result.message)
                     }
                 }
@@ -125,7 +124,7 @@ const SigninPage = () => {
                         Đăng nhập
                     </Link>
                 </p>
-                
+
             </div>
         </div>
     );

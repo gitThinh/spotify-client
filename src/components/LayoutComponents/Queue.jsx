@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import SongLine from "./SongLine.jsx"
 
-const Queue = ({ playingList, updatePlayingSong, setIsReady, currentIndex }) => {
+const Queue = ({ playingList, updatePlayingSong, currentIndex }) => {
     return (
         <div className="queueLayout">
             <div className="queuePage">
@@ -17,7 +17,7 @@ const Queue = ({ playingList, updatePlayingSong, setIsReady, currentIndex }) => 
                             playingList.map(((song, index) => {
                                 return (
                                     <div key={index} className={index === currentIndex ? 'activeSong' : ''}>
-                                        <SongLine song={song} index={index} updatePlayingSong={updatePlayingSong} setIsReady={setIsReady} />
+                                        <SongLine song={song} index={index} updatePlayingSong={updatePlayingSong} />
                                     </div>
                                 )
                             }))
