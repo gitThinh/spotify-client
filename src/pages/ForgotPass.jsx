@@ -9,10 +9,9 @@ const ForgotPass = () => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
 
+    // http://nth-audio.site/api/audio-server
 
     // -------------------------------------------------- FUNCTIONS ----------------------------------------------------
-    // showErrorMessage.innerHTML = isEmail(email)
-    // showErrorMessage.innerHTML = isNull(email)
     const handleForgotPass = (e) => {
         e.preventDefault();
         if (!isNull(email)) {

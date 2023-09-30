@@ -6,8 +6,8 @@ const Queue = ({ playingList, updatePlayingSong, currentIndex }) => {
         <div className="queueLayout">
             <div className="queuePage">
                 <h1>Danh Sách Phát</h1>
-                <div className="playingSongs groupSongsLine">
-                    <h3>Danh sách phát:</h3>
+                <div className="playingSongs" style={{padding:'20px'}}>
+                    <h3 style={{marginBottom:'20px'}}>Danh sách phát:</h3>
                     {
                         playingList.length === 0 ?
                             <div className="nononono">
@@ -17,14 +17,14 @@ const Queue = ({ playingList, updatePlayingSong, currentIndex }) => {
                             playingList.map(((song, index) => {
                                 return (
                                     <div key={index} className={index === currentIndex ? 'activeSong' : ''}>
-                                        <SongLine song={song} index={index} updatePlayingSong={updatePlayingSong} />
+                                        <SongLine song={song} updatePlayingSong={updatePlayingSong} index={index}/>
                                     </div>
                                 )
                             }))
                     }
                 </div>
-                <div className="recommendSongs groupSongsLine">
-                    <h3>Đề Xuất:</h3>
+                <div className="recommendSongs" style={{padding:'20px'}}>
+                    <h3 style={{marginBottom:'20px'}}>Đề Xuất:</h3>
                 </div>
             </div>
         </div>

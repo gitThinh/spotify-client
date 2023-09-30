@@ -9,13 +9,10 @@ const SongDetail = ({ updatePlayingList }) => {
     const [imageUrl, setImageUrl] = useState()
     const [songDetail, setSongDetail] = useState({})
 
-    const addPlayingList = () =>{
-        updatePlayingList(songDetail)
-    }
 
     useEffect(() => {
         const handleLoadSong = async () => {
-            const response = await fetch(`http://nth-audio.site/api/songs/${id}`, {
+            const response = await fetch(`http://nth-audio.site/api/audio-server/songs/${id}`, {
                 method: 'GET',
                 headers: {
                     'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
@@ -28,19 +25,6 @@ const SongDetail = ({ updatePlayingList }) => {
     }, [songDetail._id])
 
 
-    useEffect(() => {
-        songDetail.coverArt &&
-            fetch(`http://nth-audio.site/${songDetail.coverArt}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok')
-                    }
-                    return response.blob();
-                })
-                .then(blob => {
-                    setImageUrl(URL.createObjectURL(blob))
-                })
-    }, [songDetail.coverArt])
 
     return (
         <div className="showSong">
@@ -55,7 +39,7 @@ const SongDetail = ({ updatePlayingList }) => {
                         }
                     </div>
                     <div className="detailSong">
-                        <h1 className="titleSong">{songDetail.title || ''}</h1>
+                        <h1 className="titleSong onelineText">{songDetail.title || ''}</h1>
                         <div className="artistDuration">
                             <p className="actist">{songDetail.artist_name}</p>
                             <i className="fa-solid fa-circle" style={{ fontSize: '8px' }}></i>
@@ -69,10 +53,10 @@ const SongDetail = ({ updatePlayingList }) => {
             </div>
             <div className="bodySongPage">
                 <div className="detailPageOption">
-                    <button className="startSong">
+                    <button className="startSong" onClick={() => updatePlayingList(songDetail, 1)}>
                         <i className="fa-solid fa-play"></i>
                     </button>
-                    <button className="addPlaylist" onClick={addPlayingList}>
+                    <button className="addPlaylist" onClick={() => updatePlayingList(songDetail, 0)}>
                         <i className="fa-solid fa-plus"></i>
                     </button>
                 </div>

@@ -22,7 +22,7 @@ const LoginFormRender = () => {
             setError("Vui Lòng Nhập Đầy Đủ Thông Tin")
             return
         }
-        const response = await fetch('http://nth-audio.site/api/user/login', {
+        const response = await fetch(`http://nth-audio.site/api/audio-server/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

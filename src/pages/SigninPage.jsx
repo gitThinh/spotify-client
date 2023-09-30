@@ -42,7 +42,7 @@ const SigninPage = () => {
                 email,
                 password
             }
-            const response = await fetch('http://nth-audio.site/api/user/signup', {
+            const response = await fetch(`http://nth-audio.site/api/audio-server/user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,25 +1,23 @@
-import { SkeletonTheme } from 'react-loading-skeleton'
 
 
-
-const SongLine = ({ song, index, updatePlayingSong }) => {
+const SongLine = ({ song, updatePlayingSong, index, }) => {
 
     const changeSong = () => {
         updatePlayingSong(index)
     }
 
     return (
-        <SkeletonTheme baseColor="#444" highlightColor="#888">
-            <div className="songsLine" key={index} onDoubleClick={changeSong}>
-                <p className="songsNumber">{index + 1}</p>
-                <img className="songsThumb" src={`http://nth-audio.site/${song.coverArt}`} crossorigin="anonymous" />
-                <h3 className="songsTitle" style={{ textAlign: 'left' }}>{song.title}</h3>
-                <p className="songsAuthor" style={{ textAlign: 'left' }}>{song.artist_name}</p>
-                <p className="songsCount">lượt nghe</p>
-                <p className="songsTimer">{Math.floor(song.duration / 60) + ':' + Math.ceil(song.duration % 60)}</p>
+        <div className="songsLine" key={index} onDoubleClick={(changeSong)}>
+            <p className="songsIndex typeCenter">{index >= 0 ? index + 1 : ''}</p>
+            <img className="songsThumb" src={`http://nth-audio.site/${song.coverArt}`} crossOrigin="anonymous" />
+            <div className="songsDetails">
+                <h3 className="songsTitle onelineText" >{song.title}</h3>
+                <p className="songsAuthor">{song.artist_name}</p>
             </div>
-        </SkeletonTheme>
-    );
-};
+            <p className="songsCount typeCenter">lượt nghe</p>
+            <p className="songsTimer typeCenter">{Math.floor(song.duration / 60) + ':' + Math.ceil(song.duration % 60)}</p>
+        </div>
+    )
+}
 
-export default SongLine;
+export default SongLine

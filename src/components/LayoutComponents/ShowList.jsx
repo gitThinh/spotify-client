@@ -2,16 +2,17 @@ import { useState, useEffect, memo} from "react"
 import SongBox from "./SongBox";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-const ShowList = ({ link, title }) => {
+const ShowList = ({ link, title, updatePlayingList }) => {
     const [songs, setSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
     useEffect(() => {
         const loadSongs = async () => {
-            const response = await fetch(`http://nth-audio.site/api/songs/page${link}`, {
+            const response = await fetch(`http://nth-audio.site/api/audio-server/songs/page${link}`, {
                 method: 'GET',
                 headers: {
-                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2',
+                    
                 },
             })
             const data = await response.json()
@@ -27,14 +28,14 @@ const ShowList = ({ link, title }) => {
         <SkeletonTheme baseColor="#444" highlightColor="#888">
             {
                 songs.length > 0 ?
-                    <div style={{ paddingTop: '40px' }}>
+                    <div style={{ paddingTop: '20px' }}>
                         <h3 className='sectionTitle'>{title}</h3>
                         <div className="renderRows">
                             {
                                 songs.map((song) => {
                                     return (
                                         <div key={song._id}>
-                                            <SongBox data={song} />
+                                            <SongBox song={song} updatePlayingList={updatePlayingList}/>
                                         </div>
                                     )
                                 })

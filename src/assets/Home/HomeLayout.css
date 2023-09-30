@@ -19,6 +19,8 @@
 
 /* Song box  */
 .songsBox {
+    overflow: hidden;
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -44,21 +46,41 @@
     flex-direction: column;
 }
 .songsBox .detailSong .songsTitle {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    color: #fff;
 }
+.songsBox .detailSong .songsTitle:hover,
+.songsBox .detailSong .songsAuthor:hover{
+    text-decoration: underline;
+}
+.songsBox .detailSong .songsAuthor{
+    margin-top: 5px;
+    color: #aaa;
+    font-size: .9rem;
+}
+.songsBox .startSong{
+    position: absolute;
+    top: 45%;
+    right: 0px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    opacity: 0;
+}
+.songsBox:hover .startSong{
+    opacity: 1;
+    right: 20px;
+}
+
 /* song Box */
+
 /* Song Line */
 .activeSong .songsLine{
     background-color: #222;
 }
 .songsLine{
     display: grid;
-    grid-template-columns: 20px 60px 3fr 6fr 4fr 2fr;
+    grid-template-columns: 30px 80px 6fr 3fr 2fr;
     text-align: center;
-    line-height: 40px;
     border-radius: 0;
     width: 100%;
     padding: 12px;
@@ -70,15 +92,30 @@
     background-color: #222;
 }
 .songsLine img{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
 }
-.songsLine .songsTitle {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.songsLine .songsDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding-left: 10px;
 }
+.songsLine .songsDetails .songsTitle{
+    width: max-content;
+}
+.songsLine .songsDetails .songsAuthor{
+    color: #aaa;
+    font-size: 13px;
+    width: max-content;
+}
+.songsLine .songsDetails .songsAuthor:hover,
+.songsLine .songsDetails .songsTitle:hover{
+    text-decoration: underline;
+}
+
 /* Song Line  */
 
 /* ----------------------------------------- Detail Song ------------------------------------------------------- */
@@ -111,10 +148,6 @@
 
 .detailSong .titleSong{
     font-size: 3rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     padding-bottom: 10px;
     margin: 20px 0;
 }
@@ -162,18 +195,7 @@
 }
 /* detail song page */
 
-/* --------------------------------------------- Queue and Search ------------------------------------------- */
-
-/* queue page */
-.groupSongsLine{
-    padding: 20px;
-}
-.groupSongsLine>h3{
-    margin-bottom: 20px;
-}
-/* queue page */
-
-
+/* --------------------------------------------- Search ------------------------------------------- */
 /* search page */
 .searchPage{
     border-bottom: 1px solid #333;
@@ -210,11 +232,47 @@
     display: grid;
     grid-template-columns: 3fr 4fr;
     padding: 20px;
-    gap: 10px;
+    gap: 20px;
 }
 .showResult .topResult{
-    
+    width: 100%;
 }
-/* search page */
+.showResult .topResult .topResultBox{
+    position: relative;
+    width: 100%;
+    background-color: #222;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+.showResult .topResult .topResultBox:hover{
+    background-color: #333;
+}
+.showResult .topResult .topResultBox .imgTopResult{
+    height: 200px;
+    width: 200px;
+    margin-bottom: 20px;
+}
+.showResult .topResult .topResultBox .titleTopResult{
+    width: 100%;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+.showResult .topResult .topResultBox .titleTopResult:hover,
+.showResult .topResult .topResultBox .artistTopResult:hover{
+    text-decoration: underline;
+}
+.showResult .topResult .topResultBox .artistTopResult{
+    width: max-content;
+}
+.showResult .topResult .topResultBox .startSong{
+    position: absolute;
+    width: 80px;height: 80px;
+    top: 40px;
+    right: 40px;
+}
 
+
+/* search page */
 

@@ -10,8 +10,9 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     const [volumes, setVolumes] = useState(1)
 
     const audioRef = useRef()
-    // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
+
+    // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {
         playingSong && setIsplaying(true)
@@ -28,7 +29,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
         const newSourceElement = document.createElement('source')
 
-        newSourceElement.src = playingSong ? `http://nth-audio.site/api/resources/audio/${playingSong.file_name}` : ''
+        newSourceElement.src = playingSong ? `http://nth-audio.site/api/audio-server/resources/audio/${playingSong.file_name}` : ''
 
         newAudioElement.appendChild(newSourceElement)
         newAudioElement.crossOrigin = "anonymous"
@@ -37,6 +38,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         audioElement.appendChild(newAudioElement)
         playingSong && audioRef.current.play()
     }, [playingSong])
+
 
 
     // play and pause
@@ -50,6 +52,17 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         }
     }
 
+    useEffect(() => {
+        const btnRepeat = document.querySelector('.btn_repeat')
+        const btnRandom = document.querySelector('.btn_random')
+        const handleSetRepeat = () => setIsreapet(!isrepeat)
+        const handleSetRandom = () => setIsrandom(!israndom)
+
+        btnRepeat.addEventListener('click', handleSetRepeat)
+        btnRandom.addEventListener('click', handleSetRandom)
+
+    }, [isrepeat, israndom])
+
     // next and prev btn
     const handleNextBtn = () => {
         const progressBar = document.querySelector('.progress_bar')
@@ -59,14 +72,15 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             return
         }
         nextSong()
+        setIsplaying(false)
     }
     const handlePrevBtn = () => {
+        const progressBar = document.querySelector('.progress_bar')
+        progressBar.style.width = '0%'
         if (israndom) {
             nextSong(1)
             return
         }
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
         prevSong()
     }
 
@@ -131,17 +145,14 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
-                const progressBar = document.querySelector('.progress_bar')
-                progressBar.style.width = '0%'
-                if (isrepeat) { audioRef.current.play(); return }
-                handleNextBtn()
+                isrepeat === true ? audioRef.current.play() : handleNextBtn()
             } else {
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
                 progressBar.style.width = `${progress}%`
             }
         })
-    }, [playingSong])
+    }, [playingSong, isrepeat])
 
 
     useEffect(() => { }, [volumes])
@@ -213,7 +224,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                         <img src={playingSong && `http://nth-audio.site/${playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
                         <div className="infoMusic_details">
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
-                                <h3 className="details_name">{playingSong.title || ''}</h3>
+                                <h3 className="onelineText">{playingSong.title || ''}</h3>
                             </Link>
                             <a href='' className='underLink'>
                                 <p className="details_singer">{playingSong.artist_name || ''}</p>
@@ -226,7 +237,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
             <div className="playingControl">
                 <div className="btnPlayingControl">
-                    <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)} >
+                    <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} >
                         <i className="fas fa-random"></i>
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
@@ -241,7 +252,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
                         <i className="fas fa-step-forward"></i>
                     </div>
-                    <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
+                    <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} >
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
