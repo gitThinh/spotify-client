@@ -2,20 +2,24 @@ import { useState, useEffect, memo} from "react"
 import SongBox from "./SongBox";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+
+
+const apiKey = import.meta.env.VITE_API_API_KEY
+
 const ShowList = ({ link, title, updatePlayingList }) => {
     const [songs, setSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
     useEffect(() => {
         const loadSongs = async () => {
-            const response = await fetch(`http://nth-audio.site/api/audio-server/songs/page${link}`, {
+            const response = await fetch(`${link}`, {
                 method: 'GET',
                 headers: {
-                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2',
-                    
+                    'x-api-key': apiKey
                 },
             })
             const data = await response.json()
+            console.log(data)
             setSongs(data.metadata.songs)
         }
         loadSongs()

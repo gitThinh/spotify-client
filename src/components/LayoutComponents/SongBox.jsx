@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
-
+const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
 const SongBox = ({ song, updatePlayingList}) => {
 
@@ -9,12 +8,11 @@ const SongBox = ({ song, updatePlayingList}) => {
 
     return (
         <Link to={`/songs/${song._id}`}>
-            <SkeletonTheme baseColor="#444" highlightColor="#888">
                 <div className="songsBox">
-                    <img className="songsThumb" src={`http://nth-audio.site/api/audio-server/${song.coverArt}`} crossOrigin="anonymous" />
+                    <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
                     <div className="detailSong">
                         <h3 className="songsTitle onelineText">{song.title}</h3>
-                        <p className="songsAuthor">{song.artist_name}</p>
+                        <p className="songsAuthor onelineText">{song.artist_name}</p>
                     </div>
                     <button className="startSong"
                         onClick={(e) => {
@@ -25,7 +23,6 @@ const SongBox = ({ song, updatePlayingList}) => {
                         <i className="fa-solid fa-play" style={{fontSize:'16px'}}></i>
                     </button>
                 </div>
-            </SkeletonTheme>
         </Link>
     )
 

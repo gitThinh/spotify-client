@@ -7,10 +7,14 @@ import Playing from "../components/Playing"
 import HomeLayout from '../components/LayoutComponents/HomeLayout'
 import SongDetail from '../components/LayoutComponents/SongDetail'
 import Queue from '../components/LayoutComponents/Queue'
-
+import SearchPage from '../components/LayoutComponents/SearchPage'
 
 import '../assets/Home/layout2.css'
-import SearchPage from '../components/LayoutComponents/SearchPage'
+
+
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
+
 
 
 const HomePage = () => {
@@ -19,24 +23,36 @@ const HomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
 
     //lấy dữ liệu user từ cookies
-    const [user, setUser] = Cookies.get('User') !== undefined ? useState(JSON.parse(Cookies.get('User'))) : useState('')
-    const tokens = Cookies.get('Tokens') !== undefined && JSON.parse(Cookies.get('Tokens'))
+    const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
+    const [tokens, setTokens] = useState(Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : '')
 
-    
+
     // -------------------------------------------- FUNCTION ------------------------------------------
     // refreshToken
-    // tokens && (
-    //     useEffect(() => {
-    //         const timerRefreshToken = tokens.accessToken setTimeout(() => {
-    //             console.log('send refresh token')
-    //         }, 5 * 1000)
-    
-    //         return () => clearTimeout(timerRefreshToken)
-    //     }, [tokens.accessToken])
-    // )
+    useEffect(() => {
+        const timerRefreshToken = tokens && setTimeout(() => {
+            fetch(`${urlApiAudioServer}user/refreshToken`, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': apiKey,
+                    'x-r-token': tokens.refreshToken,
+                    'x-client-id': user.userId
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.metadata) {
+                        Cookies.set('Tokens', JSON.stringify(data.metadata.tokens))
+                        Cookies.set('User', JSON.stringify(data.metadata.user))
+                        setTokens(JSON.parse(Cookies.get('Tokens')))
+                    }
+                })
+        }, 30 * 60 * 1000)
+        return () => clearTimeout(timerRefreshToken)
+    }, [tokens])
 
 
-
+    // thêm vào danh sách phát
     const updatePlayingList = (pList, type) => {
         // type = 0 thì chỉ add vào 
         // type = 1 thì add xong cho chạy lun
@@ -53,19 +69,29 @@ const HomePage = () => {
         type === 1 & getIndex === -1 && setCurrentIndex(playingList.length)
     }
 
-    //rerender when add playing list
+
+    // xóa khỏi danh sách phát
+    const deletePlayingList = (index) => {
+        const newList = [...playingList];
+        newList.splice(index, 1)
+        setPlayingList(newList)
+    }
+
+
+    //rerender when playing list is changed
     useEffect(() => {
         if (currentIndex < playingList.length)
             setPlayingSong(playingList[currentIndex])
         else
             setPlayingSong(playingList[playingList.length - 1])
-    }, [playingList, currentIndex, playingSong])
+    }, [playingList, currentIndex])
 
 
-    //set playing song
+    //đặt lại bài đang phát theo số thứ tự
     const updatePlayingSong = (index) => {
         setCurrentIndex(index)
     }
+
 
     // next and prev song
     const nextSong = (type) => {
@@ -91,13 +117,16 @@ const HomePage = () => {
     return (
         <div className="homeContainer">
             <div className="container">
-                <NavBar user={user} tokens={tokens} setUser={setUser} />
+                <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
                 <Routes>
                     <Route index element={<HomeLayout updatePlayingList={updatePlayingList} />} />
                     <Route path='/queue' element={<Queue
                         playingList={playingList}
                         updatePlayingSong={updatePlayingSong}
-                        currentIndex={currentIndex} />}
+                        currentIndex={currentIndex}
+                        deletePlayingList={deletePlayingList}
+                        updatePlayingList={updatePlayingList}
+                    />}
                     />
                     <Route path='/songs/:id' element={
                         <SongDetail

@@ -1,7 +1,7 @@
 import '../../assets/Home/HomeLayout.css'
 import ShowList from "./ShowList";
 
-
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 const HomeLayout = ({ updatePlayingList }) => {
 
@@ -9,8 +9,8 @@ const HomeLayout = ({ updatePlayingList }) => {
     return (
         <div className="homeLayout">
             <h2 className="titlePages">Songs</h2>
-            <ShowList link={'/1'} title={'page 1'} updatePlayingList={updatePlayingList}/>
-            <ShowList link={'/3'} title={'page 2'} updatePlayingList={updatePlayingList}/>
+            <ShowList link={`${urlApiAudioServer}songs/page/1`} title={'page 1'} updatePlayingList={updatePlayingList}/>
+            <ShowList link={`${urlApiAudioServer}songs/page/3`} title={'page 2'} updatePlayingList={updatePlayingList}/>
         </div>
     );
 };

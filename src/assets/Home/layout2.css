@@ -14,14 +14,17 @@
 
 
 /* Nav Bar ---------------------------------------*/
-.navBar{
+.navBar{    
+    /* display: grid;
+    grid-template-rows: auto auto auto; */
     display: flex;
     flex-direction: column;
     gap: 5px;
-    height: 100%;
+    height: calc(100vh - 120px);
 }
 .navBar .infoUser{
     display: flex;
+    flex: 0;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -44,6 +47,7 @@
 }
 .navBar .loginSignin{
     display: flex;
+    flex: 0;
     flex-direction: column;
     gap: 8px;
     align-items: center;
@@ -65,22 +69,31 @@
     background-color: #fff;
     color: #000;
 }
-.navBar .navBar_options{
+.navBar .navBarOptions{
     display: flex;
     flex-direction: column;
     background-color: #121212;
     border-radius: 8px;
     padding: 20px 25px;
-    gap: 12px;
+    gap: 10px;
+    min-height: max-content;
 }
-.navBar .navBar_options a{
+.navBar .navBarOptions a{
     font-size: 18px;
     width: 100%;
     display: flex;
     align-items: center;
     gap: 15px;
 }
-
+.navBar .navBarLibrary{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 10px;
+    overflow: auto;
+}
 
 /* layout page  */
 .homeLayout , 

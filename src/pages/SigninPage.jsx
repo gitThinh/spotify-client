@@ -1,12 +1,13 @@
-import { useState, useEffect, useHistory } from "react";
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import { Link, useNavigate} from 'react-router-dom'
 
 import '../assets/LogAndSign/Layout1.css'
 
 import { isEmail, isPassword, isNull } from "../services/validation";
 import InputRender from "../components/FormComponent/InputRender";
 
-
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 const SigninPage = () => {
     const [email, setEmail] = useState("")
@@ -16,6 +17,7 @@ const SigninPage = () => {
     const [error, setError] = useState("")
     const [isChecked, setIsChecked] = useState(false)
 
+    const history = useNavigate()
     // -------------------------------------- FUNCTION --------------------------------
     const handleSignin = async (e) => {
         e.preventDefault()
@@ -42,11 +44,11 @@ const SigninPage = () => {
                 email,
                 password
             }
-            const response = await fetch(`http://nth-audio.site/api/audio-server/user/signup`, {
+            const response = await fetch(`${urlApiAudioServer}user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                    'x-api-key': apiKey
                 },
                 body: JSON.stringify(data)
             })
@@ -55,7 +57,7 @@ const SigninPage = () => {
                     console.log(result)
                     if (result.statusCode === 200) {
                         if (confirm("Đăng kí thành Công chuyển sang trang Đăng nhập ngay") == true)
-                            route.push("/login")
+                            history("/login")
                     } else {
                         setError(result.message)
                     }

@@ -1,16 +1,18 @@
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 
-const NavBar = ({ user, tokens, setUser}) => {
+const NavBar = ({ user, tokens, setUser, setTokens}) => {
 
     const handleLogout = () => {
-        fetch('http://nth-audio.site/api/audio-server/user/logout', {
+        fetch(`${urlApiAudioServer}user/logout`, {
             method: 'POST',
             headers: {
-                'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2',
+                'x-api-key': apiKey,
                 'Authorization': tokens.accessToken,
                 'x-client-id': user.userId
             }
@@ -20,6 +22,7 @@ const NavBar = ({ user, tokens, setUser}) => {
                 if(data.statusCode === 200) {
                     Cookies.remove('User')
                     Cookies.remove('Tokens')
+                    setTokens('')
                     setUser('')
                 }
             })
@@ -32,7 +35,7 @@ const NavBar = ({ user, tokens, setUser}) => {
             {
                 user !== '' ?
                     <div className="infoUser">
-                        <img src="https://khoinguonsangtao.vn/wp-content/uploads/2022/11/hinh-anh-nguoi-dep-chup-goc-nghieng.jpg" />
+                        <img src="https://i.pinimg.com/1200x/63/f8/fb/63f8fbab7ef0b960dff3913c0c27a9e1.jpg" />
                         <h3 className='userName'>{user.userName}</h3>
                         <i className="fa-solid fa-power-off" onClick={handleLogout}></i>
                     </div>
@@ -47,7 +50,7 @@ const NavBar = ({ user, tokens, setUser}) => {
                     </div>
             }
 
-            <nav className="navBar_options">
+            <nav className="navBarOptions" >
                 <Link to="/">
                     <i className="fa-solid fa-house"></i>
                     Home
@@ -58,6 +61,14 @@ const NavBar = ({ user, tokens, setUser}) => {
                 </Link>
             </nav>
             {/* components Library */}
+            <div className="navBarLibrary">
+                <h3>Chưa Xong:</h3>
+                <p>2. tạo component show result mới</p>
+                <p>3. chỉnh lại random and repeat</p>
+                <p>4. forgot pass</p>
+                <p>5. Login with GG</p>
+                <p>6. responsive</p>
+            </div>
         </div>
     )
 }

@@ -6,6 +6,8 @@ import { isNull } from '../../services/validation.jsx'
 import InputRender from './InputRender'
 
 
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const LoginFormRender = () => {
@@ -22,11 +24,11 @@ const LoginFormRender = () => {
             setError("Vui Lòng Nhập Đầy Đủ Thông Tin")
             return
         }
-        const response = await fetch(`http://nth-audio.site/api/audio-server/user/login`, {
+        const response = await fetch(`${urlApiAudioServer}user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                'x-api-key': apiKey
             },
             body: JSON.stringify({ username, password })
         })

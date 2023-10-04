@@ -2,6 +2,9 @@ import { useEffect, useState, useRef, memo } from 'react'
 import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
 
+const urlApiSong = import.meta.env.VITE_API_URL_SONG 
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+
 
 const Playing = ({ playingSong, nextSong, prevSong }) => {
     const [isplaying, setIsplaying] = useState(false)
@@ -11,14 +14,11 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     const audioRef = useRef()
 
-
+    
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {
-        playingSong && setIsplaying(true)
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
-
+        playingSong ? setIsplaying(true) : setIsplaying(false)
         const audioElement = document.getElementById('audioBox')
 
         while (audioElement.firstChild) {
@@ -29,14 +29,14 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
         const newSourceElement = document.createElement('source')
 
-        newSourceElement.src = playingSong ? `http://nth-audio.site/api/audio-server/resources/audio/${playingSong.file_name}` : ''
+        newSourceElement.src = playingSong ? `${urlApiSong + playingSong.file_name}` : ''
 
         newAudioElement.appendChild(newSourceElement)
         newAudioElement.crossOrigin = "anonymous"
+        newAudioElement.autoplay = true
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
         audioElement.appendChild(newAudioElement)
-        playingSong && audioRef.current.play()
     }, [playingSong])
 
 
@@ -52,16 +52,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         }
     }
 
-    useEffect(() => {
-        const btnRepeat = document.querySelector('.btn_repeat')
-        const btnRandom = document.querySelector('.btn_random')
-        const handleSetRepeat = () => setIsreapet(!isrepeat)
-        const handleSetRandom = () => setIsrandom(!israndom)
-
-        btnRepeat.addEventListener('click', handleSetRepeat)
-        btnRandom.addEventListener('click', handleSetRandom)
-
-    }, [isrepeat, israndom])
 
     // next and prev btn
     const handleNextBtn = () => {
@@ -72,7 +62,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             return
         }
         nextSong()
-        setIsplaying(false)
     }
     const handlePrevBtn = () => {
         const progressBar = document.querySelector('.progress_bar')
@@ -85,12 +74,12 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     }
 
 
+    // control progressBar
     function formatTime(timeInSeconds) {
         const minutes = Math.floor(timeInSeconds / 60)
         const seconds = Math.floor(timeInSeconds % 60)
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     }
-    // control progressBar
     useEffect(() => {
         const progressBar = document.querySelector('.progress_bar')
         const progressContainer = document.querySelector('.progress_area')
@@ -152,17 +141,34 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                 progressBar.style.width = `${progress}%`
             }
         })
-    }, [playingSong, isrepeat])
+    }, [playingSong])
 
 
-    useEffect(() => { }, [volumes])
+    // send views
+    useEffect(() => {
+        const timerRefreshToken =
+            playingSong &&
+            setTimeout(() => {
+                fetch(`${urlApiAudioServer}views/set`, {
+                    method: 'POST',
+                    headers: {
+                        'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 'songId': playingSong._id })
+                })
+            }, 100 * 1000)
+
+        return () => clearTimeout(timerRefreshToken)
+    }, [playingSong, isplaying])
+
 
     // volume control 
     useEffect(() => {
         const volumeBar = document.querySelector('.volume_bar')
         const volumeContainer = document.querySelector('.volume_area')
-
         audioRef.current.volume = volumes < 0.08 ? 0 : volumes
+
         let volumeControl = 1
 
         function updateVolumeFromMousePosition(event) {
@@ -214,21 +220,21 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
 
 
-
+    // http://nth-audio.site/images/<Tên ảnh>
     // ------------------------------------------------ RENDER ----------------------------------------------------------------
     return (
         <div className="playingBlock">
             <div className="infoMusic">
                 {playingSong &&
                     <div className='boxInfo'>
-                        <img src={playingSong && `http://nth-audio.site/${playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
+                        <img src={playingSong && `http://nth-audio.site/images/${playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
                         <div className="infoMusic_details">
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
                                 <h3 className="onelineText">{playingSong.title || ''}</h3>
                             </Link>
-                            <a href='' className='underLink'>
+                            <p className='underLink'>
                                 <p className="details_singer">{playingSong.artist_name || ''}</p>
-                            </a>
+                            </p>
                         </div>
                         {/* tim với thêm vào playlist */}
                     </div>
@@ -237,7 +243,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
             <div className="playingControl">
                 <div className="btnPlayingControl">
-                    <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} >
+                    <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)}>
                         <i className="fas fa-random"></i>
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
@@ -252,7 +258,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
                         <i className="fas fa-step-forward"></i>
                     </div>
-                    <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} >
+                    <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
                         <i className="fas fa-redo"></i>
                     </div>
                 </div>
@@ -263,7 +269,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                     </div>
                     <p className="durationSong">
                         {
-                            playingSong && Math.floor(playingSong.duration / 60) + ':' + Math.ceil(playingSong.duration % 60) || '--:--'
+                            playingSong && formatTime(playingSong.duration) || '--:--'
                         }
                     </p>
                     <div id="audioBox">

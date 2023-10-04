@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react"
-import SongLine from "./SongLine"
+import { useState } from "react"
+import { Link } from "react-router-dom"
 import ShowList from "./ShowList"
+import SongLineSearch from "./SongLineSearch"
 
-
+const urlApiImg = import.meta.env.VITE_API_URL_IMG
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 const SearchPage = ({ updatePlayingList }) => {
     const [search, setSearch] = useState('')
@@ -10,13 +13,13 @@ const SearchPage = ({ updatePlayingList }) => {
     const [isSearch, setIsSearch] = useState(false)
 
 
-
     const handleSearch = async (e) => {
+        setIsSearch(true)
         e.preventDefault()
-        const response = await fetch(`http://nth-audio.site/api/audio-server/search?keyword=${search}`,
+        const response = await fetch(`${urlApiAudioServer}search?keyword=${search}`,
             {
                 headers: {
-                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                    'x-api-key': apiKey
                 }
             })
         const data = await response.json()
@@ -24,17 +27,16 @@ const SearchPage = ({ updatePlayingList }) => {
     }
 
     const handleSentInput = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' & search !== '') {
             handleSearch(e)
         }
-      }
-
+    }
 
     return (
         <div className="searchLayout">
             <div className="searchPage">
                 <div className="searchBox">
-                    <i className="fa-solid fa-magnifying-glass" onClick={handleSearch}></i>
+                    <i className="fa-solid fa-magnifying-glass" onClick={search !== '' ? handleSearch : () => { }}></i>
                     <input type="text"
                         className="textSearch"
                         placeholder="Nhập thông tin muốn tìm"
@@ -45,41 +47,49 @@ const SearchPage = ({ updatePlayingList }) => {
                 </div>
             </div>
             {
-                results.length > 0 &&
-                <div className="showResult">
-                    <div className="topResult">
-                        <h3 className="sectionTitle">Top Result</h3>
-                        <div className="topResultBox">
-                            <img src={`http://nth-audio.site/${results[0].coverArt}`} className="imgTopResult" />
-                            <h2 className="titleTopResult onelineText">{results[0].title}</h2>
-                            <h4 className="artistTopResult">{results[0].artist_name}</h4>
-                            <button className="startSong"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    updatePlayingList(results[0], 1)
-                                }}
-                            >
-                                <i className="fa-solid fa-play"></i>
-                            </button>
+                results.length > 0 ?
+                    <div className="showResult">
+                        <div className="topResult">
+                            <h3 className="sectionTitle">Top Result</h3>
+                            <Link to={`/songs/${results[0]._id}`}>
+                                <div className="topResultBox">
+                                    <img src={`${urlApiImg + results[0].coverArt}`} className="imgTopResult" />
+                                    <h2 className="titleTopResult onelineText">{results[0].title}</h2>
+                                    <h4 className="artistTopResult">{results[0].artist_name}</h4>
+                                    <button className="startSong"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            updatePlayingList(results[0], 1)
+                                        }}
+                                    >
+                                        <i className="fa-solid fa-play"></i>
+                                    </button>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="listResult">
+                            <h3 className="sectionTitle">Songs</h3>
+                            {
+                                results.map((result, index) => {
+                                    return (
+                                        index < 5 &&
+                                        <div key={index} onDoubleClick={() => updatePlayingList(result, 1)}>
+                                            <SongLineSearch song={result} />
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
-                    <div className="listResult">
-                        <h3 className="sectionTitle">Songs</h3>
-                        {
-                            results.map((result, index) => {
-                                return (
-                                    index < 5 &&
-                                    <div key={index} onDoubleClick={() => updatePlayingList(result, 1)}>
-                                        <SongLine song={result}  />
-                                    </div>
-                                )
-                            })
-                        }
+                    :
+                    isSearch &&
+                    <div className="notFoundResult">
+                        <i className="fa-solid fa-circle-xmark" style={{fontSize:'72px'}}></i>
+                        <h2>Không tìm thấy kết quả</h2>
                     </div>
-                </div>
             }
 
-            <ShowList link={'/2'} title={'Có thể bạn thích:'} updatePlayingList={updatePlayingList} />
+            <ShowList link={`${urlApiAudioServer}songs/page/2`} title={'Có thể bạn thích:'} updatePlayingList={updatePlayingList} />
         </div>
     )
 }

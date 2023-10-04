@@ -2,20 +2,20 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
-
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 const SongDetail = ({ updatePlayingList }) => {
     const id = useParams().id
-    const [imageUrl, setImageUrl] = useState()
     const [songDetail, setSongDetail] = useState({})
 
 
     useEffect(() => {
         const handleLoadSong = async () => {
-            const response = await fetch(`http://nth-audio.site/api/audio-server/songs/${id}`, {
+            const response = await fetch(`${urlApiAudioServer}songs/${id}`, {
                 method: 'GET',
                 headers: {
-                    'x-api-key': 'c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
+                    'x-api-key': apiKey
                 }
             })
             const data = await response.json()
@@ -32,8 +32,8 @@ const SongDetail = ({ updatePlayingList }) => {
                 <SkeletonTheme baseColor="#202020" highlightColor="#444">
                     <div className="thumbSong">
                         {
-                            imageUrl ?
-                                <img src={imageUrl} alt={songDetail.title} />
+                            songDetail ?
+                                <img src={`http://nth-audio.site/images/${songDetail.coverArt}`} alt={songDetail.title} />
                                 :
                                 <Skeleton className="thumbSong" />
                         }
@@ -44,6 +44,8 @@ const SongDetail = ({ updatePlayingList }) => {
                             <p className="actist">{songDetail.artist_name}</p>
                             <i className="fa-solid fa-circle" style={{ fontSize: '8px' }}></i>
                             <p>{songDetail.year}</p>
+                            <i className="fa-solid fa-circle" style={{ fontSize: '8px' }}></i>
+                            <p>{songDetail.views} lượt nghe</p>
                             {/* <p className="duration">
                                 {Math.floor(songDetail.duration / 60) + ' min ' + Math.ceil(songDetail.duration % 60) + ' sec'}
                             </p> */}
