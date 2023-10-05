@@ -5,7 +5,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
-const SongDetail = ({ updatePlayingList }) => {
+const SongDetail = ({ handleSetSong }) => {
     const id = useParams().id
     const [songDetail, setSongDetail] = useState({})
 
@@ -25,7 +25,7 @@ const SongDetail = ({ updatePlayingList }) => {
     }, [songDetail._id])
 
 
-
+    // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="showSong">
             <div className="headerSongPage">
@@ -55,11 +55,8 @@ const SongDetail = ({ updatePlayingList }) => {
             </div>
             <div className="bodySongPage">
                 <div className="detailPageOption">
-                    <button className="startSong" onClick={() => updatePlayingList(songDetail, 1)}>
+                    <button className="startSong" onClick={() => handleSetSong(songDetail)}>
                         <i className="fa-solid fa-play"></i>
-                    </button>
-                    <button className="addPlaylist" onClick={() => updatePlayingList(songDetail, 0)}>
-                        <i className="fa-solid fa-plus"></i>
                     </button>
                 </div>
             </div>

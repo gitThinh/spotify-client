@@ -63,7 +63,6 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
             {/* components Library */}
             <div className="navBarLibrary">
                 <h3>Chưa Xong:</h3>
-                <p>2. tạo component show result mới</p>
                 <p>3. chỉnh lại random and repeat</p>
                 <p>4. forgot pass</p>
                 <p>5. Login with GG</p>

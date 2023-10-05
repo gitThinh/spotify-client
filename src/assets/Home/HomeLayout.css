@@ -40,6 +40,7 @@
     width: 100%;
     flex-shrink: 1;
     border-radius: inherit;
+    flex: 0;
 }
 .songsBox .detailSong {
     display: flex;
@@ -77,9 +78,14 @@
 .activeSong .songsLine{
     background-color: #222;
 }
+.activeSong .songsLine i,
+.activeSong .songsLine .songsDetails .songsTitle{
+    color: #1ED760;
+}
+
 .songsLine{
     display: grid;
-    grid-template-columns: 30px 80px 6fr 3fr 2fr 50px;
+    grid-template-columns: 30px 80px 6fr 3fr 2fr;
     text-align: center;
     border-radius: 0;
     width: 100%;

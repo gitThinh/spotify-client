@@ -12,6 +12,7 @@ import SearchPage from '../components/LayoutComponents/SearchPage'
 import '../assets/Home/layout2.css'
 
 
+const urlMLServer = import.meta.env.VITE_API_API_MLSERVER
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
@@ -19,8 +20,9 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 const HomePage = () => {
     const [playingList, setPlayingList] = useState([])
-    const [playingSong, setPlayingSong] = useState(playingList[0])
+    const [playingSong, setPlayingSong] = useState('')
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [isRcm, setIsRcm] = useState(true)
 
     //lấy dữ liệu user từ cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
@@ -28,6 +30,19 @@ const HomePage = () => {
 
 
     // -------------------------------------------- FUNCTION ------------------------------------------
+    //get rcm list
+    useEffect(() => {
+        playingSong !== '' & isRcm &&
+            fetch(`${urlMLServer + playingSong._id}`, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': apiKey
+                },
+            })
+                .then(response => response.json())
+                .then(data => setPlayingList(data.metadata))
+    }, [playingSong])
+
     // refreshToken
     useEffect(() => {
         const timerRefreshToken = tokens && setTimeout(() => {
@@ -51,66 +66,40 @@ const HomePage = () => {
         return () => clearTimeout(timerRefreshToken)
     }, [tokens])
 
+    const updatePlayingSong = (index) => {
+        setPlayingSong(playingList[index])
+    }
 
-    // thêm vào danh sách phát
-    const updatePlayingList = (pList, type) => {
-        // type = 0 thì chỉ add vào 
-        // type = 1 thì add xong cho chạy lun
-        let getIndex
-        setPlayingList(prev => {
-            // const check = prev.some(song => JSON.stringify(song) === JSON.stringify(pList))
-            getIndex = prev.findIndex(song => song._id === pList._id)
-            type === 1 & getIndex >= 0 && setCurrentIndex(getIndex)
-            if (getIndex >= 0) {
-                return prev
-            } else
-                return [...prev, pList]
-        })
-        type === 1 & getIndex === -1 && setCurrentIndex(playingList.length)
+    const handleSetSong = (song) => {
+        setIsRcm(true)
+        setPlayingSong(song)
     }
 
 
-    // xóa khỏi danh sách phát
-    const deletePlayingList = (index) => {
-        const newList = [...playingList];
-        newList.splice(index, 1)
+    const deletePlayingList = () => {
+        const newList = [...playingList]
+        newList.shift()
         setPlayingList(newList)
     }
-
-
-    //rerender when playing list is changed
-    useEffect(() => {
-        if (currentIndex < playingList.length)
-            setPlayingSong(playingList[currentIndex])
-        else
-            setPlayingSong(playingList[playingList.length - 1])
-    }, [playingList, currentIndex])
-
-
-    //đặt lại bài đang phát theo số thứ tự
-    const updatePlayingSong = (index) => {
-        setCurrentIndex(index)
-    }
-
-
     // next and prev song
     const nextSong = (type) => {
+        setIsRcm(false)
         // 1 === random
         if (type === 1) {
             let nextIndex = Math.floor(Math.random() * playingList.length)
-            while (nextIndex === currentIndex) nextIndex = Math.floor(Math.random() * playingList.length)
-            setCurrentIndex(nextIndex)
+            const newList = [...playingList]
+            newList.splice(nextIndex,1)
+            setPlayingList(newList)
             updatePlayingSong(nextIndex)
-            return;
+            return
         }
-        const nextIndex = (currentIndex + 1) % playingList.length
-        setCurrentIndex(nextIndex)
-        updatePlayingSong(nextIndex)
+        setPlayingSong(playingList[0])
+        const newList = [...playingList]
+        newList.shift()
+        setPlayingList(newList)
     }
     const prevSong = () => {
-        const prevIndex = (currentIndex - 1 + playingList.length) % playingList.length
-        setCurrentIndex(prevIndex)
-        updatePlayingSong(prevIndex)
+        setIsRcm(false)
     }
 
     // -------------------------------------------- RENDER ------------------------------------------
@@ -119,21 +108,20 @@ const HomePage = () => {
             <div className="container">
                 <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
                 <Routes>
-                    <Route index element={<HomeLayout updatePlayingList={updatePlayingList} />} />
-                    <Route path='/queue' element={<Queue
-                        playingList={playingList}
-                        updatePlayingSong={updatePlayingSong}
-                        currentIndex={currentIndex}
-                        deletePlayingList={deletePlayingList}
-                        updatePlayingList={updatePlayingList}
-                    />}
+                    <Route index element={<HomeLayout handleSetSong={handleSetSong} />} />
+                    <Route path='/queue'
+                        element={
+                            <Queue
+                                playingSong={playingSong}
+                                playingList={playingList}
+                                handleSetSong={handleSetSong}
+                            />
+                        }
                     />
                     <Route path='/songs/:id' element={
-                        <SongDetail
-                            updatePlayingList={updatePlayingList}
-                        />
+                        <SongDetail handleSetSong={handleSetSong} />
                     } />
-                    <Route path='/search' element={<SearchPage updatePlayingList={updatePlayingList} />} />
+                    <Route path='/search' element={<SearchPage handleSetSong={handleSetSong} />} />
                 </Routes>
             </div>
             <Playing

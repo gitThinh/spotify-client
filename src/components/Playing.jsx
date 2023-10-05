@@ -22,7 +22,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         const audioElement = document.getElementById('audioBox')
 
         while (audioElement.firstChild) {
-            audioElement.removeChild(audioElement.firstChild);
+            audioElement.removeChild(audioElement.firstChild)
         }
 
         const newAudioElement = document.createElement('audio')

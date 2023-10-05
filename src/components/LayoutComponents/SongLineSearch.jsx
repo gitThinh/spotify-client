@@ -3,12 +3,7 @@ import { Link } from "react-router-dom"
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
 
-const SongLineSearch = ({ song, updatePlayingSong, index }) => {
-
-    const changeSong = () => {
-        updatePlayingSong &&
-            updatePlayingSong(index)
-    }
+const SongLineSearch = ({ song }) => {
 
     function formatTime(timeInSeconds) {
         const minutes = Math.floor(timeInSeconds / 60)
@@ -16,7 +11,7 @@ const SongLineSearch = ({ song, updatePlayingSong, index }) => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     }
     return (
-        <div className="songsLineSearch" key={index} onDoubleClick={(changeSong)}>
+        <div className="songsLineSearch">
             <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
             <div className="songsDetails">
                 <Link to={`/songs/${song._id}`}><h3 className="songsTitle onelineText underLink" >{song.title}</h3></Link>
