@@ -14,16 +14,16 @@ const SearchPage = ({ handleSetSong }) => {
 
 
     const handleSearch = async (e) => {
-        setIsSearch(true)
         e.preventDefault()
         const response = await fetch(`${urlApiAudioServer}search?keyword=${search}`,
-            {
-                headers: {
-                    'x-api-key': apiKey
-                }
-            })
+        {
+            headers: {
+                'x-api-key': apiKey
+            }
+        })
         const data = await response.json()
         setResults(data.metadata)
+        setIsSearch(true)
     }
 
     const handleSentInput = (e) => {
