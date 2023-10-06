@@ -4,6 +4,7 @@ import ShowList from "./ShowList"
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 const HomeLayout = ({ handleSetSong }) => {
+
     // ------------------------------------------------ RENDER --------------------------------------------------------
     return (
         <div className="homeLayout">

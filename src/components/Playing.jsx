@@ -3,7 +3,6 @@ import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
 
 const urlApiSong = import.meta.env.VITE_API_URL_SONG 
-const urlApiImg = import.meta.env.VITE_API_URL_IMG 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 
@@ -228,7 +227,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             <div className="infoMusic">
                 {playingSong &&
                     <div className='boxInfo'>
-                        <img src={playingSong && `${urlApiImg + playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
+                        <img src={playingSong && `http://nth-audio.site/images/${playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
                         <div className="infoMusic_details">
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
                                 <h3 className="onelineText">{playingSong.title || ''}</h3>
