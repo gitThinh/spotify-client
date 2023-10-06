@@ -61,13 +61,13 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
                 </Link>
             </nav>
             {/* components Library */}
-            <div className="navBarLibrary">
+            {/* <div className="navBarLibrary">
                 <h3>Chưa Xong:</h3>
                 <p>3. chỉnh lại random and repeat</p>
                 <p>4. forgot pass</p>
                 <p>5. Login with GG</p>
                 <p>6. responsive</p>
-            </div>
+            </div> */}
         </div>
     )
 }
