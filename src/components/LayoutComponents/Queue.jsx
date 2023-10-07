@@ -2,7 +2,7 @@ import { memo } from 'react'
 import SongLine from "./SongLine.jsx"
 import SongPlayingList from './SongPlayingList.jsx'
 
-const Queue = ({ playingList, currentIndex, rcmList, handleSetSong }) => {
+const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL }) => {
 
 
 
@@ -15,7 +15,7 @@ const Queue = ({ playingList, currentIndex, rcmList, handleSetSong }) => {
                     {
                         playingList.length > 0 ?
                             playingList.map((song, index) => {
-                                return <SongPlayingList song={song} currentIndex={currentIndex} index={index}/>
+                                return <SongPlayingList song={song} currentIndex={currentIndex} index={index} playSongInPL={playSongInPL}/>
                             })
 
                             :
@@ -34,7 +34,7 @@ const Queue = ({ playingList, currentIndex, rcmList, handleSetSong }) => {
                                     <div key={index}>
                                         <SongLine
                                             song={song}
-                                            handleSetSong={handleSetSong}
+                                            addToPlayingList={addToPlayingList}
                                             index={index}
                                         />
                                     </div>

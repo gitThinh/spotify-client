@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
 
-const SongLine = ({ song, handleSetSong, index }) => {
+const SongLine = ({ song, addToPlayingList, index }) => {
 
     function formatTime(timeInSeconds) {
         const minutes = Math.floor(timeInSeconds / 60)
@@ -13,7 +13,7 @@ const SongLine = ({ song, handleSetSong, index }) => {
 
 
     return (
-        <div className="songsLine" onDoubleClick={() => { handleSetSong(song) }}>
+        <div className="songsLine" onDoubleClick={() => { addToPlayingList(song) }}>
             {
                 index !== undefined ?
                     <p className="songsIndex typeCenter">{index + 2}</p>

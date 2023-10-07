@@ -7,7 +7,7 @@ const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
-const SearchPage = ({ handleSetSong }) => {
+const SearchPage = ({ addToPlayingList }) => {
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
     const [isSearch, setIsSearch] = useState(false)
@@ -59,7 +59,7 @@ const SearchPage = ({ handleSetSong }) => {
                                     <button className="startSong"
                                         onClick={(e) => {
                                             e.preventDefault()
-                                            handleSetSong(results[0], 1)
+                                            addToPlayingList(results[0], 1)
                                         }}
                                     >
                                         <i className="fa-solid fa-play"></i>
@@ -73,7 +73,7 @@ const SearchPage = ({ handleSetSong }) => {
                                 results.map((result, index) => {
                                     return (
                                         index < 5 &&
-                                        <div key={index} onDoubleClick={() => handleSetSong(result)}>
+                                        <div key={index} onDoubleClick={() => addToPlayingList(result)}>
                                             <SongLineSearch song={result} />
                                         </div>
                                     )
@@ -89,7 +89,7 @@ const SearchPage = ({ handleSetSong }) => {
                     </div>
             }
 
-            <ShowList link={`${urlApiAudioServer}songs/page/2`} title={'Có thể bạn thích:'} handleSetSong={handleSetSong} />
+            <ShowList link={`${urlApiAudioServer}songs/page/2`} title={'Có thể bạn thích:'} addToPlayingList={addToPlayingList} />
         </div>
     )
 }

@@ -38,6 +38,8 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
         audioElement.appendChild(newAudioElement)
+        const progressBar = document.querySelector('.progress_bar')
+        progressBar.style.width = '0%'
     }, [playingSong])
 
 
@@ -56,8 +58,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     // next and prev btn
     const handleNextBtn = () => {
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
         if (israndom) {
             nextSong(1)
             return
@@ -65,8 +65,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         nextSong()
     }
     const handlePrevBtn = () => {
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
         if (israndom) {
             nextSong(1)
             return

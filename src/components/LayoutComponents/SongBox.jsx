@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
-const SongBox = ({ song, handleSetSong}) => {
+const SongBox = ({ song, addToPlayingList}) => {
 
     // --------------------------------------- RENDER ------------------------------------
 
@@ -17,7 +17,7 @@ const SongBox = ({ song, handleSetSong}) => {
                     <button className="startSong"
                         onClick={(e) => {
                             e.preventDefault()
-                            handleSetSong(song)
+                            addToPlayingList(song)
                         }}
                     >
                         <i className="fa-solid fa-play" style={{fontSize:'16px'}}></i>

@@ -6,7 +6,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const apiKey = import.meta.env.VITE_API_API_KEY
 
-const ShowList = ({ link, title, handleSetSong }) => {
+const ShowList = ({ link, title, addToPlayingList }) => {
     const [listSongs, setListSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
@@ -38,7 +38,7 @@ const ShowList = ({ link, title, handleSetSong }) => {
                                 listSongs.map((song) => {
                                     return (
                                         <div key={song._id}>
-                                            <SongBox song={song} handleSetSong={handleSetSong}/>
+                                            <SongBox song={song} addToPlayingList={addToPlayingList}/>
                                         </div>
                                     )
                                 })

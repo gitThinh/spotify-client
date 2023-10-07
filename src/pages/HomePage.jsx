@@ -21,8 +21,8 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 const HomePage = () => {
     const [playingList, setPlayingList] = useState([])
     const [rcmList, setRcmList] = useState([])
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [playingSong, setPlayingSong] = useState(playingList[currentIndex] || '')
+    const [currentIndex, setCurrentIndex] = useState('')
+    const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(true)
 
     //lấy dữ liệu user từ cookies
@@ -31,19 +31,6 @@ const HomePage = () => {
 
 
     // -------------------------------------------- FUNCTION ------------------------------------------
-    //get rcm list
-    useEffect(() => {
-        playingSong !== '' & isRcm &&
-            fetch(`${urlMLServer + playingSong._id}`, {
-                method: 'GET',
-                headers: {
-                    'x-api-key': apiKey
-                },
-            })
-                .then(response => response.json())
-                .then(data => setRcmList(data.metadata))
-    }, [playingSong])
-
     // refreshToken
     useEffect(() => {
         const timerRefreshToken = tokens && setTimeout(() => {
@@ -67,22 +54,51 @@ const HomePage = () => {
         return () => clearTimeout(timerRefreshToken)
     }, [tokens])
 
-    const updatePlayingSong = (index) => {
-        setPlayingSong(rcmList[index])
-    }
 
-    const handleSetSong = (pList) => {
-        setIsRcm(true)
-        setPlayingSong(pList)
+    //get rcm list
+    useEffect(() => {
+        playingSong !== '' & isRcm &&
+            fetch(`${urlMLServer + playingSong._id}`, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': apiKey
+                },
+            })
+                .then(response => response.json())
+                .then(data => setRcmList(data.metadata))
+    }, [playingSong])
+
+
+    // thêm vào danh sách bài hát đang phát
+    const addToPlayingList = (pList) => {
         setPlayingList(prev => {
-            const check = prev.some(song => JSON.stringify(song) === JSON.stringify(pList))
+            const check = prev.some(song => JSON.stringify(song._id) === JSON.stringify(pList._id))
             if (check) {
+                console.log(' not add')
                 return prev
             } else
                 return [...prev, pList]
         })
-        setCurrentIndex(playingList.length)
     }
+
+
+    // cập nhật current index khi playing list thay đổi
+    useEffect(() => {
+        setCurrentIndex(playingList.length - 1)
+    }, [playingList])
+    // cập nhật playing song khi current index thay đổi
+    useEffect(() => {
+        playingList.length > 0 &&
+            setPlayingSong(playingList[currentIndex])
+    }, [currentIndex])
+
+    // chọn bài hát khi ở trên playing list
+    const playSongInPL = (index) => {
+        setIsRcm(false)
+        setPlayingSong(playingList[index])
+        setCurrentIndex(index)
+    }
+
 
     // next and prev song
     const nextSong = (type) => {
@@ -91,9 +107,8 @@ const HomePage = () => {
         if (type === 1) {
             let nextIndex = Math.floor(Math.random() * rcmList.length)
             const newList = [...rcmList]
-            newList.splice(nextIndex,1)
+            newList.splice(nextIndex, 1)
             setRcmList(newList)
-            updatePlayingSong(nextIndex)
             return
         }
         setPlayingSong(rcmList[0])
@@ -103,6 +118,8 @@ const HomePage = () => {
     }
     const prevSong = () => {
         setIsRcm(false)
+        currentIndex !== 0 &&
+            setCurrentIndex(prev => prev - 1)
     }
 
     // -------------------------------------------- RENDER ------------------------------------------
@@ -111,21 +128,22 @@ const HomePage = () => {
             <div className="container">
                 <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
                 <Routes>
-                    <Route index element={<HomeLayout handleSetSong={handleSetSong} />} />
+                    <Route index element={<HomeLayout addToPlayingList={addToPlayingList} />} />
                     <Route path='/queue'
                         element={
                             <Queue
                                 playingList={playingList}
                                 currentIndex={currentIndex}
                                 rcmList={rcmList}
-                                handleSetSong={handleSetSong}
+                                addToPlayingList={addToPlayingList}
+                                playSongInPL={playSongInPL}
                             />
                         }
                     />
                     <Route path='/songs/:id' element={
-                        <SongDetail handleSetSong={handleSetSong} />
+                        <SongDetail addToPlayingList={addToPlayingList} />
                     } />
-                    <Route path='/search' element={<SearchPage handleSetSong={handleSetSong} />} />
+                    <Route path='/search' element={<SearchPage addToPlayingList={addToPlayingList} />} />
                 </Routes>
             </div>
             <Playing
