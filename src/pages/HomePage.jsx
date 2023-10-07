@@ -20,8 +20,9 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 const HomePage = () => {
     const [playingList, setPlayingList] = useState([])
-    const [playingSong, setPlayingSong] = useState('')
+    const [rcmList, setRcmList] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [playingSong, setPlayingSong] = useState(playingList[currentIndex] || '')
     const [isRcm, setIsRcm] = useState(true)
 
     //lấy dữ liệu user từ cookies
@@ -40,7 +41,7 @@ const HomePage = () => {
                 },
             })
                 .then(response => response.json())
-                .then(data => setPlayingList(data.metadata))
+                .then(data => setRcmList(data.metadata))
     }, [playingSong])
 
     // refreshToken
@@ -67,36 +68,38 @@ const HomePage = () => {
     }, [tokens])
 
     const updatePlayingSong = (index) => {
-        setPlayingSong(playingList[index])
+        setPlayingSong(rcmList[index])
     }
 
-    const handleSetSong = (song) => {
+    const handleSetSong = (pList) => {
         setIsRcm(true)
-        setPlayingSong(song)
+        setPlayingSong(pList)
+        setPlayingList(prev => {
+            const check = prev.some(song => JSON.stringify(song) === JSON.stringify(pList))
+            if (check) {
+                return prev
+            } else
+                return [...prev, pList]
+        })
+        setCurrentIndex(playingList.length)
     }
 
-
-    const deletePlayingList = () => {
-        const newList = [...playingList]
-        newList.shift()
-        setPlayingList(newList)
-    }
     // next and prev song
     const nextSong = (type) => {
         setIsRcm(false)
         // 1 === random
         if (type === 1) {
-            let nextIndex = Math.floor(Math.random() * playingList.length)
-            const newList = [...playingList]
+            let nextIndex = Math.floor(Math.random() * rcmList.length)
+            const newList = [...rcmList]
             newList.splice(nextIndex,1)
-            setPlayingList(newList)
+            setRcmList(newList)
             updatePlayingSong(nextIndex)
             return
         }
-        setPlayingSong(playingList[0])
-        const newList = [...playingList]
+        setPlayingSong(rcmList[0])
+        const newList = [...rcmList]
         newList.shift()
-        setPlayingList(newList)
+        setRcmList(newList)
     }
     const prevSong = () => {
         setIsRcm(false)
@@ -112,8 +115,9 @@ const HomePage = () => {
                     <Route path='/queue'
                         element={
                             <Queue
-                                playingSong={playingSong}
                                 playingList={playingList}
+                                currentIndex={currentIndex}
+                                rcmList={rcmList}
                                 handleSetSong={handleSetSong}
                             />
                         }

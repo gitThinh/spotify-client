@@ -75,11 +75,11 @@
 /* song Box */
 
 /* Song Line */
-.activeSong .songsLine{
+.activeSong.songsLine{
     background-color: #222;
 }
-.activeSong .songsLine i,
-.activeSong .songsLine .songsDetails .songsTitle{
+.activeSong.songsLine i,
+.activeSong.songsLine .songsDetails .songsTitle{
     color: #1ED760;
 }
 
