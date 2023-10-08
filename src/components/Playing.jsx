@@ -1,9 +1,17 @@
 import { useEffect, useState, useRef, memo } from 'react'
 import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
+import { FaPlay, FaRandom } from 'react-icons/fa'
+import {
+    FaForwardStep, FaBackwardStep, FaArrowRotateRight,
+    FaVolumeXmark, FaVolumeLow, FaVolumeHigh
+} from 'react-icons/fa6'
+import { HiMiniPause, HiMiniMusicalNote } from 'react-icons/hi2'
+import { PiListBold } from 'react-icons/pi'
 
-const urlApiSong = import.meta.env.VITE_API_URL_SONG 
-const urlApiImg = import.meta.env.VITE_API_URL_IMG 
+
+const urlApiSong = import.meta.env.VITE_API_URL_SONG
+const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 
@@ -15,7 +23,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     const audioRef = useRef()
 
-    
+
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {
@@ -243,22 +251,22 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             <div className="playingControl">
                 <div className="btnPlayingControl">
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)}>
-                        <i className="fas fa-random"></i>
+                        <FaRandom size={20}/>
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
-                        <i className="fas fa-step-backward"></i>
+                        <FaBackwardStep size={22}/>
                     </div>
                     <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                         {isplaying
-                            ? <i className="fas fa-pause icon-pause"></i>
-                            : <i className="fas fa-play icon-play"></i>
+                            ? <HiMiniPause size={22}/>
+                            : <FaPlay size={18} />
                         }
                     </div>
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
-                        <i className="fas fa-step-forward"></i>
+                        <FaForwardStep size={22} />
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
-                        <i className="fas fa-redo"></i>
+                        <FaArrowRotateRight size={22}/>
                     </div>
                 </div>
                 <div className="timeLine" >
@@ -279,19 +287,19 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             <div className="toolMusic">
                 <Link to='/queue'>
                     <div className="btn btn_list">
-                        <i className="fas fa-list"></i>
+                        <PiListBold size={24}/>
                     </div>
                 </Link>
                 <div className="btn btn_lyrics">
-                    <i className="fas fa-music"></i>
+                    <HiMiniMusicalNote size={22}/>
                 </div>
                 <div className="btn btn_volume_control">
                     {
                         volumes < 0.08
-                            ? <i className="fas fa-volume-xmark"></i>
+                            ? <FaVolumeXmark size={22}/>
                             : (volumes > .4
-                                ? <i className="fas fa-volume-high"></i>
-                                : <i className="fas fa-volume-low"></i>)
+                                ? <FaVolumeHigh size={22}/>
+                                : <FaVolumeLow size={22}/>)
                     }
                 </div>
                 <div className="volume_area">

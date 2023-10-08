@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
@@ -52,11 +53,11 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
 
             <nav className="navBarOptions" >
                 <Link to="/">
-                    <i className="fa-solid fa-house"></i>
+                    <HiHome size={24}/>
                     Home
                 </Link>
                 <Link to="/search">
-                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <HiMagnifyingGlass size={24}/>
                     Search
                 </Link>
             </nav>

@@ -1,4 +1,6 @@
 .btn {
+    display: flex;
+    align-items: center;
     cursor: pointer;
     font-size: 20px;
     opacity: 0.6;
@@ -10,10 +12,12 @@
 }
 
 .btn_toggle_play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 40px;
     width: 40px;
     text-align: center;
-    line-height: 40px;
     background-color: #fff;
     color: #000;
     border-radius: 50%;
@@ -83,11 +87,6 @@
     cursor: pointer;
 }
 
-.progress_area .progress_bar {
-    --range-progress: 0;
-    width: var(--range-progress);
-}
-
 .volume_area .volume_bar {
     --range-volume: 100;
     width: var(--range-volume);
@@ -97,7 +96,7 @@
 .volume_area .volume_bar {
     height: inherit;
     border-radius: inherit;
-    background-color: #ddd;
+    background-color: #bbb;
     position: relative;
     transition: width .3s linear;
 }
@@ -113,11 +112,6 @@
     width: 12px;
     border-radius: inherit;
     background-color: #fff;
-}
-
-.progress_area:hover .progress_bar,
-.volume_area:hover .volume_bar {
-    background-color: #1ED760;
 }
 
 .progress_area:hover .progress_bar::before,

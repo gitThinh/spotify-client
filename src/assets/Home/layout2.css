@@ -74,7 +74,7 @@
     flex-direction: column;
     background-color: #121212;
     border-radius: 8px;
-    padding: 20px 25px;
+    padding: 20px 35px;
     gap: 10px;
     min-height: max-content;
 }

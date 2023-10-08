@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
+import { FaPlay } from 'react-icons/fa'
+
 
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
-const SongBox = ({ song, addToPlayingList}) => {
+const SongBox = ({ song, changePlayingList}) => {
 
     // --------------------------------------- RENDER ------------------------------------
 
@@ -17,10 +19,10 @@ const SongBox = ({ song, addToPlayingList}) => {
                     <button className="startSong"
                         onClick={(e) => {
                             e.preventDefault()
-                            addToPlayingList(song)
+                            changePlayingList(song)
                         }}
                     >
-                        <i className="fa-solid fa-play" style={{fontSize:'16px'}}></i>
+                        <FaPlay size={16}/>
                     </button>
                 </div>
         </Link>

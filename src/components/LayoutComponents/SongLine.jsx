@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { FaPlay } from 'react-icons/fa'
 
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
@@ -13,15 +14,8 @@ const SongLine = ({ song, addToPlayingList, index }) => {
 
 
     return (
-        <div className="songsLine" onDoubleClick={() => { addToPlayingList(song) }}>
-            {
-                index !== undefined ?
-                    <p className="songsIndex typeCenter">{index + 2}</p>
-                    :
-                    <div className="typeCenter">
-                        <i className="fa-solid fa-play"></i>
-                    </div>
-            }
+        <div className="songsLine" onDoubleClick={() => addToPlayingList(song, index)}>
+            <p className="songsIndex typeCenter">{index + 1}</p>
             <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
             <div className="songsDetails">
                 <Link to={`/songs/${song._id}`}><h3 className="songsTitle onelineText underLink" >{song.title}</h3></Link>

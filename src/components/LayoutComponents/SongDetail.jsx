@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import { PiDotOutlineFill } from 'react-icons/pi'
+import { FaPlay } from 'react-icons/fa'
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
-const SongDetail = ({ addToPlayingList }) => {
+const SongDetail = ({ changePlayingList }) => {
     const id = useParams().id
     const [songDetail, setSongDetail] = useState({})
 
@@ -29,34 +30,27 @@ const SongDetail = ({ addToPlayingList }) => {
     return (
         <div className="showSong">
             <div className="headerSongPage">
-                <SkeletonTheme baseColor="#202020" highlightColor="#444">
-                    <div className="thumbSong">
-                        {
-                            songDetail ?
-                                <img src={`http://nth-audio.site/images/${songDetail.coverArt}`} alt={songDetail.title} />
-                                :
-                                <Skeleton className="thumbSong" />
-                        }
-                    </div>
-                    <div className="detailSong">
-                        <h1 className="titleSong onelineText">{songDetail.title || ''}</h1>
-                        <div className="artistDuration">
-                            <p className="actist">{songDetail.artist_name}</p>
-                            <i className="fa-solid fa-circle" style={{ fontSize: '8px' }}></i>
-                            <p>{songDetail.year}</p>
-                            <i className="fa-solid fa-circle" style={{ fontSize: '8px' }}></i>
-                            <p>{songDetail.views} lượt nghe</p>
-                            {/* <p className="duration">
+                <div className="thumbSong">
+                    <img src={`http://nth-audio.site/images/${songDetail.coverArt}`} alt={songDetail.title} />
+                </div>
+                <div className="detailSong">
+                    <h1 className="titleSong onelineText">{songDetail.title || ''}</h1>
+                    <div className="artistDuration">
+                        <p className="actist">{songDetail.artist_name}</p>
+                        <PiDotOutlineFill />
+                        <p>{songDetail.year}</p>
+                        <PiDotOutlineFill />
+                        <p>{songDetail.views} lượt nghe</p>
+                        {/* <p className="duration">
                                 {Math.floor(songDetail.duration / 60) + ' min ' + Math.ceil(songDetail.duration % 60) + ' sec'}
                             </p> */}
-                        </div>
                     </div>
-                </SkeletonTheme>
+                </div>
             </div>
             <div className="bodySongPage">
                 <div className="detailPageOption">
-                    <button className="startSong" onClick={() => addToPlayingList(songDetail)}>
-                        <i className="fa-solid fa-play"></i>
+                    <button className="startSong" onClick={() => changePlayingList(songDetail)}>
+                        <FaPlay size={22}/>
                     </button>
                 </div>
             </div>

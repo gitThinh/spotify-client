@@ -21,9 +21,9 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 const HomePage = () => {
     const [playingList, setPlayingList] = useState([])
     const [rcmList, setRcmList] = useState([])
-    const [currentIndex, setCurrentIndex] = useState('')
+    const [currentIndex, setCurrentIndex] = useState(0)
     const [playingSong, setPlayingSong] = useState('')
-    const [isRcm, setIsRcm] = useState(true)
+    const [isRcm, setIsRcm] = useState(false)
 
     //lấy dữ liệu user từ cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
@@ -66,31 +66,31 @@ const HomePage = () => {
             })
                 .then(response => response.json())
                 .then(data => setRcmList(data.metadata))
+        setIsRcm(false)
     }, [playingSong])
 
 
-    // thêm vào danh sách bài hát đang phát
-    const addToPlayingList = (pList) => {
-        setPlayingList(prev => {
-            const check = prev.some(song => JSON.stringify(song._id) === JSON.stringify(pList._id))
-            if (check) {
-                console.log(' not add')
-                return prev
-            } else
-                return [...prev, pList]
-        })
+    // chọn bài hát mới reset lại playinglist và rcm
+    const changePlayingList = (pList) => {
+        setIsRcm(true)
+        setPlayingList([pList])
     }
 
+    // thêm vào danh sách bài hát đang phát ở rcm list
+    const addToPlayingList = (pList, index) => {
+        setPlayingList(prev => [...prev, pList])
+        const newArray = [...rcmList]
+        newArray.splice(index, 1)
+        setRcmList(newArray)
+    }
 
-    // cập nhật current index khi playing list thay đổi
-    useEffect(() => {
-        setCurrentIndex(playingList.length - 1)
-    }, [playingList])
-    // cập nhật playing song khi current index thay đổi
+    // cập nhật current index và playing song khi playing list thay đổi
     useEffect(() => {
         playingList.length > 0 &&
-            setPlayingSong(playingList[currentIndex])
-    }, [currentIndex])
+            setCurrentIndex(playingList.length - 1)
+        playingList.length > 0 &&
+            setPlayingSong(playingList[playingList.length - 1])
+    }, [playingList])
 
     // chọn bài hát khi ở trên playing list
     const playSongInPL = (index) => {
@@ -100,6 +100,8 @@ const HomePage = () => {
     }
 
 
+
+    //chưa xong chuyển bài tới
     // next and prev song
     const nextSong = (type) => {
         setIsRcm(false)
@@ -117,10 +119,13 @@ const HomePage = () => {
         setRcmList(newList)
     }
     const prevSong = () => {
-        setIsRcm(false)
         currentIndex !== 0 &&
             setCurrentIndex(prev => prev - 1)
+            setPlayingSong(playingList[currentIndex - 1])
     }
+
+
+
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
@@ -128,7 +133,7 @@ const HomePage = () => {
             <div className="container">
                 <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
                 <Routes>
-                    <Route index element={<HomeLayout addToPlayingList={addToPlayingList} />} />
+                    <Route index element={<HomeLayout changePlayingList={changePlayingList} />} />
                     <Route path='/queue'
                         element={
                             <Queue
@@ -141,9 +146,9 @@ const HomePage = () => {
                         }
                     />
                     <Route path='/songs/:id' element={
-                        <SongDetail addToPlayingList={addToPlayingList} />
+                        <SongDetail changePlayingList={changePlayingList} />
                     } />
-                    <Route path='/search' element={<SearchPage addToPlayingList={addToPlayingList} />} />
+                    <Route path='/search' element={<SearchPage changePlayingList={changePlayingList} />} />
                 </Routes>
             </div>
             <Playing

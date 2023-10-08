@@ -2,12 +2,16 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import ShowList from "./ShowList"
 import SongLineSearch from "./SongLineSearch"
+import { HiMagnifyingGlass } from 'react-icons/hi2'
+import { FaCircleXmark } from "react-icons/fa6"
+import { FaPlay } from "react-icons/fa"
+
 
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
-const SearchPage = ({ addToPlayingList }) => {
+const SearchPage = ({ changePlayingList }) => {
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
     const [isSearch, setIsSearch] = useState(false)
@@ -16,11 +20,11 @@ const SearchPage = ({ addToPlayingList }) => {
     const handleSearch = async (e) => {
         e.preventDefault()
         const response = await fetch(`${urlApiAudioServer}search?keyword=${search}`,
-        {
-            headers: {
-                'x-api-key': apiKey
-            }
-        })
+            {
+                headers: {
+                    'x-api-key': apiKey
+                }
+            })
         const data = await response.json()
         setResults(data.metadata)
         setIsSearch(true)
@@ -36,7 +40,7 @@ const SearchPage = ({ addToPlayingList }) => {
         <div className="searchLayout">
             <div className="searchPage">
                 <div className="searchBox">
-                    <i className="fa-solid fa-magnifying-glass" onClick={search !== '' ? handleSearch : () => { }}></i>
+                    <HiMagnifyingGlass onClick={search !== '' ? handleSearch : () => { }} size={22}/>
                     <input type="text"
                         className="textSearch"
                         placeholder="Nhập thông tin muốn tìm"
@@ -59,10 +63,10 @@ const SearchPage = ({ addToPlayingList }) => {
                                     <button className="startSong"
                                         onClick={(e) => {
                                             e.preventDefault()
-                                            addToPlayingList(results[0], 1)
+                                            changePlayingList(results[0], 1)
                                         }}
                                     >
-                                        <i className="fa-solid fa-play"></i>
+                                        <FaPlay size={22}/> 
                                     </button>
                                 </div>
                             </Link>
@@ -73,7 +77,7 @@ const SearchPage = ({ addToPlayingList }) => {
                                 results.map((result, index) => {
                                     return (
                                         index < 5 &&
-                                        <div key={index} onDoubleClick={() => addToPlayingList(result)}>
+                                        <div key={index} onDoubleClick={() => changePlayingList(result)}>
                                             <SongLineSearch song={result} />
                                         </div>
                                     )
@@ -84,12 +88,12 @@ const SearchPage = ({ addToPlayingList }) => {
                     :
                     isSearch &&
                     <div className="notFoundResult">
-                        <i className="fa-solid fa-circle-xmark" style={{fontSize:'72px'}}></i>
+                        <FaCircleXmark size={70}/>
                         <h2>Không tìm thấy kết quả</h2>
                     </div>
             }
 
-            <ShowList link={`${urlApiAudioServer}songs/page/2`} title={'Có thể bạn thích:'} addToPlayingList={addToPlayingList} />
+            <ShowList link={`${urlApiAudioServer}songs/page/2`} title={'Có thể bạn thích:'} changePlayingList={changePlayingList} />
         </div>
     )
 }

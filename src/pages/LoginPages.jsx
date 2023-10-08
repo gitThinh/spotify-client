@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import '../assets/LogAndSign/Layout1.css'
 import LoginFormRender from '../components/FormComponent/LoginFormRender';
 
+import { FcGoogle } from 'react-icons/fc'
+import { BsFacebook, BsApple } from 'react-icons/bs'
+
 
 
 
@@ -17,15 +20,15 @@ const LoginPages = () => {
                 <h2>Log in to Spotify</h2>
                 <div className="groupOptionsLogin">
                     <div className="optionLogin">
-                        <i className="fa-brands fa-google"></i>
+                        <FcGoogle size={22} />
                         <h4>Continue with Google</h4>
                     </div>
                     <div className="optionLogin">
-                        <i className="fa-brands fa-facebook" style={{ color: '#1877F2' }}></i>
+                        <BsFacebook style={{ color: '#1877F2' }} size={22}/>
                         <h4>Continue with Facebook</h4>
                     </div>
                     <div className="optionLogin">
-                        <i className="fa-brands fa-apple"></i>
+                        <BsApple size={22}/>
                         <h4>Continue with Apple</h4>
                     </div>
                     <div className="optionLogin">

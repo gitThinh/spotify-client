@@ -13,7 +13,7 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL}) => {
 
 
     return (
-        <div className={index === currentIndex ? 'activeSong songsLine' : 'songsLine'} onDoubleClick={() => { playSongInPL(index) }}>
+        <div key={index} className={index === currentIndex ? 'activeSong songsLine' : 'songsLine'} onDoubleClick={() => { playSongInPL(index) }}>
             {
                 index !== currentIndex ?
                     <p className="songsIndex typeCenter">{index + 1}</p>

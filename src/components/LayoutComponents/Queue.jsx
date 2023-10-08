@@ -15,7 +15,11 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                     {
                         playingList.length > 0 ?
                             playingList.map((song, index) => {
-                                return <SongPlayingList song={song} currentIndex={currentIndex} index={index} playSongInPL={playSongInPL}/>
+                                return (
+                                    <div key={index}>
+                                        <SongPlayingList song={song} currentIndex={currentIndex} index={index} playSongInPL={playSongInPL} />
+                                    </div>
+                                )
                             })
 
                             :
