@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { FaPlay } from 'react-icons/fa'
 
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
@@ -19,7 +20,7 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL}) => {
                     <p className="songsIndex typeCenter">{index + 1}</p>
                     :
                     <div className="typeCenter">
-                        <i className="fa-solid fa-play"></i>
+                        <FaPlay style={{color:'#1ED760'}} size={15}/>
                     </div>
             }
             <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
