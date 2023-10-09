@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
+import { ClipLoader } from 'react-spinners'
 import { FaPlay, FaRandom } from 'react-icons/fa'
 import {
     FaForwardStep, FaBackwardStep, FaArrowRotateRight,
@@ -18,6 +19,7 @@ const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const Playing = ({ playingSong, nextSong, prevSong }) => {
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
+    const [isloading, setIsLoading] = useState(false)
     const [israndom, setIsrandom] = useState(false)
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
@@ -28,7 +30,10 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {
+        playingSong && setIsLoading(true)
         playingSong ? setIsplaying(true) : setIsplaying(false)
+        const progressBar = document.querySelector('.progress_bar')
+        progressBar.style.width = '0%'
         const audioElement = document.getElementById('audioBox')
 
         while (audioElement.firstChild) {
@@ -47,8 +52,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
         audioElement.appendChild(newAudioElement)
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
     }, [playingSong])
 
 
@@ -76,7 +79,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     useEffect(() => {
         isended && handleNextBtn()
         setIsended(false)
-    },[isended])
+    }, [isended])
 
     // control progressBar
     function formatTime(timeInSeconds) {
@@ -138,9 +141,11 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
+                currentTimeDisplay.innerHTML = '00:00'
                 setIsended(true)
             }
             else {
+                setIsLoading(false)
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
                 progressBar.style.width = `${progress}%`
@@ -255,9 +260,13 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                         <FaBackwardStep size={22} />
                     </div>
                     <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
-                        {isplaying
-                            ? <HiMiniPause size={22} />
-                            : <FaPlay size={18} />
+                        {
+                            isloading ?
+                                <ClipLoader size={20}/>
+                                :
+                                isplaying
+                                    ? <HiMiniPause size={22} />
+                                    : <FaPlay style={{ marginLeft: '4px' }} size={18} />
                         }
                     </div>
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
