@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
-import { ClipLoader } from 'react-spinners'
+import { ScaleLoader } from 'react-spinners'
 import { FaPlay, FaRandom } from 'react-icons/fa'
 import {
     FaForwardStep, FaBackwardStep, FaArrowRotateRight,
@@ -259,16 +259,18 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
                         <FaBackwardStep size={22} />
                     </div>
-                    <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
-                        {
-                            isloading ?
-                                <ClipLoader size={20}/>
-                                :
-                                isplaying
+                    {
+                        isloading ?
+                            <ScaleLoader className='loadingSong' color='#fff' />
+                            :
+                            <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
+                                {
+                                    isplaying
                                     ? <HiMiniPause size={22} />
                                     : <FaPlay style={{ marginLeft: '4px' }} size={18} />
-                        }
-                    </div>
+                                }
+                            </div>
+                    }
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
                         <FaForwardStep size={22} />
                     </div>
