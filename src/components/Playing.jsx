@@ -17,6 +17,7 @@ const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 const Playing = ({ playingSong, nextSong, prevSong }) => {
     const [isplaying, setIsplaying] = useState(false)
+    const [isended, setIsended] = useState(false)
     const [israndom, setIsrandom] = useState(false)
     const [isrepeat, setIsreapet] = useState(false)
     const [volumes, setVolumes] = useState(1)
@@ -72,7 +73,10 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         prevSong()
     }
 
-    playingSong && audioRef.current.addEventListener('ended', handleNextBtn)
+    useEffect(() => {
+        isended && handleNextBtn()
+        setIsended(false)
+    },[isended])
 
     // control progressBar
     function formatTime(timeInSeconds) {
@@ -133,9 +137,14 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         })
 
         audioRef.current.addEventListener('timeupdate', () => {
-            currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
-            const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
-            progressBar.style.width = `${progress}%`
+            if (audioRef.current.ended) {
+                setIsended(true)
+            }
+            else {
+                currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
+                const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
+                progressBar.style.width = `${progress}%`
+            }
         })
     }, [playingSong])
 

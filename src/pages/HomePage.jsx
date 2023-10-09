@@ -66,7 +66,7 @@ const HomePage = () => {
             })
                 .then(response => response.json())
                 .then(data => setRcmList(data.metadata))
-            setIsRcm(false)
+        setIsRcm(false)
     }, [playingSong])
 
 
@@ -102,7 +102,6 @@ const HomePage = () => {
 
     // next and prev song
     const nextSong = () => {
-        console.log(rcmList)
         if (currentIndex < playingList.length - 1) {
             setCurrentIndex(prev => prev + 1)
             setPlayingSong(playingList[currentIndex + 1])
@@ -118,7 +117,6 @@ const HomePage = () => {
         }
     }
     const prevSong = () => {
-        console.log('lui song')
         currentIndex &&
             setCurrentIndex(prev => prev === 0 ? prev : prev - 1)
         setPlayingSong(playingList[currentIndex !== 0 ? currentIndex - 1 : currentIndex])
