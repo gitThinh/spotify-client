@@ -32,8 +32,12 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     useEffect(() => {
         playingSong && setIsLoading(true)
         playingSong ? setIsplaying(true) : setIsplaying(false)
+        // chỉnh thanh chạy về đầu
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
+        // chỉnh thời gian chạy được về 0
+        const currentTimeDisplay = document.querySelector('.startTime')
+        currentTimeDisplay.innerHTML = '0:00'
         const audioElement = document.getElementById('audioBox')
 
         while (audioElement.firstChild) {
@@ -141,11 +145,11 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
-                currentTimeDisplay.innerHTML = '00:00'
+                currentTimeDisplay.innerHTML = '0:00'
                 setIsended(true)
             }
             else {
-                setIsLoading(false)
+                audioRef.current.currentTime > 0 && setIsLoading(false)
                 currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
                 progressBar.style.width = `${progress}%`

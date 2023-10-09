@@ -72,8 +72,8 @@ const HomePage = () => {
 
     // chọn bài hát mới reset lại playinglist và rcm
     const changePlayingList = (pList) => {
-        setIsRcm(true)
         setPlayingList([pList])
+        setIsRcm(true)
     }
 
     // thêm vào danh sách bài hát đang phát ở rcm list
