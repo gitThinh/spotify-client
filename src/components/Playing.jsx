@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, memo } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
 import { FaPlay, FaRandom } from 'react-icons/fa'
@@ -66,20 +66,13 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     // next and prev btn
     const handleNextBtn = () => {
-        if (israndom) {
-            nextSong(1)
-            return
-        }
         nextSong()
     }
     const handlePrevBtn = () => {
-        if (israndom) {
-            nextSong(1)
-            return
-        }
         prevSong()
     }
 
+    playingSong && audioRef.current.addEventListener('ended', handleNextBtn)
 
     // control progressBar
     function formatTime(timeInSeconds) {
@@ -140,13 +133,9 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         })
 
         audioRef.current.addEventListener('timeupdate', () => {
-            if (audioRef.current.ended) {
-                isrepeat === true ? audioRef.current.play() : handleNextBtn()
-            } else {
-                currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
-                const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
-                progressBar.style.width = `${progress}%`
-            }
+            currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
+            const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
+            progressBar.style.width = `${progress}%`
         })
     }, [playingSong])
 
@@ -239,9 +228,9 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
                                 <h3 className="onelineText">{playingSong.title || ''}</h3>
                             </Link>
-                            <p className='underLink'>
+                            <div className='underLink'>
                                 <p className="details_singer">{playingSong.artist_name || ''}</p>
-                            </p>
+                            </div>
                         </div>
                         {/* tim với thêm vào playlist */}
                     </div>
@@ -251,14 +240,14 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             <div className="playingControl">
                 <div className="btnPlayingControl">
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)}>
-                        <FaRandom size={20}/>
+                        <FaRandom size={20} />
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
-                        <FaBackwardStep size={22}/>
+                        <FaBackwardStep size={22} />
                     </div>
                     <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                         {isplaying
-                            ? <HiMiniPause size={22}/>
+                            ? <HiMiniPause size={22} />
                             : <FaPlay size={18} />
                         }
                     </div>
@@ -266,7 +255,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                         <FaForwardStep size={22} />
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
-                        <FaArrowRotateRight size={22}/>
+                        <FaArrowRotateRight size={22} />
                     </div>
                 </div>
                 <div className="timeLine" >
@@ -287,19 +276,19 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             <div className="toolMusic">
                 <Link to='/queue'>
                     <div className="btn btn_list">
-                        <PiListBold size={24}/>
+                        <PiListBold size={24} />
                     </div>
                 </Link>
                 <div className="btn btn_lyrics">
-                    <HiMiniMusicalNote size={22}/>
+                    <HiMiniMusicalNote size={22} />
                 </div>
                 <div className="btn btn_volume_control">
                     {
                         volumes < 0.08
-                            ? <FaVolumeXmark size={22}/>
+                            ? <FaVolumeXmark size={22} />
                             : (volumes > .4
-                                ? <FaVolumeHigh size={22}/>
-                                : <FaVolumeLow size={22}/>)
+                                ? <FaVolumeHigh size={22} />
+                                : <FaVolumeLow size={22} />)
                     }
                 </div>
                 <div className="volume_area">
@@ -310,4 +299,4 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
     )
 }
 
-export default memo(Playing)
+export default Playing

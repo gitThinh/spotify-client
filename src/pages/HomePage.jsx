@@ -66,7 +66,7 @@ const HomePage = () => {
             })
                 .then(response => response.json())
                 .then(data => setRcmList(data.metadata))
-        setIsRcm(false)
+            setIsRcm(false)
     }, [playingSong])
 
 
@@ -100,32 +100,25 @@ const HomePage = () => {
     }
 
 
-    //chuyển bài tới chưa xử lý random với repeat
     // next and prev song
-    const nextSong = (type) => {
+    const nextSong = () => {
+        console.log(rcmList)
         if (currentIndex < playingList.length - 1) {
             setCurrentIndex(prev => prev + 1)
             setPlayingSong(playingList[currentIndex + 1])
         }
         else {
-            if(rcmList.length > 0){
+            if (rcmList.length > 0) {
                 setPlayingSong(rcmList[0])
-                const newList = [...rcmList]
-                const songCut = newList.shift()
+                let newList = [...rcmList]
+                let songCut = newList.shift()
                 setPlayingList(prev => [...prev, songCut])
                 setRcmList(newList)
             }
         }
-        // 1 === random
-        // if (type === 1) {
-        //     let nextIndex = Math.floor(Math.random() * rcmList.length)
-        //     const newList = [...rcmList]
-        //     newList.splice(nextIndex, 1)
-        //     setRcmList(newList)
-        //     return
-        // }
     }
     const prevSong = () => {
+        console.log('lui song')
         currentIndex &&
             setCurrentIndex(prev => prev === 0 ? prev : prev - 1)
         setPlayingSong(playingList[currentIndex !== 0 ? currentIndex - 1 : currentIndex])
