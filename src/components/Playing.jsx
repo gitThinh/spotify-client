@@ -97,7 +97,6 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         const currentTimeDisplay = document.querySelector('.startTime')
         const totalDurationDisplay = document.querySelector('.durationSong')
 
-
         function updateProgressFromMousePosition(event) {
             const containerWidth = progressContainer.clientWidth
             const clickX = event.clientX - progressContainer.getBoundingClientRect().left
