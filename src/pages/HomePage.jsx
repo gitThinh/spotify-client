@@ -24,7 +24,6 @@ const HomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(false)
-    const [showPlayer, setShowPlayer] = useState(false)
 
     //lấy dữ liệu user từ cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
@@ -73,7 +72,6 @@ const HomePage = () => {
 
     // chọn bài hát mới reset lại playinglist và rcm
     const changePlayingList = (pList) => {
-        showPlayer === false && setShowPlayer(true)
         setPlayingList([pList])
         setIsRcm(true)
     }
@@ -124,15 +122,6 @@ const HomePage = () => {
         setPlayingSong(playingList[currentIndex !== 0 ? currentIndex - 1 : currentIndex])
     }
 
-    
-    useEffect(() => {
-        if (playingList.length > 0){
-            let showControler = document.querySelector('.container')
-            showControler.style.height = 'calc(100vh - 120px)'
-        }
-    },[showPlayer])
-
-
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
@@ -158,13 +147,11 @@ const HomePage = () => {
                     <Route path='/search' element={<SearchPage changePlayingList={changePlayingList} />} />
                 </Routes>
             </div>
-            {
-                showPlayer && <Playing
-                    playingSong={playingSong}
-                    nextSong={nextSong}
-                    prevSong={prevSong}
-                />
-            }
+            <Playing
+                playingSong={playingSong}
+                nextSong={nextSong}
+                prevSong={prevSong}
+            />
         </div>
     )
 }
