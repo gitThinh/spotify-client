@@ -128,7 +128,7 @@ const HomePage = () => {
     useEffect(() => {
         if (playingList.length > 0){
             let showControler = document.querySelector('.container')
-            showControler.style.height = 'calc(100vh - 120px)'
+            showControler.style.height = 'calc(100vh - 90px)'
         }
     },[showPlayer])
 

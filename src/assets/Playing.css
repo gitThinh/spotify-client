@@ -2,12 +2,13 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    font-size: 20px;
     opacity: 0.6;
     transition: all .2s linear;
 }
 
 .loadingSong{
+    height: 35px;
+    width: 35px;
     scale: .6;
 }
 
@@ -19,8 +20,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     text-align: center;
     background-color: #fff;
     color: #000;
@@ -34,12 +35,11 @@
 
 .playingBlock {
     display: grid;
-    height: 120px;
+    height: 90px;
     grid-template-columns: 2.5fr 4fr 2.5fr;
-    gap: 20px;
     align-items: center;
-    gap: 30px;
-    padding: 15px;
+    gap: 20px;
+    padding: 0 18px;
 }
 
 .infoMusic .boxInfo {
@@ -51,8 +51,8 @@
 }
 
 .infoMusic img {
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     border-radius: 10px;
 }
 
@@ -64,14 +64,13 @@
     flex-direction: row;
     justify-content: center;
     gap: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     align-items: center;
 }
 
 /* progress bar */
 .timeLine {
     width: 100%;
-    height: 24px;
     display: flex;
     flex-direction: row;
     align-items: center;

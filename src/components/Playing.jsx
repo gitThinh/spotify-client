@@ -245,10 +245,10 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                         <img src={playingSong && `${urlApiImg + playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
                         <div className="infoMusic_details">
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
-                                <h3 className="onelineText">{playingSong.title || ''}</h3>
+                                <h4 className="onelineText">{playingSong.title || ''}</h4>
                             </Link>
                             <div className='underLink'>
-                                <p className="details_singer">{playingSong.artist_name || ''}</p>
+                                <p className="details_singer" style={{fontSize:'13px'}}>{playingSong.artist_name || ''}</p>
                             </div>
                         </div>
                         {/* tim với thêm vào playlist */}
@@ -259,10 +259,10 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
             <div className="playingControl">
                 <div className="btnPlayingControl">
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)}>
-                        <FaRandom size={20} />
+                        <FaRandom size={18} />
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
-                        <FaBackwardStep size={22} />
+                        <FaBackwardStep size={20} />
                     </div>
                     {
                         isloading ?
@@ -271,16 +271,16 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                             <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                                 {
                                     isplaying
-                                    ? <HiMiniPause size={22} />
+                                    ? <HiMiniPause size={20} />
                                     : <FaPlay style={{ marginLeft: '4px' }} size={18} />
                                 }
                             </div>
                     }
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
-                        <FaForwardStep size={22} />
+                        <FaForwardStep size={20} />
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
-                        <FaArrowRotateRight size={22} />
+                        <FaArrowRotateRight size={18} />
                     </div>
                 </div>
                 <div className="timeLine" >
@@ -305,15 +305,15 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                     </div>
                 </Link>
                 <div className="btn btn_lyrics">
-                    <HiMiniMusicalNote size={22} />
+                    <HiMiniMusicalNote size={20} />
                 </div>
                 <div className="btn btn_volume_control">
                     {
                         volumes < 0.08
-                            ? <FaVolumeXmark size={22} />
+                            ? <FaVolumeXmark size={20} />
                             : (volumes > .4
-                                ? <FaVolumeHigh size={22} />
-                                : <FaVolumeLow size={22} />)
+                                ? <FaVolumeHigh size={20} />
+                                : <FaVolumeLow size={20} />)
                     }
                 </div>
                 <div className="volume_area">
