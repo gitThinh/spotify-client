@@ -37,7 +37,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         progressBar.style.width = '0%'
         // chỉnh thời gian chạy được về 0
         const currentTimeDisplay = document.querySelector('.startTime')
-        currentTimeDisplay.innerHTML = '0:00'
+        currentTimeDisplay.innerHTML = playingSong ? '0:00' : '--:--' 
         const audioElement = document.getElementById('audioBox')
 
         while (audioElement.firstChild) {
