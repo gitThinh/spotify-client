@@ -104,12 +104,11 @@ const HomePage = () => {
 
     // next and prev song
     const nextSong = (type) => {
-        if (type === 1) {
+        if (type === 1 & playingList.length > 1) {
             let randomIndex = Math.floor(Math.random() * playingList.length) 
             while(randomIndex === currentIndex){
                 randomIndex = Math.floor(Math.random() * playingList.length)
             }
-            console.log(randomIndex)
             setCurrentIndex(randomIndex)
             setPlayingSong(playingList[randomIndex])
             return
