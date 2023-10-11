@@ -103,7 +103,17 @@ const HomePage = () => {
 
 
     // next and prev song
-    const nextSong = () => {
+    const nextSong = (type) => {
+        if (type === 1) {
+            let randomIndex = Math.floor(Math.random() * playingList.length) 
+            while(randomIndex === currentIndex){
+                randomIndex = Math.floor(Math.random() * playingList.length)
+            }
+            console.log(randomIndex)
+            setCurrentIndex(randomIndex)
+            setPlayingSong(playingList[randomIndex])
+            return
+        }
         if (currentIndex < playingList.length - 1) {
             setCurrentIndex(prev => prev + 1)
             setPlayingSong(playingList[currentIndex + 1])
@@ -116,6 +126,10 @@ const HomePage = () => {
                 setPlayingList(prev => [...prev, songCut])
                 setRcmList(newList)
             }
+            else {
+                setCurrentIndex(0)
+                setPlayingSong(playingList[0])
+            }
         }
     }
     const prevSong = () => {
@@ -124,14 +138,14 @@ const HomePage = () => {
         setPlayingSong(playingList[currentIndex !== 0 ? currentIndex - 1 : currentIndex])
     }
 
-    
+
     //sửa thanh chạy không hiện khi chưa chọn bài
     useEffect(() => {
-        if (playingList.length > 0){
+        if (playingList.length > 0) {
             let showControler = document.querySelector('.container')
             showControler.style.height = 'calc(100vh - 90px)'
         }
-    },[showPlayer])
+    }, [showPlayer])
 
 
 

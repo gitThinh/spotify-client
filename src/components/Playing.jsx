@@ -37,7 +37,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
         progressBar.style.width = '0%'
         // chỉnh thời gian chạy được về 0
         const currentTimeDisplay = document.querySelector('.startTime')
-        currentTimeDisplay.innerHTML = playingSong ? '0:00' : '--:--' 
+        currentTimeDisplay.innerHTML = playingSong ? '0:00' : '--:--'
         const audioElement = document.getElementById('audioBox')
 
         while (audioElement.firstChild) {
@@ -74,13 +74,21 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     // next and prev btn
     const handleNextBtn = () => {
-        nextSong()
+        israndom
+            ? nextSong(1)
+            : nextSong(0)
     }
     const handlePrevBtn = () => {
         prevSong()
     }
 
     useEffect(() => {
+        if (isrepeat) {
+            audioRef.current.currentTime = 0
+            audioRef.current.play()
+            setIsended(false)
+            return
+        }
         isended && handleNextBtn()
         setIsended(false)
     }, [isended])
@@ -248,10 +256,10 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                                 <h4 className="onelineText">{playingSong.title || ''}</h4>
                             </Link>
                             <div className='underLink'>
-                                <p className="details_singer" style={{fontSize:'13px'}}>{playingSong.artist_name || ''}</p>
+                                <p className="details_singer" style={{ fontSize: '13px' }}>{playingSong.artist_name || ''}</p>
                             </div>
                         </div>
-                        {/* tim với thêm vào playlist */}
+
                     </div>
                 }
             </div>
@@ -271,8 +279,8 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
                             <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                                 {
                                     isplaying
-                                    ? <HiMiniPause size={20} />
-                                    : <FaPlay style={{ marginLeft: '4px' }} size={18} />
+                                        ? <HiMiniPause size={20} />
+                                        : <FaPlay style={{ marginLeft: '4px' }} size={18} />
                                 }
                             </div>
                     }
