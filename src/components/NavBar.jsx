@@ -2,12 +2,14 @@ import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
+import { AiOutlinePoweroff } from 'react-icons/ai'
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const NavBar = ({ user, tokens, setUser, setTokens}) => {
+    console.log('rerender nav bar')
 
     const handleLogout = () => {
         fetch(`${urlApiAudioServer}user/logout`, {
@@ -38,7 +40,7 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
                     <div className="infoUser">
                         <img src="https://i.pinimg.com/1200x/63/f8/fb/63f8fbab7ef0b960dff3913c0c27a9e1.jpg" />
                         <h3 className='userName'>{user.userName}</h3>
-                        <i className="fa-solid fa-power-off" onClick={handleLogout}></i>
+                        <AiOutlinePoweroff onClick={handleLogout} size={20} style={{cursor:'point'}}/>
                     </div>
                     :
                     <div className="loginSignin">
@@ -46,7 +48,7 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
                             Log In
                         </a>
                         <a href="/signin" className='navBtn'>
-                            Sign In
+                            Sign Up
                         </a>
                     </div>
             }

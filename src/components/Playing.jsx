@@ -16,7 +16,7 @@ const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 
-const Playing = ({ playingSong, nextSong, prevSong }) => {
+const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
     const [isloading, setIsLoading] = useState(false)
@@ -26,7 +26,7 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     const audioRef = useRef()
 
-
+    console.log('rerender playing')
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {
@@ -169,18 +169,29 @@ const Playing = ({ playingSong, nextSong, prevSong }) => {
 
     // send views
     useEffect(() => {
-        const timerRefreshToken =
-            playingSong &&
-            setTimeout(() => {
-                fetch(`${urlApiAudioServer}views/set`, {
-                    method: 'POST',
-                    headers: {
-                        'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 'songId': playingSong._id })
-                })
-            }, 100 * 1000)
+        let headers =
+            userid !== ''
+                ?
+                {
+                    'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
+                    'Content-Type': 'application/json',
+                    'x-client-id': userid
+                }
+                :
+                {
+                    'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
+                    'Content-Type': 'application/json'
+                }
+        let timerRefreshToken =
+                playingSong !== '' & isplaying &&
+                setTimeout(() => {
+                    fetch(`${urlApiAudioServer}views/set`, {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify({ 'songId': playingSong._id })
+                    })
+                }, 20 * 1000)
+       
 
         return () => clearTimeout(timerRefreshToken)
     }, [playingSong, isplaying])

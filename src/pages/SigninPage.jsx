@@ -72,11 +72,10 @@ const SigninPage = () => {
     return (
         <div className="containerL1">
             <div className="headerPage">
-                <i className="fa-brands fa-spotify"></i>
                 <h2>Spotify Clone</h2>
             </div>
             <div className="contentSignin">
-                <h2>Sign In</h2>
+                <h2>Sign Up</h2>
                 <form>
                     <div className="groupInput">
                         <InputRender

@@ -104,7 +104,8 @@ const HomePage = () => {
 
     // next and prev song
     const nextSong = (type) => {
-        if (type === 1 & playingList.length > 1) {
+        if (type === 1 & playingList.length > 1
+            ) {
             let randomIndex = Math.floor(Math.random() * playingList.length) 
             while(randomIndex === currentIndex){
                 randomIndex = Math.floor(Math.random() * playingList.length)
@@ -147,7 +148,6 @@ const HomePage = () => {
     }, [showPlayer])
 
 
-
     // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="homeContainer">
@@ -177,6 +177,7 @@ const HomePage = () => {
                     playingSong={playingSong}
                     nextSong={nextSong}
                     prevSong={prevSong}
+                    userid={user.userId}
                 />
             }
         </div>

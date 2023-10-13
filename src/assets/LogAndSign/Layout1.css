@@ -7,11 +7,12 @@
 
 
 .containerL1 {
-    position: relative;
-    min-width: 730px;
     background-color: transparent;
     background-image: linear-gradient(#222, #000);
     text-align: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
 }
 
 .headerPage {
@@ -25,16 +26,14 @@
     font-size: 30px;
     background-color: #000;
 }
-.headerPage i {
-    margin-right: 20px;
-    font-size: 2em;
-}
 
 
 .contentLogin, .contentSignin, .contentForgotPass, .contentRepass {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 730px;
+    justify-content: space-evenly;
     gap: 50px;
     margin: 30px auto 10px auto;
     padding: 50px;
@@ -91,4 +90,17 @@
     text-align: center;
     height: 14px;
     color: rgb(243, 61, 61);
+}
+
+/* ---------------------------------------- TABLET ----------------------------------- */
+@media (max-width: 768px) {
+    .headerPage{
+        font-size: 22px;
+    }
+    .contentLogin, .contentSignin, .contentForgotPass, .contentRepass {
+        margin-top: 15px;
+        width: 100%;
+        gap: 15px;
+        padding: 20px;
+    }
 }

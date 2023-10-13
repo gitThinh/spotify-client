@@ -24,7 +24,8 @@
 
 /* custom scroll bar  */
 ::-webkit-scrollbar {
-  visibility: hidden;
+  position: absolute;
+  right: 0;
   width: 6px;
   background-color: transparent;
 }

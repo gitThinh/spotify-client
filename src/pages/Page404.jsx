@@ -2,7 +2,6 @@ const Page404 = () => {
     return (
         <div className="container404">
             <div className="headerPage" style={{ position: 'absolute' }}>
-                <i className="fa-brands fa-spotify"></i>
                 <h2>Spotify Clone</h2>
             </div>
             <div className="content404"

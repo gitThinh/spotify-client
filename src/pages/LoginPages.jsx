@@ -13,7 +13,6 @@ const LoginPages = () => {
     return (
         <div className='containerL1'>
             <div className="headerPage">
-                <i className="fa-brands fa-spotify"></i>
                 <h2>Spotify Clone</h2>
             </div>
             <div className="contentLogin">

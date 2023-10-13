@@ -33,6 +33,7 @@ a {
   color: #fff;
   text-decoration: inherit;
   transition: all .3s linear;
+  width: max-content;
 }
 a:hover {
   color: #1ED760;
