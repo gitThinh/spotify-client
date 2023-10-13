@@ -34,6 +34,7 @@ const HomePage = () => {
     // -------------------------------------------- FUNCTION ------------------------------------------
     // refreshToken
     useEffect(() => {
+        console.log(user);
         const timerRefreshToken = tokens && setTimeout(() => {
             fetch(`${urlApiAudioServer}user/refreshToken`, {
                 method: 'GET',
