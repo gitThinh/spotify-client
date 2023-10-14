@@ -14,6 +14,7 @@ import { PiListBold } from 'react-icons/pi'
 const urlApiSong = import.meta.env.VITE_API_URL_SONG
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
@@ -173,13 +174,13 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
             userid
                 ?
                 {
-                    'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
+                    'x-api-key': apiKey,
                     'Content-Type': 'application/json',
                     'x-client-id': userid
                 }
                 :
                 {
-                    'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
+                    'x-api-key': apiKey,
                     'Content-Type': 'application/json'
                 }
         let timerRefreshToken =

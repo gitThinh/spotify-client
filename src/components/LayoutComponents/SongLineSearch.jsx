@@ -15,10 +15,12 @@ const SongLineSearch = ({ song }) => {
         <div className="songsLineSearch">
             <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
             <div className="songsDetails">
-                <Link to={`/songs/${song._id}`}><h3 className="songsTitle onelineText underLink" >{song.title}</h3></Link>
+                <Link to={`/songs/${song._id}`} style={{ width: '100%', maxWidth: 'max-content' }}>
+                    <h3 className="songsTitle onelineText underLink" >{song.title}</h3>
+                </Link>
                 <p className="songsAuthor underLink">{song.artist_name}</p>
             </div>
-            <p className="songsCount typeCenter" style={{gap:'5px'}}>{song.views}<FaHeadphonesAlt size={14}/></p>
+            <p className="songsCount typeCenter" style={{ gap: '5px' }}>{song.views}<FaHeadphonesAlt size={14} /></p>
             <p className="songsTimer typeCenter">{formatTime(song.duration)}</p>
         </div>
     )

@@ -115,23 +115,12 @@
 .songsLine .songsDetails .songsTitle,
 .songsLineSearch .songsDetails .songsTitle{
     color: #fff;
+    max-width: max-content;
 }
 .songsLine .songsDetails .songsAuthor,
 .songsLineSearch .songsDetails .songsAuthor{
     color: #aaa;
     font-size: 13px;
-}
-.songsLine .songsRemove{
-    color: #fff;
-    background-color: transparent;
-    font-size: 18px;
-    border-radius: 50%;
-    width: 50px;
-    scale: .8;
-    transition: all .3s ease-in-out;
-}
-.songsLine .songsRemove:hover{
-    background-color: #aaa;
 }
 
 
