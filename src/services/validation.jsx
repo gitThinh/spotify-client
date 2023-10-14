@@ -7,7 +7,7 @@ const isEmail = (value) => {
     return re.test(value);
 }
 const isPassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[1-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[1-9])(?=.*[_-+=!@#$%^&*])[A-Za-z\d_-+=!@#$%^&*]{8,}$/
     return passwordRegex.test(password);
   };
 
