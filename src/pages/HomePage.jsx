@@ -34,7 +34,6 @@ const HomePage = () => {
     // -------------------------------------------- FUNCTION ------------------------------------------
     // refreshToken
     useEffect(() => {
-        console.log(user);
         const timerRefreshToken = tokens && setTimeout(() => {
             fetch(`${urlApiAudioServer}user/refreshToken`, {
                 method: 'GET',
@@ -52,7 +51,7 @@ const HomePage = () => {
                         setTokens(JSON.parse(Cookies.get('Tokens')))
                     }
                 })
-        }, 30 * 60 * 1000)
+        }, 29 * 60 * 1000)
         return () => clearTimeout(timerRefreshToken)
     }, [tokens])
 

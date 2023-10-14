@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
@@ -9,6 +9,13 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const NavBar = ({ user, tokens, setUser, setTokens}) => {
+
+    useEffect(() => { // xóa cookie khi đóng tab mà k đóng trình duyệt
+        window.addEventListener('beforeunload', function() {
+            user && (document.cookie = "User=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;")
+            tokens && (document.cookie = "Tokens=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;")
+        })
+    },[])
     console.log('rerender nav bar')
 
     const handleLogout = () => {
@@ -39,8 +46,8 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
                 user !== '' ?
                     <div className="infoUser">
                         <img src="https://i.pinimg.com/1200x/63/f8/fb/63f8fbab7ef0b960dff3913c0c27a9e1.jpg" />
-                        <h3 className='userName'>{user.username}</h3>
-                        <AiOutlinePoweroff onClick={handleLogout} size={20} style={{cursor:'point'}}/>
+                        <h3 className='userName'>{user.userName}</h3>
+                        <AiOutlinePoweroff onClick={handleLogout} size={20} style={{cursor:'pointer'}}/>
                     </div>
                     :
                     <div className="loginSignin">

@@ -170,7 +170,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     // send views
     useEffect(() => {
         let headers =
-            userid !== ''
+            userid
                 ?
                 {
                     'x-api-key': '95ac0fd7e00b88716525d3167d12b245c472dafe5a8f529afb053590c099',
