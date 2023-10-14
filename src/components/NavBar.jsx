@@ -9,12 +9,13 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const NavBar = ({ user, tokens, setUser, setTokens }) => {
-    useEffect(() => {
-        window.addEventListener('beforeunload', () => {
-            Cookies.remove('User')
-            Cookies.remove('Tokens')
-        })
-    }, [])
+    // khi không dùng được accesstoken thì xóa cookie đi
+    // useEffect(() => {
+    //     window.addEventListener('beforeunload', () => {
+    //         Cookies.remove('User')
+    //         Cookies.remove('Tokens')
+    //     })
+    // }, [])
     console.log('rerender nav bar')
 
     const handleLogout = () => {
