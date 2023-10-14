@@ -8,34 +8,34 @@ const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
 
-const NavBar = ({ user, tokens, setUser, setTokens}) => {
-
-    useEffect(() => { // xóa cookie khi đóng tab mà k đóng trình duyệt
-        window.addEventListener('beforeunload', function() {
-            user && (document.cookie = "User=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;")
-            tokens && (document.cookie = "Tokens=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;")
+const NavBar = ({ user, tokens, setUser, setTokens }) => {
+    useEffect(() => {
+        window.addEventListener('beforeunload', () => {
+            Cookies.remove('User')
+            Cookies.remove('Tokens')
         })
-    },[])
+    }, [])
     console.log('rerender nav bar')
 
     const handleLogout = () => {
-        fetch(`${urlApiAudioServer}user/logout`, {
-            method: 'POST',
-            headers: {
-                'x-api-key': apiKey,
-                'Authorization': tokens.accessToken,
-                'x-client-id': user.userId
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if(data.statusCode === 200) {
-                    Cookies.remove('User')
-                    Cookies.remove('Tokens')
-                    setTokens('')
-                    setUser('')
+        user &&
+            fetch(`${urlApiAudioServer}user/logout`, {
+                method: 'POST',
+                headers: {
+                    'x-api-key': apiKey,
+                    'Authorization': tokens.accessToken,
+                    'x-client-id': user.userId
                 }
             })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.statusCode === 200) {
+                        Cookies.remove('User')
+                        Cookies.remove('Tokens')
+                        setTokens('')
+                        setUser('')
+                    }
+                })
     }
 
 
@@ -47,7 +47,7 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
                     <div className="infoUser">
                         <img src="https://i.pinimg.com/1200x/63/f8/fb/63f8fbab7ef0b960dff3913c0c27a9e1.jpg" />
                         <h3 className='userName'>{user.userName}</h3>
-                        <AiOutlinePoweroff onClick={handleLogout} size={20} style={{cursor:'pointer'}}/>
+                        <AiOutlinePoweroff onClick={handleLogout} size={20} style={{ cursor: 'pointer' }} />
                     </div>
                     :
                     <div className="loginSignin">
@@ -62,11 +62,11 @@ const NavBar = ({ user, tokens, setUser, setTokens}) => {
 
             <nav className="navBarOptions" >
                 <Link to="/">
-                    <HiHome size={24}/>
+                    <HiHome size={24} />
                     Home
                 </Link>
                 <Link to="/search">
-                    <HiMagnifyingGlass size={24}/>
+                    <HiMagnifyingGlass size={24} />
                     Search
                 </Link>
             </nav>
