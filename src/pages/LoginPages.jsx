@@ -18,10 +18,10 @@ const LoginPages = () => {
             <div className="contentLogin">
                 <h2>Log in to Spotify</h2>
                 <div className="groupOptionsLogin">
-                    <div className="optionLogin">
+                    <a href="https://nth-audio.site/api/audio-server/user/auth/googleRedirect" className="optionLogin">
                         <FcGoogle size={22} />
                         <h4>Continue with Google</h4>
-                    </div>
+                    </a>
                     <div className="optionLogin">
                         <BsFacebook style={{ color: '#1877F2' }} size={22}/>
                         <h4>Continue with Facebook</h4>

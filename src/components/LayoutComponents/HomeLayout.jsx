@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import '../../assets/Home/HomeLayout.css'
 import ShowList from "./ShowList"
 

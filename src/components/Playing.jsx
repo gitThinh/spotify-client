@@ -27,7 +27,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
     const audioRef = useRef()
 
-    console.log('rerender playing')
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {
@@ -184,8 +183,9 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                     'Content-Type': 'application/json'
                 }
         let timerRefreshToken =
-                playingSong !== '' & isplaying &&
+                playingSong !== ''&&
                 setTimeout(() => {
+                    isplaying &&
                     fetch(`${urlApiAudioServer}views/set`, {
                         method: 'POST',
                         headers: headers,
@@ -195,7 +195,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
        
 
         return () => clearTimeout(timerRefreshToken)
-    }, [playingSong, isplaying])
+    }, [playingSong])
 
 
     // volume control 
@@ -262,7 +262,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
             <div className="infoMusic">
                 {playingSong &&
                     <div className='boxInfo'>
-                        <img src={playingSong && `${urlApiImg + playingSong.coverArt}` || ''} crossOrigin="anonymous" alt="thumbnail" />
+                        <img src={playingSong && `${urlApiImg + playingSong.coverArt}` || ''} alt="thumbnail" />
                         <div className="infoMusic_details">
                             <Link to={`/songs/${playingSong._id}`} className='underLink'>
                                 <h4 className="onelineText">{playingSong.title || ''}</h4>

@@ -16,7 +16,7 @@ const SongLine = ({ song, addToPlayingList, index }) => {
     return (
         <div className="songsLine" onDoubleClick={() => addToPlayingList(song, index)}>
             <p className="songsIndex typeCenter">{index + 1}</p>
-            <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
+            <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} />
             <div className="songsDetails">
                 <Link to={`/songs/${song._id}`}><h3 className="songsTitle onelineText underLink" >{song.title}</h3></Link>
                 <p className="songsAuthor underLink">{song.artist_name}</p>

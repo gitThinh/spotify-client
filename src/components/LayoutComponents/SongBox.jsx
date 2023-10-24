@@ -11,7 +11,7 @@ const SongBox = ({ song, changePlayingList}) => {
     return (
         <Link to={`/songs/${song._id}`}>
                 <div className="songsBox">
-                    <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
+                    <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} />
                     <div className="detailSong">
                         <h3 className="songsTitle onelineText">{song.title}</h3>
                         <p className="songsAuthor onelineText">{song.artist_name}</p>

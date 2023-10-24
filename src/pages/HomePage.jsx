@@ -1,7 +1,8 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
+import Page404 from '../pages/Page404'
 import NavBar from "../components/NavBar"
 import Playing from "../components/Playing"
 import HomeLayout from '../components/LayoutComponents/HomeLayout'
@@ -25,6 +26,25 @@ const HomePage = () => {
     const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false) //sửa thanh chạy không hiện khi chưa chọn bài
+
+    const history = useNavigate()
+    const location = useLocation()
+    const searchParams = new URLSearchParams(location.search)
+    useEffect(() => {
+        const userId = searchParams.get('userId')
+        const userName = searchParams.get('userName')
+        const accessToken = searchParams.get('accessToken')
+        const refreshToken = searchParams.get('refreshToken')
+        if (userId && userName && accessToken && refreshToken !== false) {
+            Cookies.set('Tokens', JSON.stringify({accessToken, refreshToken}))
+            Cookies.set('User', JSON.stringify({userId, userName}))
+            history('/')
+            setUser({userId, userName})
+            setTokens({accessToken, refreshToken})
+        }
+        // nhờ anh hưng chỉnh giùm chổ refresh token về & chứ k phải $
+    }, [])
+
 
     //lấy dữ liệu user từ cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
@@ -68,6 +88,7 @@ const HomePage = () => {
                 .then(response => response.json())
                 .then(data => setRcmList(data.metadata))
         setIsRcm(false)
+        console.log(rcmList.length)
     }, [playingSong])
 
 
@@ -154,8 +175,8 @@ const HomePage = () => {
             <div className="container">
                 <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
                 <Routes>
-                    <Route index element={<HomeLayout changePlayingList={changePlayingList} />} />
-                    <Route path='/queue'
+                    <Route path='/' element={<HomeLayout changePlayingList={changePlayingList} />} />
+                    <Route path='queue'
                         element={
                             <Queue
                                 playingList={playingList}
@@ -170,6 +191,8 @@ const HomePage = () => {
                         <SongDetail changePlayingList={changePlayingList} />
                     } />
                     <Route path='/search' element={<SearchPage changePlayingList={changePlayingList} />} />
+                    <Route element={<Page404 />} />
+
                 </Routes>
             </div>
             { //sửa thanh chạy không hiện khi chưa chọn bài

@@ -4,6 +4,7 @@ import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa'
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const apiKey = import.meta.env.VITE_API_API_KEY
 
 const SongDetail = ({ changePlayingList }) => {
@@ -31,7 +32,7 @@ const SongDetail = ({ changePlayingList }) => {
         <div className="showSong">
             <div className="headerSongPage">
                 <div className="thumbSong">
-                    <img src={`http://nth-audio.site/images/${songDetail.coverArt}`} alt={songDetail.title} />
+                    <img src={urlApiImg + songDetail.coverArt} alt={songDetail.title} />
                 </div>
                 <div className="detailSong">
                     <h1 className="titleSong onelineText">{songDetail.title || ''}</h1>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom'
 import LoginPages from '../pages/LoginPages'
 import ForgotPass from '../pages/ForgotPass'
 import Page404 from '../pages/Page404'
@@ -15,7 +15,6 @@ const Routing = () => {
                 <Route path='/forgot' element={<ForgotPass/>} />
                 <Route path='/repass' element={<ResetPass/>} />
                 <Route path='/signin' element={<SigninPage/>} />
-                <Route element={<Page404/>} />
                 <Route path='/*' element={<HomePage/>} />
             </Routes>
         </Router>

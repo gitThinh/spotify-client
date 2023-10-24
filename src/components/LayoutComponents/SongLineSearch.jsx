@@ -13,7 +13,7 @@ const SongLineSearch = ({ song }) => {
     }
     return (
         <div className="songsLineSearch">
-            <img className="songsThumb" src={`${urlApiImg + song.coverArt}`} crossOrigin="anonymous" />
+            <img className="songsThumb" src={`${urlApiImg + song.coverArt}`}/>
             <div className="songsDetails">
                 <Link to={`/songs/${song._id}`} style={{ width: '100%', maxWidth: 'max-content' }}>
                     <h3 className="songsTitle onelineText underLink" >{song.title}</h3>
