@@ -27,10 +27,12 @@ const HomePage = () => {
     const [isRcm, setIsRcm] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false) //sửa thanh chạy không hiện khi chưa chọn bài
 
+
+    // lấy thông tin khi đăng nhập bằng gg
     const history = useNavigate()
     const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
     useEffect(() => {
+        const searchParams = new URLSearchParams(location.search)
         const userId = searchParams.get('userId')
         const userName = searchParams.get('userName')
         const accessToken = searchParams.get('accessToken')
