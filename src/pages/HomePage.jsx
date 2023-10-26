@@ -90,7 +90,6 @@ const HomePage = () => {
                 .then(response => response.json())
                 .then(data => setRcmList(data.metadata))
         setIsRcm(false)
-        console.log(rcmList.length)
     }, [playingSong])
 
 

@@ -46,7 +46,7 @@ const NavBar = ({ user, tokens, setUser, setTokens }) => {
             {
                 user !== '' ?
                     <div className="infoUser">
-                        <img src="https://i.pinimg.com/1200x/63/f8/fb/63f8fbab7ef0b960dff3913c0c27a9e1.jpg" />
+                        <img src='./src/assets/avt.jpg' />
                         <h3 className='userName'>{user.userName}</h3>
                         <AiOutlinePoweroff onClick={handleLogout} size={20} style={{ cursor: 'pointer' }} />
                     </div>

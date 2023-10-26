@@ -5,7 +5,6 @@ import ShowList from "./ShowList"
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 
 const HomeLayout = ({ changePlayingList }) => {
-    console.log(urlApiAudioServer)
     // ------------------------------------------------ RENDER --------------------------------------------------------
     return (
         <div className="homeLayout">
