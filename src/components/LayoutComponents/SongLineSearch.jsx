@@ -12,7 +12,7 @@ const SongLineSearch = ({ song }) => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     }
     return (
-        <div className="songsLineSearch">
+        <div className="songsLineSearch songsLine">
             <img className="songsThumb" src={`${urlApiImg + song.coverArt}`}/>
             <div className="songsDetails">
                 <Link to={`/songs/${song._id}`} style={{ width: '100%', maxWidth: 'max-content' }}>

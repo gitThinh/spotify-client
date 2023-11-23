@@ -35,6 +35,11 @@ const SongDetail = ({ changePlayingList }) => {
                     <img src={urlApiImg + songDetail.coverArt} alt={songDetail.title} />
                 </div>
                 <div className="detailSong">
+                    <div className="detailPageOption">
+                        <button className="startSong" onClick={() => changePlayingList(songDetail)}>
+                            <FaPlay size={25} />
+                        </button>
+                    </div>
                     <h1 className="titleSong onelineText">{songDetail.title || ''}</h1>
                     <div className="artistDuration">
                         <p className="actist">{songDetail.artist_name}</p>
@@ -49,11 +54,7 @@ const SongDetail = ({ changePlayingList }) => {
                 </div>
             </div>
             <div className="bodySongPage">
-                <div className="detailPageOption">
-                    <button className="startSong" onClick={() => changePlayingList(songDetail)}>
-                        <FaPlay size={22}/>
-                    </button>
-                </div>
+
             </div>
         </div>
     );
