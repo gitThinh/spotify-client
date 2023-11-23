@@ -1,69 +1,32 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
 import ShowList from "./ShowList"
 import SongLineSearch from "./SongLineSearch"
-import { HiMagnifyingGlass } from 'react-icons/hi2'
 import { FaCircleXmark } from "react-icons/fa6"
 import { FaPlay } from "react-icons/fa"
 
 
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
 
-const SearchPage = ({ changePlayingList }) => {
-    const [search, setSearch] = useState('')
-    const [results, setResults] = useState([])
-    const [isSearch, setIsSearch] = useState(false)
-
-
-    const handleSearch = async (e) => {
-        e.preventDefault()
-        const response = await fetch(`${urlApiAudioServer}search?keyword=${search}`,
-            {
-                headers: {
-                    'x-api-key': apiKey
-                }
-            })
-        const data = await response.json()
-        setResults(data.metadata)
-        setIsSearch(true)
-    }
-
-    const handleSentInput = (e) => {
-        if (e.key === 'Enter' & search !== '') {
-            handleSearch(e)
-        }
-    }
+const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
+    window.scrollTo(0,0)
 
     return (
         <div className="searchLayout">
-            <div className="searchPage">
-                <div className="searchBox">
-                    <HiMagnifyingGlass onClick={search !== '' ? handleSearch : () => { }} size={22}/>
-                    <input type="text"
-                        className="textSearch"
-                        placeholder="Nhập thông tin muốn tìm"
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                        onKeyDown={handleSentInput}
-                    />
-                </div>
-            </div>
             {
-                results.length > 0 ?
+                resulfSearch.length > 0 ?
                     <div className="showResult">
                         <div className="topResult">
                             <h3 className="sectionTitle">Top Result</h3>
-                            <Link to={`/songs/${results[0]._id}`}>
+                            <Link to={`/songs/${resulfSearch[0]._id}`}>
                                 <div className="topResultBox">
-                                    <img src={`${urlApiImg + results[0].coverArt}`} className="imgTopResult" />
-                                    <h2 className="titleTopResult onelineText">{results[0].title}</h2>
-                                    <h4 className="artistTopResult">{results[0].artist_name}</h4>
+                                    <img src={`${urlApiImg + resulfSearch[0].coverArt}`} className="imgTopResult" />
+                                    <h2 className="titleTopResult onelineText">{resulfSearch[0].title}</h2>
+                                    <h4 className="artistTopResult">{resulfSearch[0].artist_name}</h4>
                                     <button className="startSong"
                                         onClick={(e) => {
                                             e.preventDefault()
-                                            changePlayingList(results[0], 1)
+                                            changePlayingList(resulfSearch[0], 1)
                                         }}
                                     >
                                         <FaPlay size={22}/> 
@@ -74,7 +37,7 @@ const SearchPage = ({ changePlayingList }) => {
                         <div className="listResult">
                             <h3 className="sectionTitle">Songs</h3>
                             {
-                                results.map((result, index) => {
+                                resulfSearch.map((result, index) => {
                                     return (
                                         index < 5 &&
                                         <div key={index} onDoubleClick={() => changePlayingList(result)}>

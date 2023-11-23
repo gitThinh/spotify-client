@@ -2,7 +2,6 @@
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: #000;
 }
 
 .underLink:hover {
@@ -23,19 +22,22 @@
 
 
 /* custom scroll bar  */
-::-webkit-scrollbar {
+.haveScroll{
+  overflow-y: scroll;
+}
+.haveScroll::-webkit-scrollbar {
   position: absolute;
   right: 0;
   width: 6px;
   background-color: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+.haveScroll::-webkit-scrollbar-thumb {
   background-color: #666;
   border-radius: 6px;
 }
 
-::-webkit-scrollbar-track:hover {
+.haveScroll::-webkit-scrollbar-track:hover {
   background-color: #888;
 }
 

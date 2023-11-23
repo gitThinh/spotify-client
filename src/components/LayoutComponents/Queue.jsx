@@ -9,7 +9,6 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
     return (
         <div className="queueLayout">
             <div className="queuePage">
-                <h1>Danh Sách Phát</h1>
                 <div className="playingSongs" style={{ padding: '20px' }}>
                     <h3 style={{ marginBottom: '20px' }}>Bài đang phát:</h3>
                     {

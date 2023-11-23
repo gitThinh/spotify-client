@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
+import { AiOutlinePoweroff } from 'react-icons/ai'
 
 import Page404 from '../pages/Page404'
 import NavBar from "../components/NavBar"
@@ -9,6 +10,7 @@ import HomeLayout from '../components/LayoutComponents/HomeLayout'
 import SongDetail from '../components/LayoutComponents/SongDetail'
 import Queue from '../components/LayoutComponents/Queue'
 import SearchPage from '../components/LayoutComponents/SearchPage'
+import SearchBox from '../components/LayoutComponents/searchBox'
 
 import '../assets/Home/layout2.css'
 
@@ -27,6 +29,9 @@ const HomePage = () => {
     const [isRcm, setIsRcm] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false) //sửa thanh chạy không hiện khi chưa chọn bài
 
+    const [resulfSearch, setResulfSearch] = useState([])
+    const [isSearch, setIsSearch] = useState(false)
+
 
     // lấy thông tin khi đăng nhập bằng gg
     const history = useNavigate()
@@ -38,11 +43,11 @@ const HomePage = () => {
         const accessToken = searchParams.get('accessToken')
         const refreshToken = searchParams.get('refreshToken')
         if (userId && userName && accessToken && refreshToken !== false) {
-            Cookies.set('Tokens', JSON.stringify({accessToken, refreshToken}))
-            Cookies.set('User', JSON.stringify({userId, userName}))
+            Cookies.set('Tokens', JSON.stringify({ accessToken, refreshToken }))
+            Cookies.set('User', JSON.stringify({ userId, userName }))
             history('/')
-            setUser({userId, userName})
-            setTokens({accessToken, refreshToken})
+            setUser({ userId, userName })
+            setTokens({ accessToken, refreshToken })
         }
         // nhờ anh hưng chỉnh giùm chổ refresh token về & chứ k phải $
     }, [])
@@ -170,31 +175,95 @@ const HomePage = () => {
     }, [showPlayer])
 
 
+    // handle logout
+    const handleLogout = () => {
+        user &&
+            fetch(`${urlApiAudioServer}user/logout`, {
+                method: 'POST',
+                headers: {
+                    'x-api-key': apiKey,
+                    'Authorization': tokens.accessToken,
+                    'x-client-id': user.userId
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.statusCode === 200) {
+                        Cookies.remove('User')
+                        Cookies.remove('Tokens')
+                        setTokens('')
+                        setUser('')
+                    }
+                })
+    }
+
     // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="homeContainer">
             <div className="container">
                 <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
-                <Routes>
-                    <Route path='/' element={<HomeLayout changePlayingList={changePlayingList} />} />
-                    <Route path='queue'
-                        element={
-                            <Queue
-                                playingList={playingList}
-                                currentIndex={currentIndex}
-                                rcmList={rcmList}
-                                addToPlayingList={addToPlayingList}
-                                playSongInPL={playSongInPL}
-                            />
+                <div className="bounderChildLayout haveScroll">
+                    <div className="headerUser">
+                        <div>
+                            {
+                                <Routes>
+                                    <Route path='/search'
+                                        element={<SearchBox
+                                            setResulfSearch={setResulfSearch}
+                                            setIsSearch={setIsSearch}
+                                            style={{ visibility: 'visible' }}
+                                        />}
+                                    />
+                                </Routes>
+                            }
+                        </div>
+                        {
+                            user !== '' ?
+                                <div className="infoUser">
+                                    <AiOutlinePoweroff onClick={handleLogout} size={20} style={{ cursor: 'pointer' }} className='detailsUser' />
+                                    <h3 className='userName detailsUser'>{user.userName}</h3>
+                                    <img src='./src/assets/avt.jpg'
+                                        onClick={() => {
+                                            const detailsUser = document.querySelectorAll('.detailsUser')
+                                            detailsUser[1].style.opacity === '0'
+                                                ? detailsUser[1].style.display = 'block'
+                                                : detailsUser[1].style.display = 'none'
+                                        }}
+                                    />
+                                </div>
+                                :
+                                <div className="loginSignin infoUser">
+                                    <a href="/signin" className='navBtn'>
+                                        Sign Up
+                                    </a>
+                                    <a href="/login" className='navBtn'>
+                                        Log In
+                                    </a>
+                                </div>
                         }
-                    />
-                    <Route path='/songs/:id' element={
-                        <SongDetail changePlayingList={changePlayingList} />
-                    } />
-                    <Route path='/search' element={<SearchPage changePlayingList={changePlayingList} />} />
-                    <Route element={<Page404 />} />
-
-                </Routes>
+                    </div>
+                    <Routes>
+                        <Route path='/' element={<HomeLayout changePlayingList={changePlayingList} />} />
+                        <Route path='queue'
+                            element={
+                                <Queue
+                                    playingList={playingList}
+                                    currentIndex={currentIndex}
+                                    rcmList={rcmList}
+                                    addToPlayingList={addToPlayingList}
+                                    playSongInPL={playSongInPL}
+                                />
+                            }
+                        />
+                        <Route path='/songs/:id' element={
+                            <SongDetail changePlayingList={changePlayingList} />
+                        } />
+                        <Route path='/search'
+                            element={<SearchPage changePlayingList={changePlayingList} resulfSearch={resulfSearch} isSearch={isSearch} />}
+                        />
+                        <Route path='*' element={<Page404 />} />
+                    </Routes>
+                </div>
             </div>
             { //sửa thanh chạy không hiện khi chưa chọn bài
                 showPlayer && <Playing

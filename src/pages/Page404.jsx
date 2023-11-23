@@ -1,9 +1,6 @@
 const Page404 = () => {
     return (
         <div className="container404">
-            <div className="headerPage" style={{ position: 'absolute' }}>
-                <h2>Spotify Clone</h2>
-            </div>
             <div className="content404"
                 style={{
                     height: '100vh',
@@ -19,7 +16,7 @@ const Page404 = () => {
                 <a href="/" className="tranferPages">Home</a>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Page404;
+export default Page404

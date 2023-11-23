@@ -1,11 +1,10 @@
-.homeLayout .titlePages, 
-.queuePage>h1 {
-    font-size: 2rem;
-    text-align: center;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #333;
+.showSong,
+.homeLayout,
+.queueLayout,
+.searchLayout{
+    margin-top: 80px;
 }
+
 
 .renderRows {
     display: grid;
@@ -28,15 +27,15 @@
     height: 100%;
     padding: 12px 15px 25px 15px;
     border-radius: 8px;
-    background-color: transparent;
-    background-image: linear-gradient(#181818, #222);
     flex: 0;
     cursor: pointer;
+    transition: background-color .5s ease;
 }
 .songsBox:hover{
-    background-image: linear-gradient(#333, #353535);
+    background-image: linear-gradient(#121212, #141414);
 }
 .songsBox .songsThumb {
+    min-width: 100px;
     width: 100%;
     flex-shrink: 1;
     border-radius: inherit;
@@ -47,6 +46,7 @@
     flex-direction: column;
 }
 .songsBox .detailSong .songsTitle {
+    font-size: 18px;
     color: #fff;
 }
 .songsBox .detailSong .songsTitle:hover,
@@ -78,7 +78,6 @@
 .activeSong.songsLine{
     background-color: #222;
 }
-.activeSong.songsLine i,
 .activeSong.songsLine .songsDetails .songsTitle{
     color: #1ED760;
 }
@@ -166,8 +165,7 @@
 }
 
 .detailSong .titleSong{
-    font-size: 3rem;
-    padding-bottom: 10px;
+    font-size: 3.5rem;
     margin: 20px 0;
 }
 .artistDuration{
@@ -199,52 +197,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1ED760;
+    background-color: #fff;
     transition: all .3s ease;
 }
 .addPlaylist:hover, 
 .startSong:hover{
-    box-shadow: 1px 0px 8px #51996a;
+    box-shadow: 1px 0px 8px #464646;
     scale: 1.1;
-}
-.addPlaylist i,
-.startSong i
-{
-    font-size: 23px;
 }
 /* detail song page */
 
 /* --------------------------------------------- Search ------------------------------------------- */
 /* search page */
-.searchPage{
-    border-bottom: 1px solid #333;
-    padding: 0 0 20px 50px;
-}
-.searchBox{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    width: 400px;
-    padding: 0 25px;
-    border-radius: 25px;
-    border: 1px solid #333;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    transition: all .3s ease-in-out;
-}
-.searchBox:hover{
-    border: 1px solid #aaa;
-}
-.searchBox input{
-    padding: 15px 0;
-    background-color: inherit;
-    width: 100%;
-    outline: none;
-    border: none;
-    color: inherit;
-    font-size: inherit;
+.searchHeader{
+    padding: 15px 0 15px 50px;
 }
 .showResult{
     margin-top: 30px;
@@ -305,4 +271,3 @@
 
 
 /* search page */
-

@@ -1,66 +1,17 @@
 import { memo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
-import { AiOutlinePoweroff } from 'react-icons/ai'
-
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
+import { FaCompass } from 'react-icons/fa6'
 
 
-const NavBar = ({ user, tokens, setUser, setTokens }) => {
-    // khi không dùng được accesstoken thì xóa cookie đi
-    // useEffect(() => {
-    //     window.addEventListener('beforeunload', () => {
-    //         Cookies.remove('User')
-    //         Cookies.remove('Tokens')
-    //     })
-    // }, [])
+
+const NavBar = () => {
     console.log('rerender nav bar')
-
-    const handleLogout = () => {
-        user &&
-            fetch(`${urlApiAudioServer}user/logout`, {
-                method: 'POST',
-                headers: {
-                    'x-api-key': apiKey,
-                    'Authorization': tokens.accessToken,
-                    'x-client-id': user.userId
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.statusCode === 200) {
-                        Cookies.remove('User')
-                        Cookies.remove('Tokens')
-                        setTokens('')
-                        setUser('')
-                    }
-                })
-    }
 
 
 
     return (
         <div className="navBar">
-            {
-                user !== '' ?
-                    <div className="infoUser">
-                        <img src='./src/assets/avt.jpg' />
-                        <h3 className='userName'>{user.userName}</h3>
-                        <AiOutlinePoweroff onClick={handleLogout} size={20} style={{ cursor: 'pointer' }} />
-                    </div>
-                    :
-                    <div className="loginSignin">
-                        <a href="/login" className='navBtn'>
-                            Log In
-                        </a>
-                        <a href="/signin" className='navBtn'>
-                            Sign Up
-                        </a>
-                    </div>
-            }
-
             <nav className="navBarOptions" >
                 <Link to="/">
                     <HiHome size={24} />
@@ -69,6 +20,10 @@ const NavBar = ({ user, tokens, setUser, setTokens }) => {
                 <Link to="/search">
                     <HiMagnifyingGlass size={24} />
                     Search
+                </Link>
+                <Link to="/search">
+                    <FaCompass size={22} />
+                    Khám Phá
                 </Link>
             </nav>
             {/* components Library */}
