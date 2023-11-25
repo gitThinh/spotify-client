@@ -24,11 +24,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Debug
-        run: |
-          ls -al
-          ls -al dist
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -38,4 +33,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: main  # Đổi thành nhánh bạn muốn triển khai lên
-          FOLDER: dist
+          FOLDER: ./dist
