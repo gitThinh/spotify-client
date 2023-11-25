@@ -139,6 +139,28 @@
     border-radius: 8px;
     padding: 10px;
     overflow: auto;
+    margin-top: 15px;
+}
+.navBarLibrary .navBarLibrary__title{
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .26px;
+    gap: 15px;
+}
+.navBarLibrary .navBarLibrary__addPlaylist{
+    margin-top: 20px;
+    color: #fff;
+    background-color: #404040;
+    border-radius: 30px;
+    padding: 12px 18px;
+    transition: all .3s ease;
+}
+.navBarLibrary .navBarLibrary__addPlaylist:hover{
+    background-color: #444;
+    box-shadow: 2px 1px 8px #404040;
 }
 
 
