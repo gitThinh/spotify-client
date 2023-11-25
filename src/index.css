@@ -1,5 +1,4 @@
 :root {
-  font-family: 'Roboto Condensed', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -43,6 +42,7 @@ body {
   flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 h1 {
