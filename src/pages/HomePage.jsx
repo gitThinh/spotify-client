@@ -10,7 +10,7 @@ import HomeLayout from '../components/LayoutComponents/HomeLayout'
 import SongDetail from '../components/LayoutComponents/SongDetail'
 import Queue from '../components/LayoutComponents/Queue'
 import SearchPage from '../components/LayoutComponents/SearchPage'
-import SearchBox from '../components/LayoutComponents/searchBox'
+import SearchBox from '../components/LayoutComponents/searchBox.jsx'
 
 import '../assets/Home/layout2.css'
 
