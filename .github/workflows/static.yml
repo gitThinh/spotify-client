@@ -24,6 +24,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Debug
+        run: |
+          ls -al
+          ls -al dist
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
