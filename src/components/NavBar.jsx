@@ -14,11 +14,11 @@ const NavBar = () => {
             <nav className="navBarOptions" >
                 <Link to="/">
                     <HiHome className='navBarOptions__icons' />
-                    Home
+                    Trang Chủ
                 </Link>
                 <Link to="/search">
                     <HiMagnifyingGlass className='navBarOptions__icons' />
-                    Search
+                    Tìm Kiếm
                 </Link>
                 <Link to="/search">
                     <FaCompass className='navBarOptions__icons' />

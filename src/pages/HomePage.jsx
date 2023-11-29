@@ -234,10 +234,10 @@ const HomePage = () => {
                                 :
                                 <div className="loginSignin infoUser">
                                     <a href="/signin" className='navBtn'>
-                                        Sign Up
+                                        Đăng Ký
                                     </a>
                                     <a href="/login" className='navBtn'>
-                                        Log In
+                                        Đăng Nhập
                                     </a>
                                 </div>
                         }

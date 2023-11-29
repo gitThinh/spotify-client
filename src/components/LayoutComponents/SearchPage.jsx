@@ -17,7 +17,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                 resulfSearch.length > 0 ?
                     <div className="showResult">
                         <div className="topResult">
-                            <h3 className="sectionTitle">Top Result</h3>
+                            <h3 className="sectionTitle">Kết quả tìm kiếm hàng đầu</h3>
                             <Link to={`/songs/${resulfSearch[0]._id}`}>
                                 <div className="topResultBox">
                                     <img src={`${urlApiImg + resulfSearch[0].coverArt}`} className="imgTopResult" />
@@ -35,7 +35,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                             </Link>
                         </div>
                         <div className="listResult">
-                            <h3 className="sectionTitle">Songs</h3>
+                            <h3 className="sectionTitle">Bài hát</h3>
                             {
                                 resulfSearch.map((result, index) => {
                                     return (
