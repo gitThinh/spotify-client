@@ -2,6 +2,8 @@
     --navbar_L_width: 250px;
     --navbar_M_width: 180px;
     --s_space: 10px;
+    --sz_icon_library: 18px;
+    --navIcons_sz: 20px;
 }
 
 .homeContainer{
@@ -115,47 +117,61 @@
     gap: 5px;
     height: 100%;
 }
+.navBar .navBarLine{
+    margin: 0 15px;
+    display: block;
+    height: 1px;
+    background-color: #4c4c4c;
+}
 .navBar .navBarOptions{
     display: flex;
     flex-direction: column;
     background-color: #121212;
-    padding: 40px 35px;
+    padding: 30px 25px;
     gap: 12px;
     min-height: max-content;
-    border-bottom: 1px solid #7E7E7E;
 }
 .navBar .navBarOptions a{
-    font-size: 20px;
+    font-size: 16px;
     width: 100%;
     display: flex;
-    align-items: center;
-    gap: 18px;
+    gap: 30px;
 }
+.navBar .navBarOptions .navBarOptions__icons{
+    font-size: var(--navIcons_sz);
+}
+
 .navBar .navBarLibrary{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
     background-color: #121212;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     overflow: auto;
     margin-top: 15px;
 }
 .navBarLibrary .navBarLibrary__title{
-    padding-left: 20px;
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: .26px;
     gap: 15px;
 }
+.navBarLibrary .navBarLibrary__title svg.navBarOptions__icons{
+    width: var(--sz_icon_library);
+    height: var(--sz_icon_library);
+}
 .navBarLibrary .navBarLibrary__addPlaylist{
+    width: 100%;
+    font-size: 14px;
     margin-top: 20px;
     color: #fff;
     background-color: #404040;
     border-radius: 30px;
-    padding: 12px 18px;
+    padding: 12px 0;
     transition: all .3s ease;
 }
 .navBarLibrary .navBarLibrary__addPlaylist:hover{
