@@ -35,7 +35,7 @@ const ForgotPass = () => {
                 <h2>Spotify Clone</h2>
             </div>
             <div className="contentForgotPass">
-                <h2>Forgot Password</h2>
+                <h2>Quên Mật Khẩu</h2>
                 <form
                     style={{
                         display: 'flex',

@@ -53,7 +53,7 @@
     justify-content: center;
     align-items: center;
 }
-.optionLogin {
+.groupOptionsLogin .optionLogin {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -65,10 +65,7 @@
     opacity: .6;
     transition: all .3s linear;
 }
-.optionLogin i {
-    font-size: 1.2em;
-}
-.optionLogin:hover {
+.groupOptionsLogin .optionLogin:hover {
     cursor: pointer;
     border: 1px solid #fff;
     opacity: 1;

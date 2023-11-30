@@ -16,22 +16,22 @@ const LoginPages = () => {
                 <h2>Spotify Clone</h2>
             </div>
             <div className="contentLogin">
-                <h2>Log in to Spotify</h2>
+                <h2>Đăng Nhập</h2>
                 <div className="groupOptionsLogin">
                     <a href="https://nth-audio.site/api/audio-server/user/auth/googleRedirect" className="optionLogin">
                         <FcGoogle size={22} />
-                        <h4>Continue with Google</h4>
+                        <h4>Đăng nhập với Google</h4>
                     </a>
                     <div className="optionLogin">
                         <BsFacebook style={{ color: '#1877F2' }} size={22}/>
-                        <h4>Continue with Facebook</h4>
+                        <h4>Đăng nhập với Facebook</h4>
                     </div>
                     <div className="optionLogin">
                         <BsApple size={22}/>
-                        <h4>Continue with Apple</h4>
+                        <h4>Đăng nhập với Apple</h4>
                     </div>
                     <div className="optionLogin">
-                        <h4>Continue with phone number</h4>
+                        <h4>Đăng nhập với số điện thoại</h4>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@ const LoginPages = () => {
                 <span className='lineCut'></span>
                 <LoginFormRender />
                 <Link to="/forgot" style={{ textDecoration: 'underline' }}>
-                    Forgot your password?
+                    Quên mật khẩu?
                 </Link>
                 {/* -------------------------------------------------------------------------------------- */}
                 <span className='lineCut'></span>

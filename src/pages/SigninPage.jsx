@@ -75,7 +75,7 @@ const SigninPage = () => {
                 <h2>Spotify Clone</h2>
             </div>
             <div className="contentSignin">
-                <h2>Sign Up</h2>
+                <h2>Đăng Ký</h2>
                 <form>
                     <div className="groupInput">
                         <InputRender

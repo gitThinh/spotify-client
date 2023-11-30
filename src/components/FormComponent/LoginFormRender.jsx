@@ -74,7 +74,7 @@ const LoginFormRender = () => {
                     }}>
                     <span className="ball"></span>
                 </div>
-                <p>Remember me</p>
+                <p style={{fontSize: "16px"}}>Lưu mật khẩu</p>
             </div>
             <button className='active' type="submit" onClick={handleLogin}>Đăng Nhập</button>
             <p className='msg' style={{ maxWidth: '350px', marginTop: '15px' }}>{error}</p>
