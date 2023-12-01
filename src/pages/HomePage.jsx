@@ -49,7 +49,6 @@ const HomePage = () => {
             setUser({ userId, userName })
             setTokens({ accessToken, refreshToken })
         }
-        // nhờ anh hưng chỉnh giùm chổ refresh token về & chứ k phải $
     }, [])
 
 
@@ -197,11 +196,14 @@ const HomePage = () => {
                 })
     }
 
+    
+    
+
     // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="homeContainer">
             <div className="container">
-                <NavBar user={user} tokens={tokens} setUser={setUser} setTokens={setTokens} />
+                <NavBar user={user} />
                 <div className="bounderChildLayout haveScroll">
                     <div className="headerUser">
                         <div>
@@ -220,16 +222,18 @@ const HomePage = () => {
                         {
                             user !== '' ?
                                 <div className="infoUser">
-                                    <AiOutlinePoweroff onClick={handleLogout} size={20} style={{ cursor: 'pointer' }} className='detailsUser' />
-                                    <h3 className='userName detailsUser'>{user.userName}</h3>
                                     <img src='./src/assets/avt.jpg'
                                         onClick={() => {
-                                            const detailsUser = document.querySelectorAll('.detailsUser')
-                                            detailsUser[1].style.opacity === '0'
-                                                ? detailsUser[1].style.display = 'block'
-                                                : detailsUser[1].style.display = 'none'
+                                            const detailsUser = document.querySelector('.infoUserTable')
+                                            detailsUser.style.display === 'none'
+                                                ? detailsUser.style.display = 'block'
+                                                : detailsUser.style.display = 'none'
                                         }}
                                     />
+                                    <div className="infoUserTable" style={{display:'none'}}>
+                                        <h3 className='userName detailsUser onelineText'>Thịnh Nguyễn</h3>
+                                        <button onClick={handleLogout} className='infoUserTable__options' >Đăng xuất</button>
+                                    </div>
                                 </div>
                                 :
                                 <div className="loginSignin infoUser">
@@ -238,7 +242,7 @@ const HomePage = () => {
                                     </a>
                                     <a href="/login" className='navBtn'>
                                         Đăng Nhập
-                                    </a>
+                                    </a>                                    
                                 </div>
                         }
                     </div>

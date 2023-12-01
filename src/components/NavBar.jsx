@@ -5,7 +5,7 @@ import { FaCompass } from 'react-icons/fa6'
 
 
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
 
 
 
@@ -34,7 +34,19 @@ const NavBar = () => {
                     </svg>
                     Danh sách phát
                 </div>
-                <button className="navBarLibrary__addPlaylist" >Thêm danh sách phát</button>
+                {
+                    user ?
+                        <button className="navBarLibrary__addPlaylist" >Thêm danh sách phát</button>
+                        :
+                        <p style={{
+                            color: '#888',
+                            fontSize: '16px',
+                            textAlign: 'center',
+                            marginTop: '15px'
+                        }}>
+                            Vui lòng đăng nhập để sử dụng chức năng này
+                        </p>
+                }
             </div>
         </div>
     )
