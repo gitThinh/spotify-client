@@ -3,10 +3,32 @@ import { Link } from 'react-router-dom'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
 import { FaCompass } from 'react-icons/fa6'
 
+import '../assets/NavBar.css'
+
+const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+const apiKey = import.meta.env.VITE_API_API_KEY
 
 
-const NavBar = ({ user }) => {
 
+const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
+
+    const handleAddPlaylist = () => {
+        fetch(`${urlApiAudioServer}user/createPlaylist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': apiKey,
+                'Authorization': tokens.accessToken,
+                'x-client-id': user.userId
+            },
+            body: JSON.stringify({playListName : `My playlist #${showPlaylist.length}`})
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                data.statusCode === 201 && handleGetPlaylists()
+            })
+    }
 
 
     return (
@@ -35,8 +57,30 @@ const NavBar = ({ user }) => {
                     Danh sách phát
                 </div>
                 {
+                    user &&
+                    <div className="navBarLibrary__playlists haveScroll">
+                        {
+                            showPlaylist.length > 0 &&
+                            showPlaylist.map((playlist, index) => {
+                                return (
+                                    user &&
+                                    <Link to={`/playlist/${playlist._id}`} style={{width:'100%'}}  key={index}>
+                                        <div className="navBarLibrary__playlist">
+                                            <img src='https://nth-audio.site/images/avt.jpg' />
+                                            <div className="navBarLibrary__playlist__details">
+                                                <h3 className='onelineText'>{playlist.playListName}</h3>
+                                                <p className='onelineText'>Playlist . {user.userName}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        }
+                    </div>
+                }
+                {
                     user ?
-                        <button className="navBarLibrary__addPlaylist" >Thêm danh sách phát</button>
+                        <button className="navBarLibrary__addPlaylist" onClick={handleAddPlaylist}>Thêm danh sách phát</button>
                         :
                         <p style={{
                             color: '#888',

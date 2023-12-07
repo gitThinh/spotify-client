@@ -1,0 +1,116 @@
+.navBar {
+    width: var(--navbar_L_width);
+    background-color: #141414;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+}
+
+.navBar .navBarLine {
+    margin: 0 15px;
+    display: block;
+    height: 1px;
+    background-color: #4c4c4c;
+}
+
+.navBar .navBarOptions {
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    padding: 30px 25px;
+    gap: 12px;
+    min-height: max-content;
+}
+
+.navBar .navBarOptions a {
+    font-size: 16px;
+    width: 100%;
+    display: flex;
+    gap: 30px;
+}
+
+.navBar .navBarOptions .navBarOptions__icons {
+    font-size: var(--navIcons_sz);
+}
+
+/*---------------------------------------------------- Navbar PlayLists -----------------------------------------------------*/
+.navBar .navBarLibrary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.navBarLibrary .navBarLibrary__title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .26px;
+    gap: 15px;
+}
+
+.navBarLibrary .navBarLibrary__title svg.navBarOptions__icons {
+    width: var(--sz_icon_library);
+    height: var(--sz_icon_library);
+}
+
+.navBarLibrary .navBarLibrary__playlists{
+    max-height: 310px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+.navBarLibrary .navBarLibrary__playlists a:hover{
+    color: #fff;
+}
+.navBarLibrary .navBarLibrary__playlists .navBarLibrary__playlist{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+.navBarLibrary .navBarLibrary__playlists .navBarLibrary__playlist img{
+    width: 48px;
+    aspect-ratio: 1;
+    border-radius: 8px;
+}
+.navBarLibrary .navBarLibrary__playlists .navBarLibrary__playlist .navBarLibrary__playlist__details a{
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .62px;  
+}
+.navBarLibrary .navBarLibrary__playlists .navBarLibrary__playlist .navBarLibrary__playlist__details p{
+    font-size: 14px;
+    letter-spacing: .42px;
+}
+.navBarLibrary .navBarLibrary__playlists .navBarLibrary__playlist:hover{
+    background-color: #222;
+}
+
+.navBarLibrary .navBarLibrary__addPlaylist {
+    width: 100%;
+    font-size: 14px;
+    color: #fff;
+    background-color: #404040;
+    border-radius: 30px;
+    padding: 12px 0;
+    transition: all .3s ease;
+}
+
+.navBarLibrary .navBarLibrary__addPlaylist:hover {
+    background-color: #444;
+    box-shadow: 2px 1px 8px #404040;
+}
+

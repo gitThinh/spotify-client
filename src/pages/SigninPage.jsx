@@ -54,7 +54,6 @@ const SigninPage = () => {
             })
             await response.json()
                 .then(result => {
-                    console.log(result)
                     if (result.statusCode === 200) {
                         if (confirm("Đăng kí thành Công chuyển sang trang Đăng nhập ngay") == true)
                             history("/login")

@@ -23,6 +23,10 @@
 
 /* custom scroll bar  */
 .haveScroll{
+  position: relative;
+  overflow-y: hidden;
+}
+.haveScroll:hover{
   overflow-y: scroll;
 }
 .haveScroll::-webkit-scrollbar {
@@ -30,6 +34,7 @@
   right: 0;
   width: 6px;
   background-color: transparent;
+  z-index: 1;
 }
 
 .haveScroll::-webkit-scrollbar-thumb {
@@ -37,9 +42,6 @@
   border-radius: 6px;
 }
 
-.haveScroll::-webkit-scrollbar-track:hover {
-  background-color: #888;
-}
 
 /* custom oneline text  */
 .onelineText {

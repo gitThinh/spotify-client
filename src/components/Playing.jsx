@@ -183,17 +183,15 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                     'Content-Type': 'application/json'
                 }
         let timerRefreshToken =
-                playingSong !== ''&&
-                setTimeout(() => {
-                    isplaying &&
+            playingSong !== '' &&
+            setTimeout(() => {
+                isplaying &&
                     fetch(`${urlApiAudioServer}views/set`, {
                         method: 'POST',
                         headers: headers,
                         body: JSON.stringify({ 'songId': playingSong._id })
                     })
-                }, 20 * 1000)
-       
-
+            }, 20 * 1000)
         return () => clearTimeout(timerRefreshToken)
     }, [playingSong])
 
@@ -255,7 +253,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
 
 
-    // http://nth-audio.site/images/<Tên ảnh>
+    // https://nth-audio.site/images/<Tên ảnh>
     // ------------------------------------------------ RENDER ----------------------------------------------------------------
     return (
         <div className="playingBlock">

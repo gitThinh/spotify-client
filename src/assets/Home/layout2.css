@@ -1,18 +1,19 @@
-:root{
-    --navbar_L_width: 250px;
+:root {
+    --navbar_L_width: 280px;
     --navbar_M_width: 180px;
     --s_space: 10px;
     --sz_icon_library: 18px;
     --navIcons_sz: 20px;
 }
 
-.homeContainer{
+.homeContainer {
     display: flex;
     flex-direction: column;
     max-height: 100vh;
     max-width: 100vw;
 }
-.container{
+
+.container {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -21,14 +22,21 @@
     grid-template-columns: var(--navbar_L_width) auto;
 }
 
-.bounderChildLayout{
+.bounderChildLayout {
     position: relative;
     width: 100%;
     background-color: #000;
     overflow-y: scroll;
 }
+
+.sectionTitle {
+    padding-left: 20px;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
 /* ---------------------------------------- User inform ------------------------------------------------------ */
-.headerUser{
+.headerUser {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -40,7 +48,8 @@
     padding: 14px;
     background-color: #000;
 }
-.searchBox{
+
+.searchBox {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -54,10 +63,12 @@
     font-size: 16px;
     transition: all .3s ease-in-out;
 }
-.searchBox:hover{
+
+.searchBox:hover {
     border: 1px solid #aaa;
 }
-.searchBox input{
+
+.searchBox input {
     padding: 15px 0;
     background-color: inherit;
     width: 100%;
@@ -66,7 +77,8 @@
     color: inherit;
     font-size: inherit;
 }
-.headerUser .infoUser{
+
+.headerUser .infoUser {
     position: relative;
     padding: 15px;
     display: flex;
@@ -74,13 +86,15 @@
     align-items: center;
     gap: 10px;
 }
-.headerUser .infoUser img{
+
+.headerUser .infoUser img {
     cursor: pointer;
     width: 40px;
     height: 40px;
-    border-radius: 50pc;
+    border-radius: 50%;
 }
-.headerUser .infoUser .infoUserTable{
+
+.headerUser .infoUser .infoUserTable {
     position: absolute;
     width: 160px;
     background-color: #4c4c4c;
@@ -89,30 +103,38 @@
     transition: all .3s ease-in-out;
     top: 60px;
     right: 0;
-}
-.headerUser .infoUser .infoUserTable h3{
     text-align: center;
-    border-radius: 8px;
 }
-.infoUserTable__options{
+
+.headerUser .infoUser .infoUserTable h3 {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #777;
+}
+
+.infoUserTable__options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
     width: 100%;
     background-color: transparent;
     color: #fff;
-    margin-top: 5px;
     padding: 5px 0;
     font-size: 18px;
     border-radius: 5px;
     transition: all .3s ease;
 }
-.infoUserTable__options:hover{
+
+.infoUserTable__options:hover {
     background-color: #888;
 }
 
-.headerUser .loginSignin{
+.headerUser .loginSignin {
     gap: 8px;
     align-items: center;
 }
-.headerUser .loginSignin .navBtn{
+
+.headerUser .loginSignin .navBtn {
     display: block;
     font-size: 16px;
     font-weight: 600;
@@ -123,90 +145,15 @@
     background-color: #000;
     transition: all .5s ease;
 }
+
 .headerUser .loginSignin .navBtn:nth-child(2),
-.headerUser .loginSignin .navBtn:hover{
+.headerUser .loginSignin .navBtn:hover {
     background-color: #ddd;
     color: #000;
 }
-.headerUser .loginSignin .navBtn:nth-child(2):hover{
+
+.headerUser .loginSignin .navBtn:nth-child(2):hover {
     background-color: #888;
 }
+
 /* ---------------------------------------- User inform ------------------------------------------------------ */
-
-/* ----------------------------------------- Nav Bar ---------------------------------------*/
-.navBar{
-    width: var(--navbar_L_width);
-    background-color: #141414;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    height: 100%;
-}
-.navBar .navBarLine{
-    margin: 0 15px;
-    display: block;
-    height: 1px;
-    background-color: #4c4c4c;
-}
-.navBar .navBarOptions{
-    display: flex;
-    flex-direction: column;
-    background-color: #121212;
-    padding: 30px 25px;
-    gap: 12px;
-    min-height: max-content;
-}
-.navBar .navBarOptions a{
-    font-size: 16px;
-    width: 100%;
-    display: flex;
-    gap: 30px;
-}
-.navBar .navBarOptions .navBarOptions__icons{
-    font-size: var(--navIcons_sz);
-}
-
-.navBar .navBarLibrary{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    background-color: #121212;
-    border-radius: 8px;
-    padding: 15px;
-    overflow: auto;
-    margin-top: 15px;
-}
-.navBarLibrary .navBarLibrary__title{
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: .26px;
-    gap: 15px;
-}
-.navBarLibrary .navBarLibrary__title svg.navBarOptions__icons{
-    width: var(--sz_icon_library);
-    height: var(--sz_icon_library);
-}
-.navBarLibrary .navBarLibrary__addPlaylist{
-    width: 100%;
-    font-size: 14px;
-    margin-top: 20px;
-    color: #fff;
-    background-color: #404040;
-    border-radius: 30px;
-    padding: 12px 0;
-    transition: all .3s ease;
-}
-.navBarLibrary .navBarLibrary__addPlaylist:hover{
-    background-color: #444;
-    box-shadow: 2px 1px 8px #404040;
-}
-
-
-.sectionTitle{
-    padding-left: 20px;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}

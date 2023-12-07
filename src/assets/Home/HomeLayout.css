@@ -3,6 +3,7 @@
 .queueLayout,
 .searchLayout{
     margin-top: 80px;
+    position: relative;
 }
 
 

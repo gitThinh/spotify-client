@@ -30,7 +30,9 @@ const SongDetail = ({ changePlayingList }) => {
     // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="showSong">
-            <div className="headerSongPage">
+            <div className="headerSongPage" 
+                // style={{ background: `url('${urlApiImg + songDetail.coverArt}') left top/2000%`}}
+            >
                 <div className="thumbSong">
                     <img src={urlApiImg + songDetail.coverArt} alt={songDetail.title} />
                 </div>

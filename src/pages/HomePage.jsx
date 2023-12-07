@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
-import { AiOutlinePoweroff } from 'react-icons/ai'
+import { FiLogOut } from "react-icons/fi";
 
 import Page404 from '../pages/Page404'
 import NavBar from "../components/NavBar"
@@ -22,15 +22,30 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const HomePage = () => {
+    //danh sách phat
     const [playingList, setPlayingList] = useState([])
+    //danh sách đề xuất
     const [rcmList, setRcmList] = useState([])
+    //stt bài đang phát
     const [currentIndex, setCurrentIndex] = useState(0)
+    //bài đang phát
     const [playingSong, setPlayingSong] = useState('')
+    //xác nhận là có đã đề xuất chưa
     const [isRcm, setIsRcm] = useState(false)
-    const [showPlayer, setShowPlayer] = useState(false) //sửa thanh chạy không hiện khi chưa chọn bài
-
+    //sửa thanh chạy không hiện khi chưa chọn bài
+    const [showPlayer, setShowPlayer] = useState(false)
+    //kết quả tìm kiếm
     const [resulfSearch, setResulfSearch] = useState([])
+    //xác nhận là có đã tìm kiếm chưa
     const [isSearch, setIsSearch] = useState(false)
+    //danh sách playlist
+    const [showPlaylist, setShowPlaylist] = useState([])
+
+
+
+    //lấy dữ liệu user từ cookies
+    const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
+    const [tokens, setTokens] = useState(Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : '')
 
 
     // lấy thông tin khi đăng nhập bằng gg
@@ -52,9 +67,7 @@ const HomePage = () => {
     }, [])
 
 
-    //lấy dữ liệu user từ cookies
-    const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
-    const [tokens, setTokens] = useState(Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : '')
+
 
 
     // -------------------------------------------- FUNCTION ------------------------------------------
@@ -82,7 +95,7 @@ const HomePage = () => {
     }, [tokens])
 
 
-    //get rcm list
+    //lấy rcm list
     useEffect(() => {
         playingSong !== '' & isRcm &&
             fetch(`${urlMLServer + playingSong._id}`, {
@@ -196,14 +209,32 @@ const HomePage = () => {
                 })
     }
 
-    
-    
+    //playlists
+    const handleGetPlaylists = () => {
+        fetch(`${urlApiAudioServer}user/playLists`, {
+            headers: {
+                'x-api-key': apiKey,
+                'Authorization': tokens.accessToken,
+                'x-client-id': user.userId
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                data.statusCode === 200 &&
+                    setShowPlaylist(prev => prev !== data.metadata.playLists && data.metadata.playLists)
+            })
+    }
+    useEffect(() => {
+        user && handleGetPlaylists()
+    }, [])
+
+
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="homeContainer">
             <div className="container">
-                <NavBar user={user} />
+                <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} handleGetPlaylists={handleGetPlaylists} />
                 <div className="bounderChildLayout haveScroll">
                     <div className="headerUser">
                         <div>
@@ -222,7 +253,7 @@ const HomePage = () => {
                         {
                             user !== '' ?
                                 <div className="infoUser">
-                                    <img src='./src/assets/avt.jpg'
+                                    <img src='https://nth-audio.site/images/avt.jpg'
                                         onClick={() => {
                                             const detailsUser = document.querySelector('.infoUserTable')
                                             detailsUser.style.display === 'none'
@@ -230,9 +261,9 @@ const HomePage = () => {
                                                 : detailsUser.style.display = 'none'
                                         }}
                                     />
-                                    <div className="infoUserTable" style={{display:'none'}}>
-                                        <h3 className='userName detailsUser onelineText'>Thịnh Nguyễn</h3>
-                                        <button onClick={handleLogout} className='infoUserTable__options' >Đăng xuất</button>
+                                    <div className="infoUserTable" style={{ display: 'none' }}>
+                                        <h3 className='userName detailsUser onelineText'>{user.userName}</h3>
+                                        <button onClick={handleLogout} className='infoUserTable__options' ><FiLogOut size={20} />Đăng xuất</button>
                                     </div>
                                 </div>
                                 :
@@ -242,7 +273,7 @@ const HomePage = () => {
                                     </a>
                                     <a href="/login" className='navBtn'>
                                         Đăng Nhập
-                                    </a>                                    
+                                    </a>
                                 </div>
                         }
                     </div>
@@ -277,6 +308,10 @@ const HomePage = () => {
                     userid={user.userId}
                 />
             }
+            {/* playlist setting */}
+            <div className="playlistSetting">
+                <div className="playlistSetting__header"> </div>
+            </div>
         </div>
     )
 }
