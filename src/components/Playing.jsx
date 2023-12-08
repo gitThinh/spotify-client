@@ -185,7 +185,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         let timerRefreshToken =
             playingSong !== '' &&
             setTimeout(() => {
-                isplaying &&
                     fetch(`${urlApiAudioServer}views/set`, {
                         method: 'POST',
                         headers: headers,
