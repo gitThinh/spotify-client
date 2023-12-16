@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom'
 import LoginPages from '../pages/LoginPages'
 import ForgotPass from '../pages/ForgotPass'
-import Page404 from '../pages/Page404'
 import SigninPage from '../pages/SigninPage'
 import HomePage from '../pages/HomePage'
 import ResetPass from '../pages/ResetPass'
