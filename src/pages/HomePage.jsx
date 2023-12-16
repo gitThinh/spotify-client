@@ -105,7 +105,7 @@ const HomePage = () => {
                 },
             })
                 .then(response => response.json())
-                .then(data => data.statusCode === 200 && setRcmList(data.metadata))
+                .then(data.statusCode === 200 && setRcmList(data.metadata))
         setIsRcm(false)
     }, [playingSong])
 
