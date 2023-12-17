@@ -1,6 +1,9 @@
-import './App.css'
-import Routing from './services/Routing'
 import 'react-loading-skeleton/dist/skeleton.css'
+
+import Routing from '/src/routes/Routing'
+
+import './App.css'
+
 
 function App() {
 

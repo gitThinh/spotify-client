@@ -3,16 +3,16 @@ import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { FiLogOut } from "react-icons/fi";
 
-import Page404 from '../pages/Page404'
-import NavBar from "../components/NavBar"
-import Playing from "../components/Playing"
-import HomeLayout from '../components/LayoutComponents/HomeLayout'
-import SongDetail from '../components/LayoutComponents/SongDetail'
-import Queue from '../components/LayoutComponents/Queue'
-import SearchPage from '../components/LayoutComponents/SearchPage'
-import SearchBox from '../components/LayoutComponents/SearchBox'
+import Page404 from '/src/pages/Page404'
+import NavBar from "/src/components/NavBar"
+import Playing from "/src/components/Playing"
+import HomeLayout from '/src/layouts/HomeLayout'
+import SongDetail from '/src/layouts/SongDetail'
+import Queue from '/src/layouts/Queue'
+import SearchPage from '/src/layouts/SearchPage'
+import SearchBox from '/src/layouts/SearchBox'
 
-import '../assets/Home/layout2.css'
+import '/src/assets/Home/layout2.css'
 
 
 const urlMLServer = import.meta.env.VITE_API_API_MLSERVER
@@ -105,7 +105,7 @@ const HomePage = () => {
                 },
             })
                 .then(response => response.json())
-                .then(data => setRcmList(data.metadata))
+                .then(data => data.statusCode === 200 ? setRcmList(data.metadata) : setRcmList([]))
         setIsRcm(false)
     }, [playingSong])
 

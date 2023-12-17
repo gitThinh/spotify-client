@@ -1,6 +1,6 @@
 import { useState } from "react";
-import InputRender from "../components/FormComponent/InputRender";
-import { isNull, isPassword } from "../services/validation";
+import InputRender from "/src/components/InputRender";
+import { isNull, isPassword } from "/src/utils/validation";
 
 
 

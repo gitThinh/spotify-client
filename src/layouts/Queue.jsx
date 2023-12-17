@@ -1,6 +1,6 @@
 import { memo } from 'react'
-import SongLine from "./SongLine.jsx"
-import SongPlayingList from './SongPlayingList.jsx'
+import SongLine from "/src/layouts/SongLine.jsx"
+import SongPlayingList from '/src/layouts/SongPlayingList.jsx'
 
 const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL }) => {
 

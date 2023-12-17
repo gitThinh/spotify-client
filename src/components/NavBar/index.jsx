@@ -1,9 +1,9 @@
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
 import { FaCompass } from 'react-icons/fa6'
 
-import '../assets/NavBar.css'
+import '/src/components/NavBar/style.css'
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY

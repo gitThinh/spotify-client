@@ -1,4 +1,4 @@
-import '../../assets/Home/HomeLayout.css'
+import '/src/assets/Home/HomeLayout.css'
 import ShowList from "./ShowList"
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER

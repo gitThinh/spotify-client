@@ -43,9 +43,7 @@ body {
   flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Roboto Condensed', sans-serif;
-  font-family: 'Rubik', sans-serif;
+  font-family: CircularSp,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,Helvetica Neue,helvetica,arial,Hiragino Kaku Gothic ProN,Meiryo,MS Gothic,sans-serif;;
 }
 
 h1 {

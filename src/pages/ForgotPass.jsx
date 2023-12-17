@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
 
-import { isEmail, isNull } from "../services/validation";
-import InputRender from "../components/FormComponent/InputRender";
+import { isEmail, isNull } from "/src/utils/validation";
+import InputRender from "/src/components/InputRender";
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
@@ -11,7 +11,6 @@ const ForgotPass = () => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
 
-    // http://nth-audio.site/api/audio-server
 
     // -------------------------------------------------- FUNCTIONS ----------------------------------------------------
     const handleForgotPass = (e) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
-import '../assets/Playing.css'
 import { Link } from 'react-router-dom'
+
 import { ScaleLoader } from 'react-spinners'
 import { FaPlay, FaRandom } from 'react-icons/fa'
 import {
@@ -10,6 +10,7 @@ import {
 import { HiMiniPause, HiMiniMusicalNote } from 'react-icons/hi2'
 import { PiListBold } from 'react-icons/pi'
 
+import '/src/components/Playing/style.css'
 
 const urlApiSong = import.meta.env.VITE_API_URL_SONG
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
@@ -18,6 +19,8 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
+     
+
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
     const [isloading, setIsLoading] = useState(false)
@@ -32,7 +35,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     useEffect(() => {
         playingSong && setIsLoading(true)
         playingSong ? setIsplaying(true) : setIsplaying(false)
-        // chỉnh thanh chạy về đầu
+        // reset 
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
         // chỉnh thời gian chạy được về 0

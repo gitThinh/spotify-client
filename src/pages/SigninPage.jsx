@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate} from 'react-router-dom'
 
-import '../assets/LogAndSign/Layout1.css'
+import '/src/assets/LogAndSign/Layout1.css'
 
-import { isEmail, isPassword, isNull } from "../services/validation";
-import InputRender from "../components/FormComponent/InputRender";
+import { isEmail, isPassword, isNull } from "/src/utils/validation";
+import InputRender from "/src/components/InputRender";
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
