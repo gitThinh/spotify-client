@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate} from 'react-router-dom'
 
-import '/src/assets/LogAndSign/Layout1.css'
 
-import { isEmail, isPassword, isNull } from "/src/utils/validation";
-import InputRender from "/src/components/InputRender";
+import { isEmail, isPassword, isNull } from "/src/utils/validation"
+import InputRender from "/src/components/InputForm"
+
+import '/src/assets/LogAndSign/Layout1.css'
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
@@ -69,14 +70,14 @@ const SigninPage = () => {
 
     // -------------------------------------- Render --------------------------------
     return (
-        <div className="containerL1">
-            <div className="headerPage">
+        <div className="container_signin noone_coppy">
+            <div className="header_page">
                 <h2>Spotify Clone</h2>
             </div>
-            <div className="contentSignin">
+            <div className="content_signin">
                 <h2>Đăng Ký</h2>
                 <form>
-                    <div className="groupInput">
+                    <div className="group_input">
                         <InputRender
                             data={{
                                 name: 'email',
@@ -111,11 +112,11 @@ const SigninPage = () => {
                         <span className="checkmark"></span>
                         <p>Bạn đã đồng ý với các điều khoản và điều kiện</p>
                     </div>
-                    <button type="submit" className={isChecked ? 'active' : ''} id='submitSignin' onClick={handleSignin}>Đăng Ký</button>
+                    <button type="submit" className={isChecked ? 'active' : ''} id='submit_signin' onClick={handleSignin}>Đăng Ký</button>
                 </form>
                 <p className='msg'>{error}</p>
                 {/* -------------------------------------------------------------------------------------- */}
-                <span className='lineCut'></span>
+                <span className='line_cut'></span>
                 <p>Bạn đã có tài khoản
                     <Link to="/login" style={{
                         textDecoration: 'underline',

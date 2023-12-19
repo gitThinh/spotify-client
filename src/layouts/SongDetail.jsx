@@ -42,7 +42,7 @@ const SongDetail = ({ changePlayingList }) => {
                             <FaPlay size={25} />
                         </button>
                     </div>
-                    <h1 className="titleSong onelineText">{songDetail.title || ''}</h1>
+                    <h1 className="titleSong oneline_text">{songDetail.title || ''}</h1>
                     <div className="artistDuration">
                         <p className="actist">{songDetail.artist_name}</p>
                         <PiDotOutlineFill />

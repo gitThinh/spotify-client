@@ -4,8 +4,8 @@ import Cookies from 'js-cookie'
 import { BsFacebook, BsApple } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 
-import { isNull } from '/src/utils/validation.jsx'
-import InputRender from '/src/components/InputRender'
+import { isNull } from '/src/utils/validation'
+import InputRender from '/src/components/InputForm'
 
 import '/src/assets/LogAndSign/Layout1.css'
 import '/src/assets/LogAndSign/FormRender.css'
@@ -56,34 +56,31 @@ const LoginPages = () => {
 
 
     return (
-        <div className='containerL1'>
-            <div className="headerPage">
-                <h2>Spotify Clone</h2>
-            </div>
-            <div className="contentLogin">
+        <div className='container_login noone_coppy'>
+            <div className="content_login">
                 <h2>Đăng Nhập</h2>
-                <div className="groupOptionsLogin">
-                    <a href="https://nth-audio.site/api/audio-server/user/auth/googleRedirect" className="optionLogin">
+                <div className="group_options_login">
+                    <a href="https://nth-audio.site/api/audio-server/user/auth/googleRedirect" className="option_login">
                         <FcGoogle size={22} />
                         <h4>Đăng nhập với Google</h4>
                     </a>
-                    <div className="optionLogin">
+                    <div className="option_login">
                         <BsFacebook style={{ color: '#1877F2' }} size={22} />
                         <h4>Đăng nhập với Facebook</h4>
                     </div>
-                    <div className="optionLogin">
+                    <div className="option_login">
                         <BsApple size={22} />
                         <h4>Đăng nhập với Apple</h4>
                     </div>
-                    <div className="optionLogin">
+                    <div className="option_login">
                         <h4>Đăng nhập với số điện thoại</h4>
                     </div>
                 </div>
 
                 {/* -------------------------------------------------------------------------------------- */}
-                <span className='lineCut'></span>
+                <span className='line_cut'></span>
                 <form>
-                    <div className="groupInput">
+                    <div className="group_input">
                         <InputRender
                             data={{
                                 name: 'username',
@@ -99,8 +96,8 @@ const LoginPages = () => {
                                 getChange: function (e) { setPassword(e.target.value) }
                             }} />
                     </div>
-                    <div className='rememberMe'>
-                        <div id="toggleRM"
+                    <div className='remember_button'>
+                        <div id="toggle_RB"
                             onClick={(e) => {
                                 e.currentTarget.classList.toggle('active')
                             }}>
@@ -109,13 +106,13 @@ const LoginPages = () => {
                         <p style={{ fontSize: "16px" }}>Lưu mật khẩu</p>
                     </div>
                     <button className='active' type="submit" onClick={handleLogin}>Đăng Nhập</button>
-                    <p className='msg' style={{ maxWidth: '350px', marginTop: '15px' }}>{error}</p>
+                    <p className='msg'>{error}</p>
                 </form>
                 <Link to="/forgot" style={{ textDecoration: 'underline' }}>
                     Quên mật khẩu?
                 </Link>
                 {/* -------------------------------------------------------------------------------------- */}
-                <span className='lineCut'></span>
+                <span className='line_cut'></span>
                 <p>Chưa có tài khoản
                     <Link to="/signin" style={{
                         textDecoration: 'underline',

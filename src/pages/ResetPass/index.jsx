@@ -1,5 +1,6 @@
 import { useState } from "react";
-import InputRender from "/src/components/InputRender";
+
+import InputRender from "/src/components/InputForm";
 import { isNull, isPassword } from "/src/utils/validation";
 
 
@@ -32,11 +33,11 @@ const ResetPass = () => {
 
     // -------------------------------------- RENDER --------------------------------------
     return (
-        <div className="containerL1">
-            <div className="headerPage">
+        <div className="container_reset_pass noone_coppy">
+            <div className="header_page">
                 <h2>Spotify Clone</h2>
             </div>
-            <div className="contentRepass">
+            <div className="content_repass">
                 <h2>Reset Password</h2>
                 <form
                     style={{
@@ -45,7 +46,7 @@ const ResetPass = () => {
                         gap: '30px',
                     }}
                 >
-                    <div className="groupInput">
+                    <div className="group_input">
                         <InputRender
                             data={{
                                 name: 'password',

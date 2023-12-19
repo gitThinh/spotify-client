@@ -16,7 +16,7 @@ form input {
 }
 
 
-.rememberMe{
+.remember_button{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,7 +24,7 @@ form input {
     margin: 20px 0;
     font-size: 18px;
 }
-#toggleRM {
+#toggle_RB {
     width: 40px;
     height: 20px;
     background-color: #fff;
@@ -32,7 +32,7 @@ form input {
     cursor: pointer;
     transition: all .3s ease;
 }
-#toggleRM .ball{
+#toggle_RB .ball{
     display: block;
     width: 20px;
     scale: .8;
@@ -41,10 +41,10 @@ form input {
     background-color: #000;
     transition: all .3s linear;
 }
-#toggleRM.active{
+#toggle_RB.active{
     background-color: #1ED760;
 }
-#toggleRM.active .ball{
+#toggle_RB.active .ball{
     transform: translateX(24px);
 }
 
@@ -113,7 +113,7 @@ button[type="submit"].active:focus{
     color: #000;
 }
 
-.groupInput {
+.group_input {
     width: 100%;
     display: flex;
     flex-direction: column;

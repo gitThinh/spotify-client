@@ -72,3 +72,17 @@ button {
     background-color: #f9f9f9;
   }
 }
+
+@keyframes slide{
+  0% {
+      transform: translateX(80%);
+      opacity: 0;
+  }
+  40%{
+      opacity: 0;
+  }
+  100%{
+      transform: translateX(0);
+      opacity: 1;
+  }
+}

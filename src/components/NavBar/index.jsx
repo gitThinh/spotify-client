@@ -36,15 +36,15 @@ const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
             <nav className="navBarOptions" >
                 <Link to="/">
                     <HiHome className='navBarOptions__icons' />
-                    Trang Chủ
+                    <p>Trang Chủ</p>
                 </Link>
                 <Link to="/search">
                     <HiMagnifyingGlass className='navBarOptions__icons' />
-                    Tìm Kiếm
+                    <p>Tìm Kiếm</p>
                 </Link>
                 <Link to="/search">
                     <FaCompass className='navBarOptions__icons' />
-                    Khám Phá
+                    <p>Khám Phá</p>
                 </Link>
             </nav>
             <span className='navBarLine'></span>
@@ -68,8 +68,8 @@ const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
                                         <div className="navBarLibrary__playlist">
                                             <img src='https://nth-audio.site/images/avt.jpg' />
                                             <div className="navBarLibrary__playlist__details">
-                                                <h3 className='onelineText'>{playlist.playListName}</h3>
-                                                <p className='onelineText'>Playlist . {user.userName}</p>
+                                                <h3 className='oneline_text'>{playlist.playListName}</h3>
+                                                <p className='oneline_text'>Playlist . {user.userName}</p>
                                             </div>
                                         </div>
                                     </Link>

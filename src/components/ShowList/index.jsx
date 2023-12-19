@@ -1,10 +1,13 @@
 import { useState, useEffect, memo} from "react"
-import SongBox from "./SongBox";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+import SongBox from "/src/components/SongBox"
+
+import '/src/components/ShowList/style.css'
 
 
 const apiKey = import.meta.env.VITE_API_API_KEY
+
 
 const ShowList = ({ link, title, changePlayingList }) => {
     const [listSongs, setListSongs] = useState([])
@@ -31,9 +34,9 @@ const ShowList = ({ link, title, changePlayingList }) => {
         <SkeletonTheme baseColor="#444" highlightColor="#888">
             {
                 listSongs.length > 0 ?
-                    <div style={{ paddingTop: '20px' }}>
-                        <h3 className='sectionTitle'>{title}</h3>
-                        <div className="renderRows">
+                    <div className="showlist_box">
+                        <h2>{title}</h2>
+                        <div className="showlist_grid_box">
                             {
                                 listSongs.map((song) => {
                                     return (
@@ -46,39 +49,40 @@ const ShowList = ({ link, title, changePlayingList }) => {
                         </div>
                     </div>
                     :
-                    <div style={{ paddingTop: '40px' }}>
+                    <div className="showlist_box">
                         <Skeleton width={200} height={30} style={{ margin: '0 20px' }} />
-                        <div className="renderRows" >
-                            <div className="songsBox">
-                                <Skeleton height={150} />
-                                <Skeleton height={22} />
-                                <Skeleton height={22} />
-                            </div>
-                            <div className="songsBox">
-                                <Skeleton height={150} />
-                                <Skeleton height={22} />
-                                <Skeleton height={22} />
-                            </div>
-                            <div className="songsBox">
+                        <div className="showlist_grid_box" >
+                            <div className="box_skeleton">
                                 <Skeleton height={150} />
                                 <Skeleton height={22} />
                                 <Skeleton height={18} />
                             </div>
-                            <div className="songsBox">
+                            <div className="box_skeleton">
                                 <Skeleton height={150} />
                                 <Skeleton height={22} />
                                 <Skeleton height={22} />
                             </div>
-                            <div className="songsBox">
+                            <div className="box_skeleton">
                                 <Skeleton height={150} />
                                 <Skeleton height={22} />
                                 <Skeleton height={22} />
                             </div>
-                            <div className="songsBox">
+                            <div className="box_skeleton">
                                 <Skeleton height={150} />
                                 <Skeleton height={22} />
                                 <Skeleton height={22} />
                             </div>
+                            <div className="box_skeleton">
+                                <Skeleton height={150} />
+                                <Skeleton height={22} />
+                                <Skeleton height={22} />
+                            </div>
+                            <div className="box_skeleton">
+                                <Skeleton height={150} />
+                                <Skeleton height={22} />
+                                <Skeleton height={22} />
+                            </div>
+                            
                         </div>
                     </div>
             }

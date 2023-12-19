@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 
+import '/src/components/searchBox/style.css'
+
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
@@ -17,7 +19,7 @@ const SearchBox = ({ setResulfSearch, setIsSearch }) => {
                 }
             })
         const data = await response.json()
-        setResulfSearch(data.metadata)
+        data.statusCode === 200 && setResulfSearch(data.metadata)
         setIsSearch(true)
     }
 
@@ -31,7 +33,7 @@ const SearchBox = ({ setResulfSearch, setIsSearch }) => {
             <HiMagnifyingGlass size={22} />
             <input type="text"
                 className="textSearch"
-                placeholder="Nhập thông tin muốn tìm"
+                placeholder="Nhập thông tin bạn muốn tìm"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 onKeyDown={handleSentInput}

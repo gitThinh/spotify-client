@@ -1,8 +1,12 @@
 .navBar {
-    width: var(--navbar_L_width);
-    background-color: #141414;
+    --s_space: 10px;
+    --sz_icon_library: 18px;
+    --navIcons_sz: 26px;
+    
     display: flex;
     flex-direction: column;
+    width: var(--navbar_L_width);
+    background-color: #141414;
     gap: 5px;
     height: 100%;
 }
@@ -19,19 +23,25 @@
     flex-direction: column;
     background-color: #121212;
     padding: 30px 25px;
-    gap: 12px;
+    gap: 15px;
     min-height: max-content;
 }
 
 .navBar .navBarOptions a {
-    font-size: 16px;
-    width: 100%;
     display: flex;
+    align-items: flex-end;
     gap: 30px;
+    width: 100%;
+    margin-left: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: .60px;
 }
 
 .navBar .navBarOptions .navBarOptions__icons {
-    font-size: var(--navIcons_sz);
+    width: var(--navIcons_sz);
+    height: var(--navIcons_sz);
 }
 
 /*---------------------------------------------------- Navbar PlayLists -----------------------------------------------------*/

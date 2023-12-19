@@ -1,13 +1,12 @@
 import { memo } from 'react'
-import SongLine from "/src/layouts/SongLine.jsx"
-import SongPlayingList from '/src/layouts/SongPlayingList.jsx'
+
+import SongLine from "/src/components/SongLine"
+import SongPlayingList from '/src/components/SongPlayingList'
+
 
 const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL }) => {
-
-
-
     return (
-        <div className="queueLayout">
+        <div className="queueLayout noone_coppy">
             <div className="queuePage" style={{ padding: '20px 35px' }}>
                 <div className="playingSongs">
                     <h3 style={{ marginBottom: '20px' }}>Bài đang phát:</h3>

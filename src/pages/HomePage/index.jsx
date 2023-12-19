@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi"
 
 import Page404 from '/src/pages/Page404'
 import NavBar from "/src/components/NavBar"
@@ -10,7 +10,9 @@ import HomeLayout from '/src/layouts/HomeLayout'
 import SongDetail from '/src/layouts/SongDetail'
 import Queue from '/src/layouts/Queue'
 import SearchPage from '/src/layouts/SearchPage'
-import SearchBox from '/src/layouts/SearchBox'
+import SearchBox from '/src/components/SearchBox'
+
+import handleGetPlaylists from '/src/utils/getPlayLists'
 
 import '/src/assets/Home/layout2.css'
 
@@ -22,33 +24,24 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const HomePage = () => {
-    //danh sách phat
     const [playingList, setPlayingList] = useState([])
-    //danh sách đề xuất
     const [rcmList, setRcmList] = useState([])
-    //stt bài đang phát
     const [currentIndex, setCurrentIndex] = useState(0)
-    //bài đang phát
     const [playingSong, setPlayingSong] = useState('')
-    //xác nhận là có đã đề xuất chưa
     const [isRcm, setIsRcm] = useState(false)
-    //sửa thanh chạy không hiện khi chưa chọn bài
     const [showPlayer, setShowPlayer] = useState(false)
-    //kết quả tìm kiếm
     const [resulfSearch, setResulfSearch] = useState([])
-    //xác nhận là có đã tìm kiếm chưa
     const [isSearch, setIsSearch] = useState(false)
-    //danh sách playlist
     const [showPlaylist, setShowPlaylist] = useState([])
 
 
 
-    //lấy dữ liệu user từ cookies
+    //get data user from cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
     const [tokens, setTokens] = useState(Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : '')
 
 
-    // lấy thông tin khi đăng nhập bằng gg
+    // get inform when login with gg
     const history = useNavigate()
     const location = useLocation()
     useEffect(() => {
@@ -95,7 +88,7 @@ const HomePage = () => {
     }, [tokens])
 
 
-    //lấy rcm list
+    //get rcm list
     useEffect(() => {
         playingSong !== '' & isRcm &&
             fetch(`${urlMLServer + playingSong._id}`, {
@@ -110,14 +103,14 @@ const HomePage = () => {
     }, [playingSong])
 
 
-    // chọn bài hát mới reset lại playinglist và rcm
+    // select new song, reset playinglist and rcm
     const changePlayingList = (pList) => {
-        showPlayer === false && setShowPlayer(true) //sửa thanh chạy không hiện khi chưa chọn bài
+        showPlayer === false && setShowPlayer(true) 
         setPlayingList([pList])
         setIsRcm(true)
     }
 
-    // thêm vào danh sách bài hát đang phát ở rcm list
+    // add song into playinglist
     const addToPlayingList = (pList, index) => {
         setPlayingList(prev => [...prev, pList])
         const newArray = [...rcmList]
@@ -125,7 +118,7 @@ const HomePage = () => {
         setRcmList(newArray)
     }
 
-    // cập nhật current index và playing song khi playing list thay đổi
+    // update current index and playing song when add new song into playinglist
     useEffect(() => {
         playingList.length > 0 &&
             setCurrentIndex(playingList.length - 1)
@@ -133,7 +126,7 @@ const HomePage = () => {
             setPlayingSong(playingList[playingList.length - 1])
     }, [playingList])
 
-    // chọn bài hát khi ở trên playing list
+    // select song at playing list
     const playSongInPL = (index) => {
         setIsRcm(false)
         setPlayingSong(playingList[index])
@@ -141,7 +134,7 @@ const HomePage = () => {
     }
 
 
-    // next and prev song
+    // handle next and prev song
     const nextSong = (type) => {
         if (type === 1 & playingList.length > 1
         ) {
@@ -178,11 +171,11 @@ const HomePage = () => {
     }
 
 
-    //sửa thanh chạy không hiện khi chưa chọn bài
+    // change container width when show playing component 
     useEffect(() => {
         if (playingList.length > 0) {
             let showControler = document.querySelector('.container')
-            showControler.style.height = 'calc(100vh - 90px)'
+            showControler.style.height = 'calc(100vh - 80px)'
         }
     }, [showPlayer])
 
@@ -209,23 +202,9 @@ const HomePage = () => {
                 })
     }
 
-    //playlists
-    const handleGetPlaylists = () => {
-        fetch(`${urlApiAudioServer}user/playLists`, {
-            headers: {
-                'x-api-key': apiKey,
-                'Authorization': tokens.accessToken,
-                'x-client-id': user.userId
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                data.statusCode === 200 &&
-                    setShowPlaylist(prev => prev !== data.metadata.playLists && data.metadata.playLists)
-            })
-    }
+    // get playlists
     useEffect(() => {
-        user && handleGetPlaylists()
+        user && handleGetPlaylists(tokens, user, setShowPlaylist)
     }, [])
 
 
@@ -262,7 +241,7 @@ const HomePage = () => {
                                         }}
                                     />
                                     <div className="infoUserTable" style={{ display: 'none' }}>
-                                        <h3 className='userName detailsUser onelineText'>{user.userName}</h3>
+                                        <h3 className='userName detailsUser oneline_text'>{user.userName}</h3>
                                         <button onClick={handleLogout} className='infoUserTable__options' ><FiLogOut size={20} />Đăng xuất</button>
                                     </div>
                                 </div>

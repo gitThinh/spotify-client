@@ -1,0 +1,25 @@
+.showlist_box{
+    padding-top: 20px;
+}
+
+.showlist_box h2{
+    font-size: 22px;
+    margin-left: 20px;
+    letter-spacing: .52px;
+    font-weight: 500;
+}
+
+.showlist_box .box_skeleton{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #121212;
+}
+
+.showlist_grid_box {
+    --index-item: 6;
+    display: grid;
+    grid-template-columns: repeat(var(--index-item), 1fr);
+    column-gap: 20px;
+    row-gap: 1.5rem;
+    padding: 20px;
+}

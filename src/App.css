@@ -1,17 +1,19 @@
 #root {
+  --navbar_L_width: 330px;
+  --navbar_M_width: 200px;
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
 }
 
-.underLink:hover {
+.under_link:hover {
   cursor: pointer;
   text-decoration: underline;
   color: inherit;
   transition: all .2s ease;
 }
 
-.tranferPages {
+.tranfer_pages {
   display: block;
   font-size: 18px;
   background-color: #FFF;
@@ -21,17 +23,10 @@
 }
 
 
-/* custom scroll bar  */
-.haveScroll{
-  position: relative;
-  overflow-y: hidden;
-}
-.haveScroll:hover{
-  overflow-y: scroll;
-}
+/* custom scroll bar */
 .haveScroll::-webkit-scrollbar {
   position: absolute;
-  right: 0;
+  right: 6px;
   width: 6px;
   background-color: transparent;
   z-index: 1;
@@ -43,8 +38,8 @@
 }
 
 
-/* custom oneline text  */
-.onelineText {
+/* custom oneline text */
+.oneline_text {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -52,9 +47,20 @@
   word-break: break-all;
 }
 
-/* type in center  */
-.typeCenter{
+/* content in center */
+.content_center{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* make nobody can select object */
+.noone_coppy{
+  -moz-user-select: none !important;
+  -webkit-touch-callout: none!important;
+  -webkit-user-select: none!important;
+  -khtml-user-select: none!important;
+  -moz-user-select: none!important;
+  -ms-user-select: none!important;
+  user-select: none!important;
 }

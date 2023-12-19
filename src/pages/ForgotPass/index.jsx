@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
 
-import { isEmail, isNull } from "/src/utils/validation";
-import InputRender from "/src/components/InputRender";
+import { isEmail, isNull } from "/src/utils/validation"
+import InputRender from "/src/components/InputForm"
 
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
+// const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+// const apiKey = import.meta.env.VITE_API_API_KEY
 
 const ForgotPass = () => {
     const [email, setEmail] = useState('')
@@ -24,16 +24,12 @@ const ForgotPass = () => {
             return
         }
         setError('Vui lòng kiểm tra Email của bạn để lấy lại mật khẩu')
-
     }
 
     // -------------------------------------------------- RENDER ----------------------------------------------------
     return (
-        <div className="containerL1">
-            <div className="headerPage">
-                <h2>Spotify Clone</h2>
-            </div>
-            <div className="contentForgotPass">
+        <div className="container_forgot_pass noone_coppy">
+            <div className="content_forgot_pass">
                 <h2>Quên Mật Khẩu</h2>
                 <form
                     style={{
@@ -42,7 +38,7 @@ const ForgotPass = () => {
                         gap: '30px',
                     }}
                 >
-                    <div className="groupInput">
+                    <div className="group_input">
                         <InputRender
                             data={{
                                 name: 'email',
@@ -58,7 +54,7 @@ const ForgotPass = () => {
                     {error}
                 </p>
                 {/* -------------------------------------------------------------------------------------- */}
-                <span className='lineCut'></span>
+                <span className='line_cut'></span>
                 <p>Bạn đã có tài khoản
                     <Link to="/login" style={{
                         textDecoration: 'underline',

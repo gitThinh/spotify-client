@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom'
-import LoginPages from '../pages/LoginPages'
-import ForgotPass from '../pages/ForgotPass'
-import Page404 from '../pages/Page404'
-import SigninPage from '../pages/SigninPage'
-import HomePage from '../pages/HomePage'
-import ResetPass from '../pages/ResetPass'
+import LoginPages from '/src/pages/LoginPage'
+import ForgotPass from '/src/pages/ForgotPass'
+import SigninPage from '/src/pages/SigninPage'
+import HomePage from '/src/pages/HomePage'
+import ResetPass from '/src/pages/ResetPass'
 
 
 const Routing = () => {

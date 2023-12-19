@@ -1,5 +1,4 @@
-
-const InputRender = (props) => {
+const InputForm = (props) => {
     const data = props.data
     return (
         <div>
@@ -9,4 +8,4 @@ const InputRender = (props) => {
     )
 }
 
-export default InputRender
+export default InputForm

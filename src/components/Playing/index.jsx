@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-
 import { ScaleLoader } from 'react-spinners'
 import { FaPlay, FaRandom } from 'react-icons/fa'
 import {
@@ -10,7 +9,12 @@ import {
 import { HiMiniPause, HiMiniMusicalNote } from 'react-icons/hi2'
 import { PiListBold } from 'react-icons/pi'
 
+
+import formatTime from '/src/utils/formatTime'
+
+
 import '/src/components/Playing/style.css'
+
 
 const urlApiSong = import.meta.env.VITE_API_URL_SONG
 const urlApiImg = import.meta.env.VITE_API_URL_IMG
@@ -19,7 +23,7 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
-     
+
 
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
@@ -35,13 +39,13 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     useEffect(() => {
         playingSong && setIsLoading(true)
         playingSong ? setIsplaying(true) : setIsplaying(false)
-        // reset 
+        // reset progress width
         const progressBar = document.querySelector('.progress_bar')
         progressBar.style.width = '0%'
-        // chỉnh thời gian chạy được về 0
-        const currentTimeDisplay = document.querySelector('.startTime')
+        // reset current time
+        const currentTimeDisplay = document.querySelector('.start_time')
         currentTimeDisplay.innerHTML = playingSong ? '0:00' : '--:--'
-        const audioElement = document.getElementById('audioBox')
+        const audioElement = document.getElementById('audio_box')
 
         while (audioElement.firstChild) {
             audioElement.removeChild(audioElement.firstChild)
@@ -54,7 +58,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         newSourceElement.src = playingSong ? `${urlApiSong + playingSong.file_name}` : ''
 
         newAudioElement.appendChild(newSourceElement)
-        newAudioElement.crossOrigin = "anonymous"
         newAudioElement.autoplay = true
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
@@ -97,16 +100,11 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     }, [isended])
 
     // control progressBar
-    function formatTime(timeInSeconds) {
-        const minutes = Math.floor(timeInSeconds / 60)
-        const seconds = Math.floor(timeInSeconds % 60)
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-    }
     useEffect(() => {
         const progressBar = document.querySelector('.progress_bar')
         const progressContainer = document.querySelector('.progress_area')
-        const currentTimeDisplay = document.querySelector('.startTime')
-        const totalDurationDisplay = document.querySelector('.durationSong')
+        const currentTimeDisplay = document.querySelector('.start_time')
+        const totalDurationDisplay = document.querySelector('.duration_song')
 
 
         function updateProgressFromMousePosition(event) {
@@ -188,11 +186,11 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         let timerRefreshToken =
             playingSong !== '' &&
             setTimeout(() => {
-                    fetch(`${urlApiAudioServer}views/set`, {
-                        method: 'POST',
-                        headers: headers,
-                        body: JSON.stringify({ 'songId': playingSong._id })
-                    })
+                fetch(`${urlApiAudioServer}views/set`, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ 'songId': playingSong._id })
+                })
             }, 20 * 1000)
         return () => clearTimeout(timerRefreshToken)
     }, [playingSong])
@@ -258,17 +256,17 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     // https://nth-audio.site/images/<Tên ảnh>
     // ------------------------------------------------ RENDER ----------------------------------------------------------------
     return (
-        <div className="playingBlock">
-            <div className="infoMusic">
+        <div className="playing_block noone_coppy">
+            <div className="info_music">
                 {playingSong &&
-                    <div className='boxInfo'>
+                    <div className='box_info'>
                         <img src={playingSong && `${urlApiImg + playingSong.coverArt}` || ''} alt="thumbnail" />
-                        <div className="infoMusic_details">
-                            <Link to={`/songs/${playingSong._id}`} className='underLink'>
-                                <h4 className="onelineText">{playingSong.title || ''}</h4>
+                        <div className="info_music_details">
+                            <Link to={`/songs/${playingSong._id}`} className='under_link'>
+                                <h4 className="oneline_text">{playingSong.title || ''}</h4>
                             </Link>
-                            <div className='underLink'>
-                                <p className="details_singer" style={{ fontSize: '13px' }}>{playingSong.artist_name || ''}</p>
+                            <div className='under_link'>
+                                <p className="details_author">{playingSong.artist_name || ''}</p>
                             </div>
                         </div>
 
@@ -276,49 +274,49 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                 }
             </div>
 
-            <div className="playingControl">
-                <div className="btnPlayingControl">
+            <div className="playing_control">
+                <div className="btn_playing_control">
                     <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)}>
-                        <FaRandom size={18} />
+                        <FaRandom className='btn_random_icon' />
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >
-                        <FaBackwardStep size={20} />
+                        <FaBackwardStep className='btn_prev_icon' />
                     </div>
                     {
                         isloading ?
-                            <ScaleLoader className='loadingSong' color='#fff' />
+                            <ScaleLoader className='loading_song'/>
                             :
                             <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                                 {
                                     isplaying
-                                        ? <HiMiniPause size={20} />
-                                        : <FaPlay style={{ marginLeft: '4px' }} size={18} />
+                                        ? <HiMiniPause lassName='btn_pause_icon' />
+                                        : <FaPlay className='btn_play_icon' />
                                 }
                             </div>
                     }
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
-                        <FaForwardStep size={20} />
+                        <FaForwardStep className="btn_next_icon"  />
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
-                        <FaArrowRotateRight size={18} />
+                        <FaArrowRotateRight className='btn_repeat_icon' />
                     </div>
                 </div>
-                <div className="timeLine" >
-                    <p className="startTime">--:--</p>
+                <div className="time_line" >
+                    <p className="start_time">--:--</p>
                     <div className="progress_area">
                         <div className="progress_bar"></div>
                     </div>
-                    <p className="durationSong">
+                    <p className="duration_song">
                         {
                             playingSong && formatTime(playingSong.duration) || '--:--'
                         }
                     </p>
-                    <div id="audioBox">
+                    <div id="audio_box">
                         <audio id="audio" ref={audioRef}></audio>
                     </div>
                 </div>
             </div>
-            <div className="toolMusic">
+            <div className="tool_music">
                 <Link to='/queue'>
                     <div className="btn btn_list">
                         <PiListBold size={24} />
