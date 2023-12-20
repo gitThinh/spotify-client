@@ -1,0 +1,72 @@
+.header_songpage {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: end;
+    padding: 30px;
+    cursor: default;
+    border-bottom: 1px solid #222;
+}
+
+.header_songpage .thumb_song {
+    width: 220px;
+    aspect-ratio: 1;
+}
+
+.header_songpage .thumb_song img {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    transition: scale .3s ease-in-out;
+}
+
+.header_songpage .thumb_song:hover img {
+    scale: 1.05;
+}
+
+.header_songpage .detail_song .detail_page_option {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.header_songpage .detail_song .detail_page_option .add_playlist,
+.header_songpage .detail_song .detail_page_option .play_button {
+    border-radius: 50%;
+    padding: 2px 0 0 2px;
+    margin: 0;
+    width: 75px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    transition: all .3s ease;
+    margin-bottom: 15px;
+}
+
+.header_songpage .detail_song .detail_page_option .add_playlist:hover,
+.header_songpage .detail_song .detail_page_option .play_button:hover {
+    box-shadow: 1px 0px 10px #565656;
+    scale: 1.1;
+}
+
+.header_songpage .detail_song .title_song {
+    font-size: 3.5rem;
+    margin: 20px 0;
+}
+
+.header_songpage .detail_song .artist_duration {
+    font-size: 18px;
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.header_songpage.body_songpage {
+    padding: 30px;
+}

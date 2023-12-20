@@ -6,16 +6,12 @@ import { FiLogOut } from "react-icons/fi"
 
 import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
 import { Page404, SongDetail, Queue, SearchPage } from '/src/constants/layouts'
+import { urlMLServer, urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
 
 
-import '/src/assets/Home/layout2.css'
-import '/src/assets/Home/HomeLayout.css'
+import './style.css'
 
-
-const urlMLServer = import.meta.env.VITE_API_API_MLSERVER
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 
@@ -207,11 +203,11 @@ const HomePage = () => {
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
-        <div className="homeContainer">
+        <div className="home_container">
             <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
-                <div className="bounderChildLayout haveScroll">
-                    <div className="headerUser">
+                <div className="bounder_layout haveScroll">
+                    <div className="header_user">
                         <div>
                             {
                                 <Routes>
@@ -227,26 +223,26 @@ const HomePage = () => {
                         </div>
                         {
                             user !== '' ?
-                                <div className="infoUser noone_coppy">
+                                <div className="info_user noone_coppy">
                                     <img src='https://nth-audio.site/images/avt.jpg'
                                         onClick={() => {
-                                            const detailsUser = document.querySelector('.infoUserTable')
+                                            const detailsUser = document.querySelector('.info_user_table')
                                             detailsUser.style.display === 'none'
                                                 ? detailsUser.style.display = 'block'
                                                 : detailsUser.style.display = 'none'
                                         }}
                                     />
-                                    <div className="infoUserTable" style={{ display: 'none' }}>
-                                        <h3 className='userName detailsUser oneline_text'>{user.userName}</h3>
-                                        <button onClick={handleLogout} className='infoUserTable__options' ><FiLogOut size={20} />Đăng xuất</button>
+                                    <div className="info_user_table" style={{ display: 'none' }}>
+                                        <h3 className='details_user oneline_text'>{user.userName}</h3>
+                                        <button onClick={handleLogout} className='info_user_table__options' ><FiLogOut size={20} />Đăng xuất</button>
                                     </div>
                                 </div>
                                 :
-                                <div className="loginSignin infoUser noone_coppy">
-                                    <a href="/signin" className='navBtn'>
+                                <div className="login_signin info_user noone_coppy">
+                                    <a href="/signin" className='signin_btn login_signin_btn'>
                                         Đăng Ký
                                     </a>
-                                    <a href="/login" className='navBtn'>
+                                    <a href="/login" className='login_btn login_signin_btn'>
                                         Đăng Nhập
                                     </a>
                                 </div>
@@ -254,7 +250,7 @@ const HomePage = () => {
                     </div>
                     <Routes>
                         <Route path='/' element={
-                            <div className="homeLayout">
+                            <div className="home_layout">
                                 <ShowList link={`${urlApiAudioServer + 'songs/page/1'}`} title={'Trang 1'} changePlayingList={changePlayingList} />
                                 <ShowList link={`${urlApiAudioServer}songs/page/3`} title={'Trang 2'} changePlayingList={changePlayingList} />
                             </div>
@@ -290,8 +286,8 @@ const HomePage = () => {
                 />
             }
             {/* playlist setting */}
-            <div className="playlistSetting">
-                <div className="playlistSetting__header"> </div>
+            <div className="playlist_setting">
+                <div className="playlist_setting__header"></div>
             </div>
         </div>
     )

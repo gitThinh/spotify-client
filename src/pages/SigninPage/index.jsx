@@ -5,7 +5,8 @@ import { isEmail, isPassword, isNull } from "/src/utils/validation"
 import { InputForm } from "/src/constants/components"
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
 
-import '/src/assets/LogAndSign/Layout1.css'
+
+// css cùng login page
 
 const SigninPage = () => {
     const [email, setEmail] = useState("")

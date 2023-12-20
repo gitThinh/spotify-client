@@ -5,6 +5,8 @@ import { FaPlay } from 'react-icons/fa'
 
 import { urlApiAudioServer, urlApiImg, apiKey } from '/src/constants/env'
 
+import './style.css'
+
 
 const SongDetail = ({ changePlayingList }) => {
     const id = useParams().id
@@ -28,22 +30,22 @@ const SongDetail = ({ changePlayingList }) => {
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
-        <div className="showSong">
-            <div className="headerSongPage" 
+        <div className="show_song">
+            <div className="header_songpage" 
                 // style={{ background: `url('${urlApiImg + songDetail.coverArt}') left top/2000%`}}
             >
-                <div className="thumbSong">
+                <div className="thumb_song noone_coppy">
                     <img src={urlApiImg + songDetail.coverArt} alt={songDetail.title} />
                 </div>
-                <div className="detailSong">
-                    <div className="detailPageOption">
-                        <button className="startSong" onClick={() => changePlayingList(songDetail)}>
+                <div className="detail_song">
+                    <div className="detail_page_option">
+                        <button className="play_button" onClick={() => changePlayingList(songDetail)}>
                             <FaPlay size={25} />
                         </button>
                     </div>
-                    <h1 className="titleSong oneline_text">{songDetail.title || ''}</h1>
-                    <div className="artistDuration">
-                        <p className="actist">{songDetail.artist_name}</p>
+                    <h1 className="title_song oneline_text">{songDetail.title || ''}</h1>
+                    <div className="artist_duration">
+                        <p className="artist">{songDetail.artist_name}</p>
                         <PiDotOutlineFill />
                         <p>{songDetail.year}</p>
                         <PiDotOutlineFill />
@@ -54,8 +56,8 @@ const SongDetail = ({ changePlayingList }) => {
                     </div>
                 </div>
             </div>
-            <div className="bodySongPage">
-
+            <div className="body_songpage">
+                
             </div>
         </div>
     );

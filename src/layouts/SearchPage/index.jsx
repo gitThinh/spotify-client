@@ -5,25 +5,26 @@ import { FaHeadphonesAlt } from 'react-icons/fa'
 
 import { ShowList } from "/src/constants/components"
 import formatTime from '/src/utils/formatTime'
-
 import { urlApiImg, urlApiAudioServer } from '/src/constants/env'
+
+import './style.css'
 
 
 const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
 
     return (
-        <div className="searchLayout">
+        <div className="search_layout">
             {
                 resulfSearch.length > 0 ?
-                    <div className="showResult">
-                        <div className="topResult">
-                            <h3 className="sectionTitle">Kết quả tìm kiếm hàng đầu</h3>
+                    <div className="show_result">
+                        <div className="top_result">
+                            <h3 className="section_title">Kết quả tìm kiếm hàng đầu</h3>
                             <Link to={`/songs/${resulfSearch[0]._id}`}>
-                                <div className="topResultBox">
-                                    <img src={`${urlApiImg + resulfSearch[0].coverArt}`} className="imgTopResult" />
-                                    <h2 className="titleTopResult oneline_text">{resulfSearch[0].title}</h2>
-                                    <h4 className="artistTopResult">{resulfSearch[0].artist_name}</h4>
-                                    <button className="startSong"
+                                <div className="top_result_box">
+                                    <img src={`${urlApiImg + resulfSearch[0].coverArt}`} className="img_top_result" />
+                                    <h2 className="title_top_result oneline_text">{resulfSearch[0].title}</h2>
+                                    <h4 className="artist_top_result">{resulfSearch[0].artist_name}</h4>
+                                    <button className="start_song"
                                         onClick={(e) => {
                                             e.preventDefault()
                                             changePlayingList(resulfSearch[0], 1)
@@ -34,8 +35,8 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                                 </div>
                             </Link>
                         </div>
-                        <div className="listResult">
-                            <h3 className="sectionTitle">Bài hát</h3>
+                        <div className="list_result">
+                            <h3 className="section_title">Bài hát</h3>
                             {
                                 resulfSearch.map((result, index) => {
                                     return (
@@ -60,7 +61,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                     </div>
                     :
                     isSearch &&
-                    <div className="notFoundResult">
+                    <div className="not_found_result">
                         <FaCircleXmark size={70} />
                         <h2>Không tìm thấy kết quả</h2>
                     </div>
