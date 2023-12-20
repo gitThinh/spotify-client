@@ -3,12 +3,10 @@ import { FaCircleXmark } from "react-icons/fa6"
 import { FaPlay } from "react-icons/fa"
 import { FaHeadphonesAlt } from 'react-icons/fa'
 
-import ShowList from "/src/components/ShowList"
+import { ShowList } from "/src/constants/components"
 import formatTime from '/src/utils/formatTime'
 
-
-const urlApiImg = import.meta.env.VITE_API_URL_IMG
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
+import { urlApiImg, urlApiAudioServer } from '/src/constants/env'
 
 
 const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {

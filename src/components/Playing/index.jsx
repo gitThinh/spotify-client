@@ -284,7 +284,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                     </div>
                     {
                         isloading ?
-                            <ScaleLoader className='loading_song'/>
+                            <ScaleLoader className='loading_song' />
                             :
                             <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                                 {
@@ -295,7 +295,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                             </div>
                     }
                     <div className="btn btn_next" onClick={audioRef.current ? handleNextBtn : () => { }}>
-                        <FaForwardStep className="btn_next_icon"  />
+                        <FaForwardStep className="btn_next_icon" />
                     </div>
                     <div className={'btn btn_repeat'.concat(' ', isrepeat ? 'active' : '')} onClick={() => setIsreapet(!isrepeat)}>
                         <FaArrowRotateRight className='btn_repeat_icon' />
@@ -316,22 +316,22 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                     </div>
                 </div>
             </div>
-            <div className="tool_music">
+            <div className="queue_and_volume">
                 <Link to='/queue'>
-                    <div className="btn btn_list">
-                        <PiListBold size={24} />
+                    <div className="content_center">
+                        <PiListBold className='btn_list_icon' />
                     </div>
                 </Link>
-                <div className="btn btn_lyrics">
-                    <HiMiniMusicalNote size={20} />
+                <div className="content_center">
+                    <HiMiniMusicalNote className='btn_lyrics_icon' />
                 </div>
-                <div className="btn btn_volume_control">
+                <div className="btn_volume_control content_center">
                     {
                         volumes < 0.08
-                            ? <FaVolumeXmark size={20} />
+                            ? <FaVolumeXmark className='btn_mutevolume_icon' />
                             : (volumes > .4
-                                ? <FaVolumeHigh size={20} />
-                                : <FaVolumeLow size={20} />)
+                                ? <FaVolumeHigh className='btn_hightvolume_icon' />
+                                : <FaVolumeLow className='btn_lowvolume_icon' />)
                     }
                 </div>
                 <div className="volume_area">

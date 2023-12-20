@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom"
 import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa'
 
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const urlApiImg = import.meta.env.VITE_API_URL_IMG
-const apiKey = import.meta.env.VITE_API_API_KEY
+import { urlApiAudioServer, urlApiImg, apiKey } from '/src/constants/env'
+
 
 const SongDetail = ({ changePlayingList }) => {
     const id = useParams().id

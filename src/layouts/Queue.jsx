@@ -1,7 +1,6 @@
 import { memo } from 'react'
 
-import SongLine from "/src/components/SongLine"
-import SongPlayingList from '/src/components/SongPlayingList'
+import { SongLine, SongPlayingList } from '/src/constants/components'
 
 
 const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL }) => {

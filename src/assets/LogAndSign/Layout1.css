@@ -8,14 +8,15 @@
 
 
 .container_forgot_pass,
-.container_login_page,
+.container_login,
 .container_reset_pass,
-.container_signin_page {
+.container_signin {
     background-image: url('/src/assets/images/backgroundform.jpg');
     text-align: center;
     width: 100vw;
     height: 100vh;
-    overflow: scroll;
+    overflow: auto;
+    place-content: center;
 }
 
 .header_page {

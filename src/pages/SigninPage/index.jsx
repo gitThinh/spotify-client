@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useState } from "react"
 import { Link, useNavigate} from 'react-router-dom'
 
-
 import { isEmail, isPassword, isNull } from "/src/utils/validation"
-import InputRender from "/src/components/InputForm"
+import { InputForm } from "/src/constants/components"
+import { urlApiAudioServer, apiKey } from '/src/constants/env'
 
 import '/src/assets/LogAndSign/Layout1.css'
-
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
 
 const SigninPage = () => {
     const [email, setEmail] = useState("")
@@ -71,35 +68,32 @@ const SigninPage = () => {
     // -------------------------------------- Render --------------------------------
     return (
         <div className="container_signin noone_coppy">
-            <div className="header_page">
-                <h2>Spotify Clone</h2>
-            </div>
             <div className="content_signin">
                 <h2>Đăng Ký</h2>
                 <form>
                     <div className="group_input">
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'email',
                                 text: 'Email',
                                 type: 'email',
                                 getChange: function (e) { setEmail(e.target.value) }
                             }} />
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'username',
                                 text: 'Tên Đăng Nhập',
                                 type: 'text',
                                 getChange: function (e) { setUsername(e.target.value) }
                             }} />
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'password',
                                 text: 'Mật Khẩu',
                                 type: 'password',
                                 getChange: function (e) { setPassword(e.target.value) }
                             }} />
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'checkPassword',
                                 text: 'Nhập Lại Mật Khẩu',

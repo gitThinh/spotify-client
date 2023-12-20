@@ -3,9 +3,7 @@ import { FaPlay, FaHeadphonesAlt } from 'react-icons/fa'
 
 
 import formatTime from '/src/utils/formatTime'
-
-
-const urlApiImg = import.meta.env.VITE_API_URL_IMG
+import { urlApiImg } from '/src/constants/env'
 
 
 const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {

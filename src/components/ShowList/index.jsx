@@ -1,12 +1,11 @@
 import { useState, useEffect, memo} from "react"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-import SongBox from "/src/components/SongBox"
+import {SongBox} from "/src/constants/components"
+import { apiKey } from '/src/constants/env'
 
 import '/src/components/ShowList/style.css'
 
-
-const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const ShowList = ({ link, title, changePlayingList }) => {

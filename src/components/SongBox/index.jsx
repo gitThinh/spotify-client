@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
 import { FaPlay } from 'react-icons/fa'
 
+import { urlApiImg } from '/src/constants/env'
 
 import '/src/components/SongBox/style.css'
-
-const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
 
 const SongBox = ({ song, changePlayingList }) => {

@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 
+import { urlApiAudioServer, apiKey } from '/src/constants/env'
+
 import '/src/components/searchBox/style.css'
 
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
 
 const SearchBox = ({ setResulfSearch, setIsSearch }) => {
     const [search, setSearch] = useState('')

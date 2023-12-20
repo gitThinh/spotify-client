@@ -3,18 +3,14 @@ import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { FiLogOut } from "react-icons/fi"
 
-import Page404 from '/src/pages/Page404'
-import NavBar from "/src/components/NavBar"
-import Playing from "/src/components/Playing"
-import HomeLayout from '/src/layouts/HomeLayout'
-import SongDetail from '/src/layouts/SongDetail'
-import Queue from '/src/layouts/Queue'
-import SearchPage from '/src/layouts/SearchPage'
-import SearchBox from '/src/components/SearchBox'
 
+import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
+import { Page404, SongDetail, Queue, SearchPage } from '/src/constants/layouts'
 import handleGetPlaylists from '/src/utils/getPlayLists'
 
+
 import '/src/assets/Home/layout2.css'
+import '/src/assets/Home/HomeLayout.css'
 
 
 const urlMLServer = import.meta.env.VITE_API_API_MLSERVER
@@ -105,7 +101,7 @@ const HomePage = () => {
 
     // select new song, reset playinglist and rcm
     const changePlayingList = (pList) => {
-        showPlayer === false && setShowPlayer(true) 
+        showPlayer === false && setShowPlayer(true)
         setPlayingList([pList])
         setIsRcm(true)
     }
@@ -213,7 +209,7 @@ const HomePage = () => {
     return (
         <div className="homeContainer">
             <div className="container">
-                <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} handleGetPlaylists={handleGetPlaylists} />
+                <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
                 <div className="bounderChildLayout haveScroll">
                     <div className="headerUser">
                         <div>
@@ -231,7 +227,7 @@ const HomePage = () => {
                         </div>
                         {
                             user !== '' ?
-                                <div className="infoUser">
+                                <div className="infoUser noone_coppy">
                                     <img src='https://nth-audio.site/images/avt.jpg'
                                         onClick={() => {
                                             const detailsUser = document.querySelector('.infoUserTable')
@@ -246,7 +242,7 @@ const HomePage = () => {
                                     </div>
                                 </div>
                                 :
-                                <div className="loginSignin infoUser">
+                                <div className="loginSignin infoUser noone_coppy">
                                     <a href="/signin" className='navBtn'>
                                         Đăng Ký
                                     </a>
@@ -257,7 +253,13 @@ const HomePage = () => {
                         }
                     </div>
                     <Routes>
-                        <Route path='/' element={<HomeLayout changePlayingList={changePlayingList} />} />
+                        <Route path='/' element={
+                            <div className="homeLayout">
+                                <ShowList link={`${urlApiAudioServer + 'songs/page/1'}`} title={'Trang 1'} changePlayingList={changePlayingList} />
+                                <ShowList link={`${urlApiAudioServer}songs/page/3`} title={'Trang 2'} changePlayingList={changePlayingList} />
+                            </div>
+                        }
+                        />
                         <Route path='queue'
                             element={
                                 <Queue

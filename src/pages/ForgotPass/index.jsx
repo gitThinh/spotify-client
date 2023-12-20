@@ -1,11 +1,10 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
 
+import { InputForm } from "/src/constants/components"
 import { isEmail, isNull } from "/src/utils/validation"
-import InputRender from "/src/components/InputForm"
+import { urlApiAudioServer, apiKey } from '/src/constants/env'
 
-// const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-// const apiKey = import.meta.env.VITE_API_API_KEY
 
 const ForgotPass = () => {
     const [email, setEmail] = useState('')
@@ -39,7 +38,7 @@ const ForgotPass = () => {
                     }}
                 >
                     <div className="group_input">
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'email',
                                 text: 'Email',

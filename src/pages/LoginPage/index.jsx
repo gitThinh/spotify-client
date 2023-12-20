@@ -5,7 +5,7 @@ import { BsFacebook, BsApple } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 
 import { isNull } from '/src/utils/validation'
-import InputRender from '/src/components/InputForm'
+import { InputForm } from "/src/constants/components"
 
 import '/src/assets/LogAndSign/Layout1.css'
 import '/src/assets/LogAndSign/FormRender.css'
@@ -16,8 +16,6 @@ const apiKey = import.meta.env.VITE_API_API_KEY
 
 
 const LoginPages = () => {
-    window.scrollTo(0, 0)
-
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
@@ -81,14 +79,14 @@ const LoginPages = () => {
                 <span className='line_cut'></span>
                 <form>
                     <div className="group_input">
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'username',
                                 text: 'Tên Đăng Nhập',
                                 type: 'text',
                                 getChange: function (e) { setUsername(e.target.value) }
                             }} />
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'password',
                                 text: 'Mật Khẩu',

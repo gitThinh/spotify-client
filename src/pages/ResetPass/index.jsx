@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import InputRender from "/src/components/InputForm";
+import { InputForm } from "/src/constants/components"
 import { isNull, isPassword } from "/src/utils/validation";
 
 
@@ -47,7 +47,7 @@ const ResetPass = () => {
                     }}
                 >
                     <div className="group_input">
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'password',
                                 text: 'Mật khẩu mới',
@@ -55,7 +55,7 @@ const ResetPass = () => {
                                 getChange: function (e) { setPassword(e.target.value) }
                             }}
                         />
-                        <InputRender
+                        <InputForm
                             data={{
                                 name: 'checkPassword',
                                 text: 'Nhập lại mật khẩu',

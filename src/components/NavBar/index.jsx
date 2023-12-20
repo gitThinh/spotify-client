@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
 import { FaCompass } from 'react-icons/fa6'
 
+import { urlApiAudioServer, apiKey } from '/src/constants/env'
+import handleGetPlaylists from '/src/utils/getPlayLists'
+
 import '/src/components/NavBar/style.css'
 
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
 
-
-
-const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
+const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
 
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {
@@ -21,18 +20,17 @@ const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
                 'Authorization': tokens.accessToken,
                 'x-client-id': user.userId
             },
-            body: JSON.stringify({playListName : `My playlist #${showPlaylist.length}`})
+            body: JSON.stringify({ playListName: `My playlist #${showPlaylist.length}` })
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
-                data.statusCode === 201 && handleGetPlaylists()
+                data.statusCode === 201 && handleGetPlaylists(tokens, user, setShowPlaylist)
             })
     }
 
 
     return (
-        <div className="navBar">
+        <div className="navBar noone_coppy">
             <nav className="navBarOptions" >
                 <Link to="/">
                     <HiHome className='navBarOptions__icons' />
@@ -64,7 +62,7 @@ const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
                             showPlaylist.map((playlist, index) => {
                                 return (
                                     user &&
-                                    <Link to={`/playlist/${playlist._id}`} style={{width:'100%'}}  key={index}>
+                                    <Link to={`/playlist/${playlist._id}`} style={{ width: '100%' }} key={index}>
                                         <div className="navBarLibrary__playlist">
                                             <img src='https://nth-audio.site/images/avt.jpg' />
                                             <div className="navBarLibrary__playlist__details">
@@ -76,6 +74,12 @@ const NavBar = ({ user, tokens, showPlaylist, handleGetPlaylists }) => {
                                 )
                             })
                         }
+                        {/* <div className="navBarLibrary__playlist">
+                            <img src='https://nth-audio.site/images/avt.jpg' />
+                            <div className="navBarLibrary__playlist__details">
+                                <input type="text" placeholder='Nhập tên playlist' />
+                            </div>
+                        </div> */}
                     </div>
                 }
                 {

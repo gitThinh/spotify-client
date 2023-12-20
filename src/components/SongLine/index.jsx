@@ -2,10 +2,10 @@ import { Link } from "react-router-dom"
 import { FaHeadphonesAlt } from 'react-icons/fa'
 
 import formatTime from '/src/utils/formatTime'
+import { urlApiImg } from '/src/constants/env'
+
 
 import '/src/components/SongLine/style.css'
-
-const urlApiImg = import.meta.env.VITE_API_URL_IMG
 
 
 const SongLine = ({ song, addToPlayingList, index }) => {
