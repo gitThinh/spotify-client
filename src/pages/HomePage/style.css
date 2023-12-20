@@ -23,7 +23,7 @@
 .show_song,
 .home_layout,
 .queue_layout,
-.search_layout{
+.search_layout {
     margin-top: 80px;
     position: relative;
 }
@@ -60,38 +60,43 @@
 }
 
 .bounder_layout .header_user .info_user .info_user_table {
+    width: 200px;
     position: absolute;
-    width: 160px;
-    background-color: #4c4c4c;
-    padding: 10px;
-    border-radius: 10px;
-    transition: all .3s ease-in-out;
     top: 60px;
     right: 0;
-    text-align: center;
+    background-color: #282828;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all .3s ease-in-out;
 }
 
-.bounder_layout .header_user .info_user .info_user_table h3 {
-    margin-bottom: 5px;
-    border-bottom: 1px solid #777;
+.bounder_layout .header_user .info_user .info_user_table ul li:last-child {
+    border-top: 1px solid #444;
 }
 
-.bounder_layout .header_user .info_user .info_user_table .info_user_table_options {
+.bounder_layout .header_user .info_user .info_user_table ul li .info_user_table_option {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
+    padding: 10px 6px 10px 10px;
+    font-size: 14px;
     background-color: transparent;
-    color: #fff;
-    padding: 5px 0;
-    font-size: 18px;
+    color: #eee;
     border-radius: 5px;
-    transition: all .3s ease;
+    transition: all .2s linear;
 }
 
-.info_user_table_options:hover {
-    background-color: #888;
+.bounder_layout .header_user .info_user .info_user_table ul li .info_user_table_option:hover {
+    background-color: #3e3e3e;
+}
+
+.bounder_layout .header_user .info_user .info_user_table ul li .info_user_table_option .info_user_table_icon{
+    --sz: 16px;
+    width: var(--sz);
+    height: var(--sz);
+    color: #ddd;
 }
 
 .bounder_layout .header_user .login_signin {
@@ -120,5 +125,3 @@
 .bounder_layout .header_user .login_signin .login_btn:hover {
     background-color: #888;
 }
-
-/* ---------------------------------------- User inform ------------------------------------------------------ */

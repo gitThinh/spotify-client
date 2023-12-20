@@ -233,8 +233,25 @@ const HomePage = () => {
                                         }}
                                     />
                                     <div className="info_user_table" style={{ display: 'none' }}>
-                                        <h3 className='details_user oneline_text'>{user.userName}</h3>
-                                        <button onClick={handleLogout} className='info_user_table__options' ><FiLogOut size={20} />Đăng xuất</button>
+                                        <ul>
+                                            <li>
+                                                <button className='info_user_table_option' >Profile</button>
+                                            </li>
+                                            <li>
+                                                <button className='info_user_table_option' >Contact</button>
+                                            </li>
+                                            <li>
+                                                <button className='info_user_table_option' >Support</button>
+                                            </li>
+                                            <li>
+                                                <button className='info_user_table_option' onClick={handleLogout}>
+                                                    Đăng xuất
+                                                    <FiLogOut className='info_user_table_icon' />
+                                                </button>
+                                            </li>
+                                        </ul>
+
+
                                     </div>
                                 </div>
                                 :

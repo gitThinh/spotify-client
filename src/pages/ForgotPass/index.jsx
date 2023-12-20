@@ -5,6 +5,8 @@ import { InputForm } from "/src/constants/components"
 import { isEmail, isNull } from "/src/utils/validation"
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
 
+// css cùng login page
+
 
 const ForgotPass = () => {
     const [email, setEmail] = useState('')
