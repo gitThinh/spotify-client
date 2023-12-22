@@ -7,8 +7,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { isNull } from '/src/utils/validation'
 import { InputForm } from "/src/constants/components"
 
-import '/src/assets/LogAndSign/Layout1.css'
-import '/src/assets/LogAndSign/FormRender.css'
+import './style.css'
 
 
 const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
@@ -57,26 +56,6 @@ const LoginPages = () => {
         <div className='container_login noone_coppy'>
             <div className="content_login">
                 <h2>Đăng Nhập</h2>
-                <div className="group_options_login">
-                    <a href="https://nth-audio.site/api/audio-server/user/auth/googleRedirect" className="option_login">
-                        <FcGoogle size={22} />
-                        <h4>Đăng nhập với Google</h4>
-                    </a>
-                    <div className="option_login">
-                        <BsFacebook style={{ color: '#1877F2' }} size={22} />
-                        <h4>Đăng nhập với Facebook</h4>
-                    </div>
-                    <div className="option_login">
-                        <BsApple size={22} />
-                        <h4>Đăng nhập với Apple</h4>
-                    </div>
-                    <div className="option_login">
-                        <h4>Đăng nhập với số điện thoại</h4>
-                    </div>
-                </div>
-
-                {/* -------------------------------------------------------------------------------------- */}
-                <span className='line_cut'></span>
                 <form>
                     <div className="group_input">
                         <InputForm
@@ -109,8 +88,6 @@ const LoginPages = () => {
                 <Link to="/forgot" style={{ textDecoration: 'underline' }}>
                     Quên mật khẩu?
                 </Link>
-                {/* -------------------------------------------------------------------------------------- */}
-                <span className='line_cut'></span>
                 <p>Chưa có tài khoản
                     <Link to="/signin" style={{
                         textDecoration: 'underline',
@@ -119,6 +96,19 @@ const LoginPages = () => {
                         Đăng ký ngay
                     </Link>
                 </p>
+                {/* -------------------------------------------------------------------------------------- */}
+                <span className='line_cut'></span>
+                <div className="group_options_login">
+                    <a href="https://nth-audio.site/api/audio-server/user/auth/googleRedirect" className="option_login">
+                        <FcGoogle size={22} />
+                        <h4>Google</h4>
+                    </a>
+                    <div className="option_login">
+                        <BsFacebook style={{ color: '#1877F2' }} size={22} />
+                        <h4>Facebook</h4>
+                    </div>
+                </div>
+                
             </div>
         </div>
     );

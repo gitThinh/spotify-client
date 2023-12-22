@@ -206,7 +206,7 @@ const HomePage = () => {
         <div className="home_container">
             <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
-                <div className="bounder_layout haveScroll">
+                <div className="bounder_layout have_scroll">
                     <div className="header_user">
                         <div>
                             {
@@ -241,7 +241,7 @@ const HomePage = () => {
                                                 <button className='info_user_table_option' >Contact</button>
                                             </li>
                                             <li>
-                                                <button className='info_user_table_option' >Support</button>
+                                                <a href='/' className='info_user_table_option' >Support</a>
                                             </li>
                                             <li>
                                                 <button className='info_user_table_option' onClick={handleLogout}>

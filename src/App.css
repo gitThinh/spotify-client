@@ -15,7 +15,7 @@
 
 
 /* custom scroll bar */
-.haveScroll::-webkit-scrollbar {
+.have_scroll::-webkit-scrollbar {
   position: absolute;
   right: 6px;
   width: 6px;
@@ -23,7 +23,7 @@
   z-index: 1;
 }
 
-.haveScroll::-webkit-scrollbar-thumb {
+.have_scroll::-webkit-scrollbar-thumb {
   background-color: #666;
   border-radius: 6px;
 }
