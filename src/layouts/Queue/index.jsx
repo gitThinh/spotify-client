@@ -28,7 +28,7 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                     }
                 </div>
                 {
-                    rcmList.length > 0 &&
+                    rcmList.length > 0 ?
                     <div style={{ marginTop: '30px' }}>
                         <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
                         {
