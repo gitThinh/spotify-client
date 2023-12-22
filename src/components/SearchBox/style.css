@@ -1,0 +1,28 @@
+.searchBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 400px;
+    padding: 0 25px;
+    border-radius: 25px;
+    border: 1px solid #333;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    transition: all .3s ease-in-out;
+}
+
+.searchBox:hover {
+    border: 1px solid #aaa;
+}
+
+.searchBox input {
+    padding: 15px 0;
+    background-color: inherit;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+}

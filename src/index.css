@@ -43,9 +43,7 @@ body {
   flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Roboto Condensed', sans-serif;
-  font-family: 'Rubik', sans-serif;
+  font-family: CircularSp,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,Helvetica Neue,helvetica,arial,Hiragino Kaku Gothic ProN,Meiryo,MS Gothic,sans-serif;;
 }
 
 h1 {
@@ -64,6 +62,10 @@ button {
   cursor: pointer;
 }
 
+ul{
+  list-style: none;
+}
+
 
 @media (prefers-color-scheme: light) {
   a:hover {
@@ -72,5 +74,19 @@ button {
 
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@keyframes slide{
+  0% {
+      transform: translateX(80%);
+      opacity: 0;
+  }
+  40%{
+      opacity: 0;
+  }
+  100%{
+      transform: translateX(0);
+      opacity: 1;
   }
 }

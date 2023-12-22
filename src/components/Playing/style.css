@@ -1,0 +1,220 @@
+.btn {
+    --sz: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all .2s linear;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+.loading_song {
+    --sz: 32px;
+    height: var(--sz);
+    width: var(--sz);
+    scale: .6;
+}
+
+.loading_song span {
+    background-color: #fff !important;
+}
+
+.playing_block {
+    display: grid;
+    height: 80px;
+    grid-template-columns: 2.5fr 4fr 2.5fr;
+    align-items: center;
+    gap: 20px;
+    padding: 0 18px;
+    z-index: 999999;
+    background-color: #101010;
+}
+
+.playing_block .info_music .box_info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.playing_block .info_music .box_info img {
+    width: 65px;
+    aspect-ratio: 1;
+    border-radius: 10px;
+}
+
+.playing_block .info_music .info_music_details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.playing_block .info_music .info_music_details h4 {
+    font-size: 14px;
+    letter-spacing: .56px;
+}
+
+.playing_block .info_music .info_music_details .details_author {
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: .52px;
+}
+
+/* ----------------------------------------------------------------- */
+.playing_block .playing_control {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.playing_block .playing_control .btn_playing_control {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.playing_block .playing_control .btn_playing_control .btn_toggle_play {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    width: 32px;
+    aspect-ratio: 1;
+    background-color: #fff;
+    color: #000;
+    border-radius: 50%;
+}
+
+.playing_block .playing_control .btn_playing_control .btn_toggle_play .btn_pause_icon,
+.playing_block .playing_control .btn_playing_control .btn_next .btn_next_icon,
+.playing_block .playing_control .btn_playing_control .btn_prev .btn_prev_icon,
+.playing_block .playing_control .btn_playing_control .btn_repeat .btn_repeat_icon,
+.playing_block .playing_control .btn_playing_control .btn_random .btn_random_icon {
+    width: var(--sz);
+    height: var(--sz);
+}
+
+.playing_block .playing_control .btn_playing_control .btn_toggle_play .btn_play_icon {
+    width: calc(var(--sz) - 2px);
+    height: calc(var(--sz) - 2px);
+    margin-left: 3px;
+}
+
+.btn_random.active,
+.btn_repeat.active {
+    color: #1ED760;
+}
+
+
+/* progress bar */
+.playing_block .playing_control .time_line {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.playing_block .playing_control .time_line .progress_area {
+    margin: 0 5px;
+    height: 4px;
+    width: 100%;
+    background-color: #888;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.playing_block .playing_control .time_line .progress_area .progress_bar {
+    position: relative;
+    height: inherit;
+    border-radius: inherit;
+    background-color: #bbb;
+    transition: width .3s linear;
+}
+
+.playing_block .playing_control .time_line .progress_area .progress_bar::before,
+.playing_block .queue_and_volume .volume_area .volume_bar::before {
+    opacity: 0;
+    position: absolute;
+    right: -5px;
+    top: -3px;
+    content: "";
+    width: 10px;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    background-color: #fff;
+}
+
+.playing_block .playing_control .time_line .progress_area:hover .progress_bar::before,
+.playing_block .queue_and_volume .volume_area:hover .volume_bar::before {
+    opacity: 1;
+}
+
+.playing_block .playing_control .time_line .start_time,
+.playing_block .playing_control .time_line .duration_song {
+    font-size: 14px;
+    color: #aaa;
+    min-width: max-content;
+}
+
+
+/* right area  */
+.playing_block .queue_and_volume {
+    --sz-icon: 20px;
+    height: 27px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 12px;
+}
+
+.playing_block .queue_and_volume .btn_list_icon {
+    width: var(--sz-icon);
+    height: var(--sz-icon);
+}
+
+.playing_block .queue_and_volume .btn_lyrics_icon {
+    cursor: pointer;
+    width: calc(var(--sz-icon) - 2px);
+    height: calc(var(--sz-icon) - 2px);
+}
+
+
+.playing_block .queue_and_volume .btn_volume_control {
+    width: calc(var(--sz-icon) + 2px);
+    height: calc(var(--sz-icon) + 2px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+
+.playing_block .queue_and_volume .volume_area {
+    position: relative;
+    height: 4px;
+    width: 100px;
+    border-radius: 50px;
+    background-color: #888;
+    cursor: pointer;
+}
+
+.playing_block .queue_and_volume .volume_area .volume_bar {
+    --range-volume: 100;
+    width: var(--range-volume);
+    position: relative;
+    height: inherit;
+    border-radius: inherit;
+    background-color: #bbb;
+    transition: width .3s linear;
+}
