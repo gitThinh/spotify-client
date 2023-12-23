@@ -20,7 +20,6 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                                     </div>
                                 )
                             })
-
                             :
                             <div className="nononono">
                                 <h3 className="alert">Chưa có bài hát nào</h3>
@@ -46,7 +45,7 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                         }
                     </div>
                     :
-                    <div className="rcmList" style={{ marginTop: '30px' }}>
+                    <div style={{ marginTop: '30px' }}>
                         <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
                         <h2 style={{textAlign: 'center'}}>Danh sách đề xuất trống</h2>
                     </div>

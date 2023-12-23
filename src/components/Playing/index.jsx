@@ -12,7 +12,6 @@ import { PiListBold } from 'react-icons/pi'
 
 import formatTime from '/src/utils/formatTime'
 
-
 import '/src/components/Playing/style.css'
 
 
@@ -33,7 +32,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     const [volumes, setVolumes] = useState(1)
 
     const audioRef = useRef()
-
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
     useEffect(() => {

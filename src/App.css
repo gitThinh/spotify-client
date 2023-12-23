@@ -1,6 +1,7 @@
 #root {
   --navbar_L_width: 330px;
   --navbar_M_width: 200px;
+  --navbar_hiden_width: 80px;
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;

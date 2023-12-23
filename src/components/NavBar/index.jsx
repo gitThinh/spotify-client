@@ -2,6 +2,7 @@ import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
 import { FaCompass } from 'react-icons/fa6'
+import { PiListBold } from 'react-icons/pi'
 
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
@@ -9,7 +10,8 @@ import handleGetPlaylists from '/src/utils/getPlayLists'
 import './style.css'
 
 
-const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
+const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist, navBarContainer }) => {
+
 
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {
@@ -30,7 +32,13 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
 
 
     return (
-        <div className="nav_bar noone_coppy">
+        <div className="nav_bar noone_coppy hiden_nav_bar">
+            <div className="show_navbar">
+                <button>
+                    <PiListBold className='show_navbar_icon' />
+                </button>
+                <h2 className='logo_web'>NTH - Audio</h2>
+            </div>
             <nav className="nav_bar_options" >
                 <Link to="/">
                     <HiHome className='nav_bar_options_icons' />
