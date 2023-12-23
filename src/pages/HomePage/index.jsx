@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { FiLogOut } from "react-icons/fi"
 
@@ -26,8 +26,7 @@ const HomePage = () => {
     const [isSearch, setIsSearch] = useState(false)
     const [showPlaylist, setShowPlaylist] = useState([])
 
-    const mainContainer = useRef()
-    
+
 
     //get data user from cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
@@ -201,10 +200,11 @@ const HomePage = () => {
     }, [])
 
 
+
     // -------------------------------------------- RENDER ------------------------------------------
     return (
         <div className="home_container">
-            <div className="container" ref={mainContainer}>
+            <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
                 <div className="bounder_layout have_scroll">
                     <div className="header_user">
@@ -250,6 +250,8 @@ const HomePage = () => {
                                                 </button>
                                             </li>
                                         </ul>
+
+
                                     </div>
                                 </div>
                                 :
