@@ -1,6 +1,5 @@
 #root {
-  --navbar_L_width: 330px;
-  --navbar_M_width: 200px;
+  --navbar_width: 330px;
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
@@ -39,19 +38,47 @@
 }
 
 /* content in center */
-.content_center{
+.content_center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 /* make nobody can select object */
-.noone_coppy{
+.noone_coppy {
   -moz-user-select: none !important;
-  -webkit-touch-callout: none!important;
-  -webkit-user-select: none!important;
-  -khtml-user-select: none!important;
-  -moz-user-select: none!important;
-  -ms-user-select: none!important;
-  user-select: none!important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+@media (width >=768px) and (width <=1024px) {
+  #root {
+    --navbar_width: 220px;
+  }
+
+  .have_scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .have_scroll::-webkit-scrollbar-thumb {
+    display: none;
+  }
+}
+
+@media (width >=320px) and (width <768px) {
+  #root {
+    --navbar_width: 70px;
+  }
+
+  .have_scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .have_scroll::-webkit-scrollbar-thumb {
+    display: none;
+  }
 }

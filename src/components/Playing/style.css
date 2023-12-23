@@ -218,3 +218,8 @@
     background-color: #bbb;
     transition: width .3s linear;
 }
+
+
+@media (width >= 768px) and (width <=1024px) {
+    
+}

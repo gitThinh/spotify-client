@@ -10,7 +10,7 @@
     width: 100%;
     height: 100vh;
     display: grid;
-    grid-template-columns: var(--navbar_L_width) auto;
+    grid-template-columns: var(--navbar_width) auto;
 }
 
 .home_container .container .bounder_layout {
@@ -36,7 +36,7 @@
     z-index: 10000;
     position: fixed;
     right: 0;
-    width: calc(100% - var(--navbar_L_width));
+    width: calc(100% - var(--navbar_width));
     height: 80px;
     padding: 14px;
     background-color: #000;
