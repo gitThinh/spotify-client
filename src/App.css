@@ -1,4 +1,5 @@
 #root {
+  --playing-height: 70px;
   --navbar_width: 330px;
   width: 100%;
   margin: 0 auto;

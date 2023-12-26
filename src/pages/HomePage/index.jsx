@@ -13,8 +13,6 @@ import handleGetPlaylists from '/src/utils/getPlayLists'
 import './style.css'
 
 
-
-
 const HomePage = () => {
     const [playingList, setPlayingList] = useState([])
     const [rcmList, setRcmList] = useState([])
@@ -25,7 +23,6 @@ const HomePage = () => {
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
     const [showPlaylist, setShowPlaylist] = useState([])
-
 
 
     //get data user from cookies
@@ -50,8 +47,6 @@ const HomePage = () => {
             setTokens({ accessToken, refreshToken })
         }
     }, [])
-
-
 
 
 
@@ -125,7 +120,6 @@ const HomePage = () => {
         setCurrentIndex(index)
     }
 
-
     // handle next and prev song
     const nextSong = (type) => {
         if (type === 1 & playingList.length > 1
@@ -156,6 +150,7 @@ const HomePage = () => {
             }
         }
     }
+
     const prevSong = () => {
         currentIndex &&
             setCurrentIndex(prev => prev === 0 ? prev : prev - 1)
@@ -167,7 +162,7 @@ const HomePage = () => {
     useEffect(() => {
         if (playingList.length > 0) {
             let showControler = document.querySelector('.container')
-            showControler.style.height = 'calc(100vh - 80px)'
+            showControler.style.height = 'calc(100vh - var(--playing-height))'
         }
     }, [showPlayer])
 
@@ -200,10 +195,9 @@ const HomePage = () => {
     }, [])
 
 
-
     // -------------------------------------------- RENDER ------------------------------------------
     return (
-        <div className="home_container">
+        <div className="home_container have_scroll">
             <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
                 <div className="bounder_layout have_scroll">
@@ -250,8 +244,6 @@ const HomePage = () => {
                                                 </button>
                                             </li>
                                         </ul>
-
-
                                     </div>
                                 </div>
                                 :
@@ -281,11 +273,12 @@ const HomePage = () => {
                                     rcmList={rcmList}
                                     addToPlayingList={addToPlayingList}
                                     playSongInPL={playSongInPL}
+                                    showPlaylist={showPlaylist}
                                 />
                             }
                         />
                         <Route path='/songs/:id' element={
-                            <SongDetail changePlayingList={changePlayingList} />
+                            <SongDetail changePlayingList={changePlayingList} showPlaylist={showPlaylist}/>
                         } />
                         <Route path='/search'
                             element={<SearchPage changePlayingList={changePlayingList} resulfSearch={resulfSearch} isSearch={isSearch} />}

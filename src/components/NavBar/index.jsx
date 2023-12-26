@@ -1,8 +1,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
-import { FaCompass, } from 'react-icons/fa6'
-import { FaPlus } from "react-icons/fa"
+import { FaCompass, FaPlus } from 'react-icons/fa6'
 
 
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
@@ -58,7 +57,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                         </svg>
                         <p>Thư viện</p>
                     </div>
-                    <div className="nav_bar_library_addplaylist" onClick={handleAddPlaylist}><FaPlus /></div>
+                    <div className="nav_bar_library_addplaylist" onClick={() => user ? handleAddPlaylist : ''}><FaPlus /></div>
                 </div>
                 {
                     user &&

@@ -1,7 +1,9 @@
+import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { FaCircleXmark } from "react-icons/fa6"
-import { FaPlay } from "react-icons/fa"
 import { FaHeadphonesAlt } from 'react-icons/fa'
+import { HiDotsHorizontal } from "react-icons/hi"
+import { FaPlus, FaPlay, FaMusic, FaUserPen } from "react-icons/fa6"
 
 import { ShowList } from "/src/constants/components"
 import formatTime from '/src/utils/formatTime'
@@ -11,6 +13,7 @@ import './style.css'
 
 
 const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
+
 
     return (
         <div className="search_layout">
@@ -39,9 +42,34 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                             <h3 className="section_title">Bài hát</h3>
                             {
                                 resulfSearch.map((result, index) => {
+
+                                    const moreOptionTable = useRef()
+                                    const moreOption = useRef()
+
+
+                                    const showOptionTable = () => {
+                                        if (moreOptionTable.current.style.display !== 'block') {
+                                            moreOptionTable.current.style.display = 'block'
+                                        } else {
+                                            moreOptionTable.current.style.display = 'none'
+                                        }
+                                    }
+
+                                    const handleClick = (e) => {
+                                        console.log(moreOption.current.contains(e.target), moreOption.current, e.target)
+                                        if (!moreOption.current.contains(e.target))
+                                            moreOptionTable.current.style.display = 'none'
+                                    }
+
+                                    // ----------------------------- return map -----------------------------
+                                    
                                     return (
                                         index < 5 &&
-                                        <div key={index} onDoubleClick={() => changePlayingList(result)}>
+                                        <div key={index}
+                                            onDoubleClick={() => changePlayingList(result)}
+                                            onClick={(e) => handleClick(e)}
+                                            onMouseLeave={() => moreOptionTable.current.style.display = 'none'}
+                                        >
                                             <div className="songs_line_search songs_line">
                                                 <img className="songs_thumb" src={`${urlApiImg + result.coverArt}`} />
                                                 <div className="songs_details">
@@ -52,6 +80,25 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                                                 </div>
                                                 <p className="songs_count content_center" style={{ gap: '5px' }}>{result.views}<FaHeadphonesAlt size={14} /></p>
                                                 <p className="songs_timer content_center">{formatTime(result.duration)}</p>
+                                                <div className="more_options content_center" ref={moreOption}>
+                                                    <HiDotsHorizontal onClick={showOptionTable} index={index} />
+                                                    <div className="more_options_table" ref={moreOptionTable} index={index}>
+                                                        <ul>
+                                                            <li>
+                                                                <button className='more_options_table_option' ><FaPlus className='more_options_table_icon' /> Add to playlist</button>
+                                                            </li>
+                                                            <li>
+                                                                <button className='more_options_table_option' ><FaPlay className='more_options_table_icon' /> Playing song</button>
+                                                            </li>
+                                                            <li>
+                                                                <a href='/' className='more_options_table_option' ><FaMusic className='more_options_table_icon' /> Go to song page</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href='/' className='more_options_table_option' ><FaUserPen className='more_options_table_icon' /> Go to artist page</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     )

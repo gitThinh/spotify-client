@@ -33,6 +33,13 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     const [volumes, setVolumes] = useState(1)
 
     const audioRef = useRef()
+    const progressBar = useRef()
+    const progressContainer = useRef()
+    const currentTimeDisplay = useRef()
+    const totalDurationDisplay = useRef()
+    const audioElement = useRef()
+    const volumeBar = useRef()
+    const volumeContainer = useRef()
 
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
 
@@ -40,15 +47,12 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         playingSong && setIsLoading(true)
         playingSong ? setIsplaying(true) : setIsplaying(false)
         // reset progress width
-        const progressBar = document.querySelector('.progress_bar')
-        progressBar.style.width = '0%'
+        progressBar.current.style.width = '0%'
         // reset current time
-        const currentTimeDisplay = document.querySelector('.start_time')
-        currentTimeDisplay.innerHTML = playingSong ? '0:00' : '--:--'
-        const audioElement = document.getElementById('audio_box')
+        currentTimeDisplay.current.innerHTML = playingSong ? '0:00' : '--:--'
 
-        while (audioElement.firstChild) {
-            audioElement.removeChild(audioElement.firstChild)
+        while (audioElement.current.firstChild) {
+            audioElement.current.removeChild(audioElement.current.firstChild)
         }
 
         const newAudioElement = document.createElement('audio')
@@ -61,7 +65,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         newAudioElement.autoplay = true
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
-        audioElement.appendChild(newAudioElement)
+        audioElement.current.appendChild(newAudioElement)
     }, [playingSong])
 
 
@@ -101,28 +105,22 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
     // control progressBar
     useEffect(() => {
-        const progressBar = document.querySelector('.progress_bar')
-        const progressContainer = document.querySelector('.progress_area')
-        const currentTimeDisplay = document.querySelector('.start_time')
-        const totalDurationDisplay = document.querySelector('.duration_song')
-
-
         function updateProgressFromMousePosition(event) {
-            const containerWidth = progressContainer.clientWidth
-            const clickX = event.clientX - progressContainer.getBoundingClientRect().left
+            const containerWidth = progressContainer.current.clientWidth
+            const clickX = event.clientX - progressContainer.current.getBoundingClientRect().left
             const progress = (clickX / containerWidth)
 
-            progressBar.style.width = `${progress * 100}%`
+            progressBar.current.style.width = `${progress * 100}%`
 
             const newTime = progress * audioRef.current.duration
             audioRef.current.currentTime = newTime
         }
 
-        progressContainer.addEventListener('dragover', (e) => {
+        progressContainer.current.addEventListener('dragover', (e) => {
             e.preventDefault()
         })
 
-        progressContainer.addEventListener('drop', (e) => {
+        progressContainer.current.addEventListener('drop', (e) => {
             e.preventDefault()
 
             const files = e.dataTransfer.files
@@ -136,18 +134,18 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                         audioRef.current.load()
                         audioRef.current.play()
 
-                        totalDurationDisplay.innerHTML = formatTime(audioRef.current.duration)
+                        totalDurationDisplay.current.innerHTML = formatTime(audioRef.current.duration)
                     }
                     reader.readAsDataURL(file)
                 }
             }
         })
 
-        progressContainer.addEventListener('click', (e) => {
+        progressContainer.current.addEventListener('click', (e) => {
             updateProgressFromMousePosition(e)
         })
 
-        progressContainer.addEventListener('mousemove', (e) => {
+        progressContainer.current.addEventListener('mousemove', (e) => {
             if (e.buttons === 1) {
                 updateProgressFromMousePosition(e)
             }
@@ -155,14 +153,14 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
         audioRef.current.addEventListener('timeupdate', () => {
             if (audioRef.current.ended) {
-                currentTimeDisplay.innerHTML = '0:00'
+                currentTimeDisplay.current.innerHTML = '0:00'
                 setIsended(true)
             }
             else {
                 audioRef.current.currentTime > 0 && setIsLoading(false)
-                currentTimeDisplay.innerHTML = formatTime(audioRef.current.currentTime)
+                currentTimeDisplay.current.innerHTML = formatTime(audioRef.current.currentTime)
                 const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100
-                progressBar.style.width = `${progress}%`
+                progressBar.current.style.width = `${progress}%`
             }
         })
     }, [playingSong])
@@ -198,56 +196,54 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
     // volume control 
     useEffect(() => {
-        const volumeBar = document.querySelector('.volume_bar')
-        const volumeContainer = document.querySelector('.volume_area')
         audioRef.current.volume = volumes < 0.08 ? 0 : volumes
 
         let volumeControl = 1
 
         function updateVolumeFromMousePosition(event) {
-            const volumeContainerWidth = volumeContainer.clientWidth
-            const volumeClickX = event.clientX - volumeContainer.getBoundingClientRect().left
+            const volumeContainerWidth = volumeContainer.current.clientWidth
+            const volumeClickX = event.clientX - volumeContainer.current.getBoundingClientRect().left
             volumeControl = (volumeClickX / volumeContainerWidth)
             setVolumes(volumeControl < 0 ? 0 : volumeControl)
 
             if (volumeClickX / volumeContainerWidth < .08) {
                 audioRef.current.muted = true
-                volumeBar.style.width = `0%`
+                volumeBar.current.style.width = `0%`
             }
             else {
                 audioRef.current.muted = false
                 audioRef.current.volume = volumeControl
-                volumeBar.style.width = `${volumeControl * 100}%`
+                volumeBar.current.style.width = `${volumeControl * 100}%`
             }
         }
 
-        volumeContainer.addEventListener('click', (e) => {
+        volumeContainer.current.addEventListener('click', (e) => {
             updateVolumeFromMousePosition(e)
         })
 
-        volumeContainer.addEventListener('mousemove', (e) => {
+        volumeContainer.current.addEventListener('mousemove', (e) => {
             if (e.buttons === 1) {
                 updateVolumeFromMousePosition(e)
             }
         })
 
-        volumeBar.addEventListener('dragstart', (e) => {
+        volumeBar.current.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', 'volume')
         })
 
-        volumeContainer.addEventListener('dragover', (e) => {
+        volumeContainer.current.addEventListener('dragover', (e) => {
             e.preventDefault()
         })
 
-        volumeContainer.addEventListener('drop', (e) => {
+        volumeContainer.current.addEventListener('drop', (e) => {
             e.preventDefault()
 
-            const offsetX = e.clientX - volumeContainer.getBoundingClientRect().left
-            setVolumes(offsetX / volumeContainer.offsetWidth)
+            const offsetX = e.clientX - volumeContainer.current.getBoundingClientRect().left
+            setVolumes(offsetX / volumeContainer.current.offsetWidth)
 
             audioRef.current.volume = Math.max(0, Math.min(1, volumes))
 
-            volumeBar.style.width = `${volumes * 100}%`
+            volumeBar.current.style.width = `${volumes * 100}%`
         })
     }, [playingSong])
 
@@ -302,16 +298,16 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                     </div>
                 </div>
                 <div className="time_line" >
-                    <p className="start_time">--:--</p>
-                    <div className="progress_area">
-                        <div className="progress_bar"></div>
+                    <p className="start_time" ref={currentTimeDisplay}>--:--</p>
+                    <div className="progress_area" ref={progressContainer}>
+                        <div className="progress_bar" ref={progressBar}></div>
                     </div>
-                    <p className="duration_song">
+                    <p className="duration_song" ref={totalDurationDisplay}>
                         {
                             playingSong && formatTime(playingSong.duration) || '--:--'
                         }
                     </p>
-                    <div id="audio_box">
+                    <div id="audio_box" ref={audioElement}>
                         <audio id="audio" ref={audioRef}></audio>
                     </div>
                 </div>
@@ -334,8 +330,8 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                                 : <FaVolumeLow className='btn_lowvolume_icon' />)
                     }
                 </div>
-                <div className="volume_area">
-                    <div className="volume_bar"></div>
+                <div className="volume_area" ref={volumeContainer}>
+                    <div className="volume_bar" ref={volumeBar}></div>
                 </div>
             </div>
         </div>

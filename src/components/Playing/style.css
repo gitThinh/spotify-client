@@ -23,13 +23,15 @@
 }
 
 .playing_block {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
     display: grid;
-    height: 80px;
+    height: var(--playing-height);
     grid-template-columns: 2.5fr 4fr 2.5fr;
     align-items: center;
     gap: 20px;
     padding: 0 18px;
-    z-index: 999999;
     background-color: #101010;
 }
 
@@ -199,9 +201,7 @@
     position: relative;
 }
 
-
 .playing_block .queue_and_volume .volume_area {
-    position: relative;
     height: 4px;
     width: 100px;
     border-radius: 50px;
@@ -219,7 +219,48 @@
     transition: width .3s linear;
 }
 
-
-@media (width >= 768px) and (width <=1024px) {
+/* --------------- 768px < width < 1024px ------------------------------------------------------------------------*/
+/* --------------- 768px < width < 1024px ------------------------------------------------------------------------*/
+@media (width >= 768px) and (width <= 1024px) {
+    .btn {
+        --sz: 14px;
+    }
+    
+    .loading_song {
+        --sz: 30px;
+        scale: .6;
+    }
+    .playing_block {
+        gap: 15px;
+        grid-template-columns: 3fr 4fr 2fr;
+    }
+    
+    .playing_block .info_music .box_info {
+        gap: 15px;
+    }
+    
+    .playing_block .info_music .box_info img {
+        width: 55px;
+    }
+    
+    .playing_block .playing_control .btn_playing_control {
+        gap: 40px;
+    }
+    
+    .playing_block .playing_control .btn_playing_control .btn_toggle_play {width: 30px;
+        aspect-ratio: 1;
+    }    
+    
+    /* progress bar */
+    .playing_block .playing_control .time_line {
+        width: 100%;
+        gap: 5px;
+    }    
+    
+    /* right area  */
+    .playing_block .queue_and_volume {
+        position: relative;
+        --sz-icon: 22px;
+    }
     
 }

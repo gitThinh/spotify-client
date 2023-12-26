@@ -1,5 +1,8 @@
+import { useRef } from "react"
 import { Link } from "react-router-dom"
-import { FaPlay, FaHeadphonesAlt } from 'react-icons/fa'
+import { FaHeadphonesAlt } from 'react-icons/fa'
+import { HiDotsHorizontal } from "react-icons/hi"
+import { FaPlus, FaPlay, FaMusic, FaUserPen } from "react-icons/fa6"
 
 
 import formatTime from '/src/utils/formatTime'
@@ -8,8 +11,31 @@ import { urlApiImg } from '/src/constants/env'
 
 const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
 
+    const moreOptionTable = useRef()
+    const moreOption = useRef()
+
+
+    const showOptionTable = () => {
+        if (moreOptionTable.current.style.display !== 'block') {
+            moreOptionTable.current.style.display = 'block'
+        } else {
+            moreOptionTable.current.style.display = 'none'
+        }
+    }
+
+    const handleClick = (e) => {
+        if (!moreOption.current.contains(e.target))
+            moreOptionTable.current.style.display = 'none'
+    }
+
+
     return (
-        <div key={index} className={index === currentIndex ? 'active_song songs_line noone_coppy' : 'songs_line noone_coppy'} onDoubleClick={() => { playSongInPL(index) }}>
+        <div key={index}
+            className={index === currentIndex ? 'active_song songs_line noone_coppy' : 'songs_line noone_coppy'}
+            onDoubleClick={() => { playSongInPL(index) }}
+            onClick={(e) => handleClick(e)}
+            onMouseLeave={() => moreOptionTable.current.style.display = 'none'}
+        >
             {
                 index !== currentIndex ?
                     <p className="content_center">{index + 1}</p>
@@ -25,6 +51,25 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt size={14} /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
+            <div className="more_options content_center" ref={moreOption}>
+                <HiDotsHorizontal onClick={showOptionTable} />
+                <div className="more_options_table" ref={moreOptionTable} >
+                    <ul>
+                        <li>
+                            <button className='more_options_table_option' ><FaPlus className='more_options_table_icon' /> Add to playlist</button>
+                        </li>
+                        <li>
+                            <button className='more_options_table_option' ><FaPlay className='more_options_table_icon' /> Playing song</button>
+                        </li>
+                        <li>
+                            <a href='/' className='more_options_table_option' ><FaMusic className='more_options_table_icon' /> Go to song page</a>
+                        </li>
+                        <li>
+                            <a href='/' className='more_options_table_option' ><FaUserPen className='more_options_table_icon' /> Go to artist page</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     )
 }
