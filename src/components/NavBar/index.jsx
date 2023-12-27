@@ -55,7 +55,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19" fill="none" className='nav_bar_options_icons'>
                             <path d="M12 0H0V2.71429H12V0ZM12 5.42857H0V8.14286H12V5.42857ZM0 13.5714H8V10.8571H0V13.5714ZM14 0V11.1014C13.69 10.9521 13.35 10.8571 13 10.8571C11.34 10.8571 10 12.6757 10 14.9286C10 17.1814 11.34 19 13 19C14.66 19 16 17.1814 16 14.9286V2.71429H19V0H14Z" fill="white" />
                         </svg>
-                        <p>Thư viện</p>
+                        <p>Danh Sách Phát</p>
                     </div>
                     <div className="nav_bar_library_addplaylist" onClick={() => user ? handleAddPlaylist : ''}><FaPlus /></div>
                 </div>
@@ -93,12 +93,11 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                         color: '#888',
                         fontSize: '16px',
                         textAlign: 'center',
-                        marginTop: '15px'
+                        margin: '15px 10px 0 10px',
                     }}>
                         Vui lòng đăng nhập để sử dụng chức năng này
                     </p>
                 }
-
             </div>
         </div>
     )

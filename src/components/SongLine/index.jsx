@@ -11,7 +11,7 @@ import formatTime from '/src/utils/formatTime'
 import '/src/components/SongLine/style.css'
 
 
-const SongLine = ({ song, addToPlayingList, index }) => {
+const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) => {
 
     const moreOptionTable = useRef()
     const moreOption = useRef()
@@ -32,15 +32,17 @@ const SongLine = ({ song, addToPlayingList, index }) => {
 
 
     return (
-        <div className="songs_line noone_coppy"
-            onDoubleClick={() => addToPlayingList(song, index)}
+        <div className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
+            onDoubleClick={() => check === 1 ? changePlayingList(song) : addToPlayingList(song, index)}
             onClick={(e) => handleClick(e)}
             onMouseLeave={() => moreOptionTable.current.style.display = 'none'}
         >
-            <p className="content_center">{index + 1}</p>
+            {!check && <p className="content_center">{index + 1}</p>}
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
             <div className="songs_details">
-                <Link to={`/songs/${song._id}`}><h3 className="songs_title oneline_text under_link" >{song.title}</h3></Link>
+                <Link to={`/songs/${song._id}`}>
+                    <h3 className="songs_title oneline_text under_link" >{song.title}</h3>
+                </Link>
                 <p className="songs_author under_link">{song.artist_name}</p>
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>

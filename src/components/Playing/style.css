@@ -73,7 +73,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3px;
+    padding-top: 5px;
 }
 
 .playing_block .playing_control .btn_playing_control {
@@ -180,6 +180,10 @@
     gap: 12px;
 }
 
+.playing_block .queue_and_volume>a {
+    width: max-content;
+}
+
 .playing_block .queue_and_volume .btn_list_icon {
     width: var(--sz-icon);
     height: var(--sz-icon);
@@ -191,17 +195,8 @@
     height: calc(var(--sz-icon) - 2px);
 }
 
-
-.playing_block .queue_and_volume .btn_volume_control {
-    width: calc(var(--sz-icon) + 2px);
-    height: calc(var(--sz-icon) + 2px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
 .playing_block .queue_and_volume .volume_area {
+    display: block;
     height: 4px;
     width: 100px;
     border-radius: 50px;
@@ -219,48 +214,141 @@
     transition: width .3s linear;
 }
 
+
 /* --------------- 768px < width < 1024px ------------------------------------------------------------------------*/
 /* --------------- 768px < width < 1024px ------------------------------------------------------------------------*/
-@media (width >= 768px) and (width <= 1024px) {
+@media (width >=768px) and (width <=1024px) {
     .btn {
         --sz: 14px;
     }
-    
+
     .loading_song {
         --sz: 30px;
         scale: .6;
     }
+
     .playing_block {
         gap: 15px;
         grid-template-columns: 3fr 4fr 2fr;
     }
-    
+
     .playing_block .info_music .box_info {
         gap: 15px;
     }
-    
+
     .playing_block .info_music .box_info img {
         width: 55px;
     }
-    
+
     .playing_block .playing_control .btn_playing_control {
         gap: 40px;
     }
-    
-    .playing_block .playing_control .btn_playing_control .btn_toggle_play {width: 30px;
+
+    .playing_block .playing_control .btn_playing_control .btn_toggle_play {
+        width: 30px;
         aspect-ratio: 1;
-    }    
-    
+    }
+
     /* progress bar */
     .playing_block .playing_control .time_line {
         width: 100%;
         gap: 5px;
-    }    
-    
+    }
+
     /* right area  */
     .playing_block .queue_and_volume {
         position: relative;
         --sz-icon: 22px;
     }
-    
+
+    .playing_block .queue_and_volume .volume_area {
+        display: none;
+        position: absolute;
+        right: 7px;
+        top: -90px;
+        height: 80px;
+        width: 4px;
+        transform: rotate(180deg);
+    }
+
+    .playing_block .queue_and_volume .volume_area .volume_bar {
+        margin: 0 auto;
+        height: var(--range-volume);
+        width: 4px;
+        transition: height .3s linear;
+    }
+
+    .playing_block .queue_and_volume .volume_area .volume_bar::before {
+        width: 10px;
+        right: -3px;
+        top: 100%;
+    }
+}
+
+@media (width >=320px) and (width <=768px) {
+    .btn {
+        --sz: 14px;
+    }
+
+    .loading_song {
+        --sz: 30px;
+        scale: .6;
+    }
+
+    .playing_block {
+        gap: 15px;
+        grid-template-columns: 3fr 4fr 2fr;
+    }
+
+    .playing_block .info_music .box_info {
+        gap: 15px;
+    }
+
+    .playing_block .info_music .box_info img {
+        width: 55px;
+    }
+
+    .playing_block .playing_control .btn_playing_control {
+        gap: 40px;
+    }
+
+    .playing_block .playing_control .btn_playing_control .btn_toggle_play {
+        width: 30px;
+        aspect-ratio: 1;
+    }
+
+    /* progress bar */
+    .playing_block .playing_control .time_line {
+        width: 100%;
+        gap: 5px;
+    }
+
+    /* right area  */
+    .playing_block .queue_and_volume {
+        position: relative;
+        --sz-icon: 22px;
+    }
+
+    .playing_block .queue_and_volume .volume_area {
+        display: none;
+        position: absolute;
+        right: 7px;
+        top: -90px;
+        height: 80px;
+        width: 4px;
+        transform: rotate(180deg);
+    }
+
+    .playing_block .queue_and_volume .volume_area .volume_bar {
+        margin: 0 auto;
+        height: var(--range-volume);
+        width: 4px;
+        transition: height .3s linear;
+    }
+
+    .playing_block .queue_and_volume .volume_area .volume_bar::before {
+        width: 10px;
+        right: -3px;
+        top: calc(100% - 10px);
+    }
 }

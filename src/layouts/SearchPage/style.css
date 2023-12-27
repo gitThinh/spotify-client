@@ -72,6 +72,8 @@
 .show_result .top_result .top_result_box .start_song {
     border-radius: 50%;
     display: none;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     width: 80px;
     height: 80px;
@@ -81,9 +83,15 @@
     opacity: 0.9;
     transition: all .3s ease;
 }
+.show_result .top_result .top_result_box .start_song svg{
+    --sz-icon: 26px;
+    margin-left: 5px;
+    width: var(--sz-icon);
+    height: var(--sz-icon);
+}
 
 .show_result .top_result .top_result_box:hover .start_song {
-    display: block;
+    display: flex;
 }
 
 .show_result .top_result .top_result_box .start_song:hover {

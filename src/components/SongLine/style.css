@@ -41,10 +41,14 @@
     text-align: left;
 }
 
+.songs_line .songs_details>a,
+.songs_line_search .songs_details>a{
+    width: 100%;
+}
+
 .songs_line .songs_details .songs_title,
 .songs_line_search .songs_details .songs_title {
     color: #fff;
-    max-width: max-content;
     font-size: 17px;
 }
 

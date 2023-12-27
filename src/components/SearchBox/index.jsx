@@ -8,19 +8,23 @@ import '/src/components/searchBox/style.css'
 
 const SearchBox = ({ setResulfSearch, setIsSearch }) => {
     const [search, setSearch] = useState('')
+    console.log(search)
 
 
     const handleSearch = async (e) => {
         e.preventDefault()
-        const response = await fetch(`${urlApiAudioServer}search?keyword=${search}`,
+        fetch(`${urlApiAudioServer}search?keyword=${search}`,
             {
                 headers: {
                     'x-api-key': apiKey
                 }
             })
-        const data = await response.json()
-        data.statusCode === 200 && setResulfSearch(data.metadata)
-        setIsSearch(true)
+            .then(response => response.json())
+            .then(data => {
+                data.statusCode === 200 && setResulfSearch(data.metadata)
+                setIsSearch(true)
+            })
+
     }
 
     const handleSentInput = (e) => {
@@ -28,6 +32,7 @@ const SearchBox = ({ setResulfSearch, setIsSearch }) => {
             handleSearch(e)
         }
     }
+
     return (
         <div className="searchBox">
             <HiMagnifyingGlass size={22} />

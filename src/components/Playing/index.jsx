@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, memo } from 'react'
 import { Link } from 'react-router-dom'
 import { ScaleLoader } from 'react-spinners'
 import { FaPlay, FaRandom } from 'react-icons/fa'
@@ -202,18 +202,40 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
         function updateVolumeFromMousePosition(event) {
             const volumeContainerWidth = volumeContainer.current.clientWidth
-            const volumeClickX = event.clientX - volumeContainer.current.getBoundingClientRect().left
-            volumeControl = (volumeClickX / volumeContainerWidth)
+            const volumeContainerHeight = volumeContainer.current.clientHeight
+
+            let volumeClickX, volumeClickY
+
+            if (volumeContainerWidth > volumeContainerHeight) {
+                volumeClickX = event.clientX - volumeContainer.current.getBoundingClientRect().left
+                volumeControl = volumeClickX / volumeContainerWidth
+            } else {
+                volumeClickY = event.clientY - volumeContainer.current.getBoundingClientRect().top
+                volumeControl = 1 - volumeClickY / volumeContainerHeight
+            }
+
             setVolumes(volumeControl < 0 ? 0 : volumeControl)
 
-            if (volumeClickX / volumeContainerWidth < .08) {
-                audioRef.current.muted = true
-                volumeBar.current.style.width = `0%`
-            }
-            else {
-                audioRef.current.muted = false
-                audioRef.current.volume = volumeControl
-                volumeBar.current.style.width = `${volumeControl * 100}%`
+            if (volumeContainerWidth > volumeContainerHeight) {
+                if (volumeClickX / volumeContainerWidth < 0.08) {
+                    audioRef.current.muted = true;
+                    volumeBar.current.style.width = `0%`;
+                } else {
+                    audioRef.current.muted = false;
+                    audioRef.current.volume = volumeControl;
+                    volumeBar.current.style.width = `${volumeControl * 100}%`;
+                    volumeBar.current.style.height = `100%`;
+                }
+            } else {
+                if (1 - (volumeClickY / volumeContainerHeight) < 0.08) {
+                    audioRef.current.muted = true;
+                    volumeBar.current.style.height = `0%`;
+                } else {
+                    audioRef.current.muted = false;
+                    audioRef.current.volume = volumeControl;
+                    volumeBar.current.style.height = `${volumeControl * 100}%`;
+                    volumeBar.current.style.width = `100%`;
+                }
             }
         }
 
@@ -238,14 +260,28 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         volumeContainer.current.addEventListener('drop', (e) => {
             e.preventDefault()
 
-            const offsetX = e.clientX - volumeContainer.current.getBoundingClientRect().left
-            setVolumes(offsetX / volumeContainer.current.offsetWidth)
+            let offsetY, offsetX;
+
+            if (volumeContainer.current.clientWidth > volumeContainer.current.clientHeight) {
+                offsetX = e.clientX - volumeContainer.current.getBoundingClientRect().left;
+                setVolumes(offsetX / volumeContainer.current.offsetWidth);
+            } else {
+                offsetY = e.clientY - volumeContainer.current.getBoundingClientRect().top;
+                setVolumes(1 - offsetY / volumeContainer.current.offsetHeight);
+            }
 
             audioRef.current.volume = Math.max(0, Math.min(1, volumes))
 
-            volumeBar.current.style.width = `${volumes * 100}%`
+            if (volumeContainer.current.clientWidth > volumeContainer.current.clientHeight) {
+                volumeBar.current.style.width = `${volumes * 100}%`;
+                volumeBar.current.style.height = `100%`
+            } else {
+                volumeBar.current.style.height = `${volumes * 100}%`;
+                volumeBar.current.style.width = `100%`;
+            }
         })
     }, [playingSong])
+
 
 
 
@@ -285,7 +321,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                             <div className="btn btn_toggle_play" onClick={audioRef.current ? handPlayPause : () => { }}>
                                 {
                                     isplaying
-                                        ? <HiMiniPause lassName='btn_pause_icon' />
+                                        ? <HiMiniPause className='btn_pause_icon' />
                                         : <FaPlay className='btn_play_icon' />
                                 }
                             </div>
@@ -321,7 +357,14 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                 <div className="content_center">
                     <HiMiniMusicalNote className='btn_lyrics_icon' />
                 </div>
-                <div className="btn_volume_control content_center">
+                <div
+                    className="btn_volume_control content_center"
+                    onClick={() => {
+                        volumeContainer.current.style.display =
+                            volumeContainer.current.style.display !== 'block'
+                                ? 'block'
+                                : 'none'
+                    }}>
                     {
                         volumes < 0.08
                             ? <FaVolumeXmark className='btn_mutevolume_icon' />
@@ -338,4 +381,4 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     )
 }
 
-export default Playing
+export default memo(Playing)
