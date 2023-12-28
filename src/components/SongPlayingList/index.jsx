@@ -1,12 +1,11 @@
 import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { FaHeadphonesAlt } from 'react-icons/fa'
-import { HiDotsHorizontal } from "react-icons/hi"
-import { FaPlus, FaPlay, FaMusic, FaUserPen } from "react-icons/fa6"
+import { FaPlay } from "react-icons/fa6"
 
-
-import formatTime from '/src/utils/formatTime'
+import { SelectOptions } from "/src/constants/components"
 import { urlApiImg } from '/src/constants/env'
+import formatTime from '/src/utils/formatTime'
 
 
 const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
@@ -51,25 +50,7 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt size={14} /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <div className="more_options content_center" ref={moreOption}>
-                <HiDotsHorizontal onClick={showOptionTable} />
-                <div className="more_options_table" ref={moreOptionTable} >
-                    <ul>
-                        <li>
-                            <button className='more_options_table_option' ><FaPlus className='more_options_table_icon' /> Add to playlist</button>
-                        </li>
-                        <li>
-                            <button className='more_options_table_option' ><FaPlay className='more_options_table_icon' /> Playing song</button>
-                        </li>
-                        <li>
-                            <a href='/' className='more_options_table_option' ><FaMusic className='more_options_table_icon' /> Go to song page</a>
-                        </li>
-                        <li>
-                            <a href='/' className='more_options_table_option' ><FaUserPen className='more_options_table_icon' /> Go to artist page</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <SelectOptions song={song}/>
         </div>
     )
 }

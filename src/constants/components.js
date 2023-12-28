@@ -6,5 +6,16 @@ import ShowList from '/src/components/ShowList'
 import SongBox from '/src/components/SongBox'
 import SongLine from '/src/components/SongLine'
 import SongPlayingList from '/src/components/SongPlayingList'
+import SelectOptions from '/src/components/SelectOptions'
 
-export {InputForm, NavBar, Playing, SearchBox, ShowList, SongBox, SongLine, SongPlayingList }
+export {
+    InputForm,
+    NavBar,
+    Playing,
+    SearchBox,
+    ShowList,
+    SongBox,
+    SongLine,
+    SongPlayingList,
+    SelectOptions
+}

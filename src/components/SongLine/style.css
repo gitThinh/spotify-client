@@ -9,7 +9,7 @@
 
 .songs_line {
     display: grid;
-    grid-template-columns: 30px 80px 7fr 2fr 2fr 1fr;
+    grid-template-columns: 30px 80px 7fr 1fr 1fr .5fr;
     text-align: center;
     border-radius: 0;
     width: 100%;
@@ -78,68 +78,7 @@
     letter-spacing: .60px;
 }
 
-.songs_line .more_options {
-    position: relative;
-    visibility: hidden;
-}
 
-.songs_line .more_options>svg{
-    cursor: pointer;
-    --sz-icon: 22px;
-    width: var(--sz-icon);
-    height: var(--sz-icon);
-    color: #ddd;
-}
-
-.songs_line .more_options:hover>svg{
-    color: #fff;
-}
-
-.songs_line:hover .more_options {
-    visibility: visible;
-}
-
-.songs_line .more_options .more_options_table{
-    display: none;
-    width: 200px;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #282828;
-    padding: 5px;
-    border-radius: 5px;
-    z-index: 999999;
-}
-
-.songs_line .more_options .more_options_table .more_options_table_option{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    padding: 10px 6px 10px 10px;
-    font-size: 14px;
-    background-color: transparent;
-    color: #fff;
-    border-radius: 5px;
-    cursor: default;
-    transition: background-color .2s linear;
-}
-
-.songs_line .more_options .more_options_table .more_options_table_option:hover{
-    background-color: #3e3e3e;
-}
-
-.songs_line .more_options .more_options_table .more_options_table_icon{
-    --sz-icon: 20px;
-    width: var(--sz-icon);
-    height: var(--sz-icon);
-}
-
-.songs_line .more_options .more_options_table .more_options_table_icon:nth-child(1),
-.songs_line .more_options .more_options_table .more_options_table_icon:nth-child(2){
-    --sz-icon: 16px ;
-}
 
 
 

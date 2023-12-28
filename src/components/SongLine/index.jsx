@@ -1,9 +1,8 @@
 import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { FaHeadphonesAlt } from 'react-icons/fa'
-import { HiDotsHorizontal } from "react-icons/hi"
-import { FaPlus, FaPlay, FaMusic, FaUserPen } from "react-icons/fa6"
 
+import { SelectOptions } from "/src/constants/components"
 import { urlApiImg } from '/src/constants/env'
 import formatTime from '/src/utils/formatTime'
 
@@ -13,29 +12,11 @@ import '/src/components/SongLine/style.css'
 
 const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) => {
 
-    const moreOptionTable = useRef()
-    const moreOption = useRef()
-
-
-    const showOptionTable = () => {
-        if (moreOptionTable.current.style.display !== 'block') {
-            moreOptionTable.current.style.display = 'block'
-        } else {
-            moreOptionTable.current.style.display = 'none'
-        }
-    }
-
-    const handleClick = (e) => {
-        if (!moreOption.current.contains(e.target))
-            moreOptionTable.current.style.display = 'none'
-    }
-
+    
 
     return (
         <div className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
             onDoubleClick={() => check === 1 ? changePlayingList(song) : addToPlayingList(song, index)}
-            onClick={(e) => handleClick(e)}
-            onMouseLeave={() => moreOptionTable.current.style.display = 'none'}
         >
             {!check && <p className="content_center">{index + 1}</p>}
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
@@ -47,25 +28,7 @@ const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) =
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <div className="more_options content_center" ref={moreOption}>
-                <HiDotsHorizontal onClick={showOptionTable} />
-                <div className="more_options_table" ref={moreOptionTable} >
-                    <ul>
-                        <li>
-                            <button className='more_options_table_option' ><FaPlus className='more_options_table_icon' /> Add to playlist</button>
-                        </li>
-                        <li>
-                            <button className='more_options_table_option' ><FaPlay className='more_options_table_icon' /> Playing song</button>
-                        </li>
-                        <li>
-                            <a href='/' className='more_options_table_option' ><FaMusic className='more_options_table_icon' /> Go to song page</a>
-                        </li>
-                        <li>
-                            <a href='/' className='more_options_table_option' ><FaUserPen className='more_options_table_icon' /> Go to artist page</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <SelectOptions song={song} />
         </div>
     )
 }

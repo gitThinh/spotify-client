@@ -16,24 +16,59 @@
 
 .header_songpage .thumb_song img {
     display: block;
-    width: 100%;
+    width: 220px;
     border-radius: 8px;
     transition: scale .3s ease-in-out;
+    box-shadow: 0 4px 60px #242424;
 }
 
 .header_songpage .thumb_song:hover img {
     scale: 1.05;
 }
 
-.header_songpage .detail_song .detail_page_option {
+.header_songpage .detail_song {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: start;
+}
+
+.header_songpage .detail_song .type_detail {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.header_songpage .detail_song .title_song {
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+.header_songpage .detail_song .artist_duration {
+    font-size: 15px;
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    gap: 8px;
+    align-items: end;
+}
+
+.header_songpage .detail_song .artist_duration .artist {
+    font-weight: 600;
+}
+
+.body_songpage{
+    padding: 30px;
+}
+
+.body_songpage .body_page_option {
     display: flex;
     flex-direction: row;
     gap: 20px;
     align-items: center;
 }
 
-.header_songpage .detail_song .detail_page_option .add_playlist,
-.header_songpage .detail_song .detail_page_option .play_button {
+.body_songpage .body_page_option .play_button {
     border-radius: 50%;
     padding: 2px 0 0 2px;
     margin: 0;
@@ -47,26 +82,7 @@
     margin-bottom: 15px;
 }
 
-.header_songpage .detail_song .detail_page_option .add_playlist:hover,
-.header_songpage .detail_song .detail_page_option .play_button:hover {
+.body_songpage .body_page_option .play_button:hover {
     box-shadow: 1px 0px 10px #565656;
     scale: 1.1;
-}
-
-.header_songpage .detail_song .title_song {
-    font-size: 3.5rem;
-    margin: 20px 0;
-}
-
-.header_songpage .detail_song .artist_duration {
-    font-size: 18px;
-    display: flex;
-    background-color: transparent;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-}
-
-.header_songpage.body_songpage {
-    padding: 30px;
 }

@@ -20,7 +20,6 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                                     </div>
                                 )
                             })
-
                             :
                             <div className="nononono">
                                 <h3 className="alert">Chưa có bài hát nào</h3>
@@ -29,27 +28,27 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                 </div>
                 {
                     rcmList.length > 0 ?
-                    <div style={{ marginTop: '30px' }}>
-                        <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
-                        {
-                            rcmList.map((song, index) => {
-                                return (
-                                    <div key={index}>
-                                        <SongLine
-                                            song={song}
-                                            addToPlayingList={addToPlayingList}
-                                            index={index}
-                                        />
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                    :
-                    <div className="rcmList" style={{ marginTop: '30px' }}>
-                        <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
-                        <h2 style={{textAlign: 'center'}}>Danh sách đề xuất trống</h2>
-                    </div>
+                        <div style={{ marginTop: '30px' }}>
+                            <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
+                            {
+                                rcmList.map((song, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <SongLine
+                                                song={song}
+                                                addToPlayingList={addToPlayingList}
+                                                index={index}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        :
+                        <div className="rcmList" style={{ marginTop: '30px' }}>
+                            <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
+                            <h2 style={{ textAlign: 'center' }}>Danh sách đề xuất trống</h2>
+                        </div>
                 }
             </div>
         </div>

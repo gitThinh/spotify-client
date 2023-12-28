@@ -40,8 +40,6 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                             <h3 className="section_title">Bài hát</h3>
                             {
                                 resulfSearch.map((result, index) => {
-                                    // ----------------------------- return map -----------------------------
-                                    
                                     return (
                                         index < 5 &&
                                         <SongLine song={result} check={1} changePlayingList={changePlayingList}/>

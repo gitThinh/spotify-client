@@ -1,0 +1,57 @@
+.more_options {
+    position: relative;
+}
+
+.more_options>svg{
+    cursor: pointer;
+    --sz-icon: 22px;
+    width: var(--sz-icon);
+    height: var(--sz-icon);
+    color: #ddd;
+}
+
+.more_options:hover>svg{
+    color: #fff;
+}
+
+.more_options .more_options_table{
+    display: none;
+    width: 200px;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #181818;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 999999;
+}
+
+.more_options .more_options_table .more_options_table_option{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 10px 6px 10px 10px;
+    font-size: 14px;
+    background-color: transparent;
+    color: #fff;
+    border-radius: 5px;
+    cursor: default;
+    transition: background-color .2s linear;
+}
+
+.more_options .more_options_table .more_options_table_option:hover{
+    background-color: #242424;
+}
+
+.more_options .more_options_table .more_options_table_icon{
+    --sz-icon: 20px;
+    width: var(--sz-icon);
+    height: var(--sz-icon);
+}
+
+.more_options .more_options_table .more_options_table_icon:nth-child(1),
+.more_options .more_options_table .more_options_table_icon:nth-child(2){
+    --sz-icon: 16px ;
+}

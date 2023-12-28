@@ -8,8 +8,6 @@ import '/src/components/searchBox/style.css'
 
 const SearchBox = ({ setResulfSearch, setIsSearch }) => {
     const [search, setSearch] = useState('')
-    console.log(search)
-
 
     const handleSearch = async (e) => {
         e.preventDefault()
