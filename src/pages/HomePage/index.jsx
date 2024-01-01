@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Cookies from 'js-cookie'
 import { FiLogOut } from "react-icons/fi"
 
@@ -23,6 +23,9 @@ const HomePage = () => {
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
     const [showPlaylist, setShowPlaylist] = useState([])
+
+    const infoUser = useRef()
+    const infoUserTable = useRef()
 
 
     //get data user from cookies
@@ -195,9 +198,15 @@ const HomePage = () => {
     }, [])
 
 
+    const checkTargetHeaderUser = (e) => {
+        if (!infoUser.current.contains(e.target))
+            infoUserTable.current.style.display = 'none'
+    }
+
+
     // -------------------------------------------- RENDER ------------------------------------------
     return (
-        <div className="home_container have_scroll">
+        <div className="home_container have_scroll" onClick={checkTargetHeaderUser}>
             <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
                 <div className="bounder_layout have_scroll">
@@ -217,7 +226,7 @@ const HomePage = () => {
                         </div>
                         {
                             user !== '' ?
-                                <div className="info_user noone_coppy">
+                                <div className="info_user noone_coppy" ref={infoUser}>
                                     <img src='https://nth-audio.site/images/avt.jpg'
                                         onClick={() => {
                                             const detailsUser = document.querySelector('.info_user_table')
@@ -226,7 +235,7 @@ const HomePage = () => {
                                                 : detailsUser.style.display = 'none'
                                         }}
                                     />
-                                    <div className="info_user_table" style={{ display: 'none' }}>
+                                    <div className="info_user_table" style={{ display: 'none' }} ref={infoUserTable}>
                                         <ul>
                                             <li>
                                                 <button className='info_user_table_option' >Profile</button>
@@ -278,7 +287,7 @@ const HomePage = () => {
                             }
                         />
                         <Route path='/songs/:id' element={
-                            <SongDetail changePlayingList={changePlayingList} showPlaylist={showPlaylist}/>
+                            <SongDetail changePlayingList={changePlayingList} showPlaylist={showPlaylist} />
                         } />
                         <Route path='/search'
                             element={<SearchPage changePlayingList={changePlayingList} resulfSearch={resulfSearch} isSearch={isSearch} />}

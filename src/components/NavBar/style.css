@@ -2,12 +2,14 @@
     --sz_icon_library: 24px;
     --navIcons_sz: 26px;
 
+    position: relative;
     display: flex;
     flex-direction: column;
     width: var(--navbar_width);
     background-color: #141414;
     gap: 5px;
     height: 100%;
+    z-index: 1;
 }
 
 .nav_bar .nav_bar_line {

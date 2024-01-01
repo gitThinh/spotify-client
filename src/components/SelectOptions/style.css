@@ -18,12 +18,20 @@
     display: none;
     width: 200px;
     position: absolute;
+    z-index: 999999;
     top: 50px;
-    right: 0;
+    left: 0;
     background-color: #181818;
     padding: 5px;
     border-radius: 5px;
-    z-index: 999999;
+}
+
+.more_options .more_options_table.right{
+    translate: -80% 0;
+}
+
+.more_options .more_options_table.top{
+    transform: translateY(-130%);
 }
 
 .more_options .more_options_table .more_options_table_option{

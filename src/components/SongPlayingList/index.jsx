@@ -10,30 +10,10 @@ import formatTime from '/src/utils/formatTime'
 
 const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
 
-    const moreOptionTable = useRef()
-    const moreOption = useRef()
-
-
-    const showOptionTable = () => {
-        if (moreOptionTable.current.style.display !== 'block') {
-            moreOptionTable.current.style.display = 'block'
-        } else {
-            moreOptionTable.current.style.display = 'none'
-        }
-    }
-
-    const handleClick = (e) => {
-        if (!moreOption.current.contains(e.target))
-            moreOptionTable.current.style.display = 'none'
-    }
-
-
     return (
         <div key={index}
             className={index === currentIndex ? 'active_song songs_line noone_coppy' : 'songs_line noone_coppy'}
             onDoubleClick={() => { playSongInPL(index) }}
-            onClick={(e) => handleClick(e)}
-            onMouseLeave={() => moreOptionTable.current.style.display = 'none'}
         >
             {
                 index !== currentIndex ?
