@@ -62,10 +62,15 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         newSourceElement.src = playingSong ? `${urlApiSong + playingSong.file_name}` : ''
 
         newAudioElement.appendChild(newSourceElement)
-        newAudioElement.autoplay = true
+        // newAudioElement.autoplay = true
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
         audioElement.current.appendChild(newAudioElement)
+        audioRef.current.addEventListener("durationchange", () => {
+            setTimeout(() => {
+                audioRef.current.play();
+            }, 100)
+        })
     }, [playingSong])
 
 
