@@ -28,7 +28,6 @@ const SelectOptions = ({ song }) => {
         const mouseY = e.clientY
         const container =document.querySelector('.container')
         
-        console.log(container.offsetHeight, mouseY + moreOptionTable.current.offsetHeight)
         if (mouseX + moreOptionTable.current.offsetWidth > moreOption.current.parentNode.offsetWidth) {
             moreOptionTable.current.classList.add('right')
         } else {

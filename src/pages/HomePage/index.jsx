@@ -88,7 +88,7 @@ const HomePage = () => {
                 },
             })
                 .then(response => response.json())
-                .then(data => data.statusCode === 200 ? setRcmList(data.metadata) : setRcmList([]))
+                .then(data => data.statusCode === 200 && setRcmList(data.metadata))
         setIsRcm(false)
     }, [playingSong])
 
@@ -199,8 +199,10 @@ const HomePage = () => {
 
 
     const checkTargetHeaderUser = (e) => {
-        if (!infoUser.current.contains(e.target))
-            infoUserTable.current.style.display = 'none'
+        if (infoUser.current) {
+            if (!infoUser.current.contains(e.target))
+                infoUserTable.current.style.display = 'none'
+        }
     }
 
 

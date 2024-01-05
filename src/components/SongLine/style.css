@@ -7,13 +7,17 @@
     color: #1ED760;
 }
 
+.songs_line_search {
+    grid-template-columns: 80px 6fr 1fr 1fr .5fr !important;
+}
+
 .songs_line {
     display: grid;
     grid-template-columns: 30px 80px 7fr 1fr 1fr .5fr;
     text-align: center;
     border-radius: 0;
     width: 100%;
-    padding: 12px;
+    padding: 8px;
     background-color: #000;
     background-image: none;
     border-radius: 8px;
@@ -22,6 +26,10 @@
 .songs_line:hover,
 .songs_line_search:hover {
     background-color: #121212;
+}
+
+.songs_line .index_number{
+    font-size: 14px;
 }
 
 .songs_line .songs_thumb,
@@ -79,11 +87,5 @@
 }
 
 
-
-
-
-.songs_line_search {
-    grid-template-columns: 80px 6fr 2fr 1fr 1fr !important;
-}
 
 /* Song Line  */

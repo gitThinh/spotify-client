@@ -1,8 +1,7 @@
 import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { FaCircleXmark } from "react-icons/fa6"
-import { FaHeadphonesAlt } from 'react-icons/fa'
-import { FaPlus, FaPlay, FaMusic, FaUserPen } from "react-icons/fa6"
+import { FaPlay } from "react-icons/fa6"
 
 import { ShowList, SongLine } from "/src/constants/components"
 import { urlApiImg, urlApiAudioServer } from '/src/constants/env'
@@ -31,7 +30,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                                             changePlayingList(resulfSearch[0], 1)
                                         }}
                                     >
-                                        <FaPlay/>
+                                        <FaPlay />
                                     </button>
                                 </div>
                             </Link>
@@ -42,7 +41,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                                 resulfSearch.map((result, index) => {
                                     return (
                                         index < 5 &&
-                                        <SongLine song={result} check={1} changePlayingList={changePlayingList}/>
+                                        <SongLine song={result} check={1} changePlayingList={changePlayingList} />
                                     )
                                 })
                             }
@@ -55,8 +54,11 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                         <h2>Không tìm thấy kết quả</h2>
                     </div>
             }
-
-            <ShowList link={`${urlApiAudioServer}songs/page/2`} title={'Có thể bạn thích:'} changePlayingList={changePlayingList} />
+            <ShowList
+                link={`${urlApiAudioServer}songs/page/2`}
+                title={'Có thể bạn thích:'}
+                changePlayingList={changePlayingList}
+            />
         </div>
     )
 }

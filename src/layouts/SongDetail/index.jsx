@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom"
 import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa6'
 
-import { urlApiAudioServer, urlApiImg, apiKey } from '/src/constants/env'
-import { SelectOptions } from "/src/constants/components"
+import { urlApiAudioServer, urlApiImg, urlMLServer, apiKey } from '/src/constants/env'
+import { SelectOptions, SongLine } from "/src/constants/components"
 
 import './style.css'
 
@@ -12,8 +12,9 @@ import './style.css'
 const SongDetail = ({ changePlayingList }) => {
     const id = useParams().id
     const [songDetail, setSongDetail] = useState({})
+    const [rcmList, setRcmList] = useState([])
 
-
+    // get song details
     useEffect(() => {
         const handleLoadSong = async () => {
             const response = await fetch(`${urlApiAudioServer}songs/${id}`, {
@@ -26,8 +27,19 @@ const SongDetail = ({ changePlayingList }) => {
             setSongDetail(data.metadata)
         }
         handleLoadSong()
-    }, [songDetail._id])
+    }, [id])
 
+    // get rcm list
+    useEffect(() => {
+        fetch(`${urlMLServer + id}`, {
+            method: 'GET',
+            headers: {
+                'x-api-key': apiKey
+            },
+        })
+            .then(response => response.json())
+            .then(data => data.statusCode === 200 && setRcmList(data.metadata))
+    }, [id])
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
@@ -58,8 +70,20 @@ const SongDetail = ({ changePlayingList }) => {
                     <button className="play_button" onClick={() => changePlayingList(songDetail)}>
                         <FaPlay size={25} />
                     </button>
-                    <SelectOptions song={songDetail} classname='play_button'/>
+                    <SelectOptions song={songDetail} />
                 </div>
+                <section className="body_page_option_rcm">
+                    {
+                        rcmList.map((song, index) => {
+                            return (
+                                index < 5 &&
+                                <div key={index}>
+                                    <SongLine song={song} check={1} changePlayingList={changePlayingList} />
+                                </div>
+                            )
+                        })
+                    }
+                </section>
             </div>
         </div>
     );

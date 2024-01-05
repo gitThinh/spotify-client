@@ -8,7 +8,7 @@ import '/src/components/ShowList/style.css'
 
 
 
-const ShowList = ({ link, title, changePlayingList }) => {
+const ShowList = ({ link, title, changePlayingList, range = 100 }) => {
     const [listSongs, setListSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
@@ -37,8 +37,9 @@ const ShowList = ({ link, title, changePlayingList }) => {
                         <h2>{title}</h2>
                         <div className="showlist_grid_box">
                             {
-                                listSongs.map((song) => {
+                                listSongs.map((song, index) => {
                                     return (
+                                        index < range &&
                                         <div key={song._id}>
                                             <SongBox song={song} changePlayingList={changePlayingList}/>
                                         </div>

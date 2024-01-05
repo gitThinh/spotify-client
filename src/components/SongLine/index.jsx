@@ -18,7 +18,7 @@ const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) =
         <div className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
             onDoubleClick={() => check === 1 ? changePlayingList(song) : addToPlayingList(song, index)}
         >
-            {!check && <p className="content_center">{index + 1}</p>}
+            {!check && <p className="index_number content_center">{index + 1}</p>}
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
             <div className="songs_details">
                 <Link to={`/songs/${song._id}`}>
