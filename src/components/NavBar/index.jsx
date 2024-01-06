@@ -12,6 +12,7 @@ import './style.css'
 
 const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
 
+    console.log('render navbar');
 
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {
@@ -26,7 +27,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
         })
             .then(response => response.json())
             .then(data => {
-                data.statusCode === 201 && handleGetPlaylists(tokens, user, setShowPlaylist)
+                data.statusCode === 201 && handleGetPlaylists(tokens, user).then(response => setShowPlaylist(response))
             })
     }
 
@@ -63,11 +64,11 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                     user &&
                     <div className="nav_bar_library_playlists have_scroll">
                         {
-                            showPlaylist.length > 0 &&
+                            showPlaylist.length > 0 ?
                             showPlaylist.map((playlist, index) => {
                                 return (
                                     user &&
-                                    <Link to={`/playlist/${playlist._id}`} style={{ width: '100%' }} key={index}>
+                                    <Link to={`/playlists/${playlist._id}`} style={{ width: '100%' }} key={index}>
                                         <div className="nav_bar_library_playlist">
                                             <img src='https://nth-audio.site/images/avt.jpg' />
                                             <div className="nav_bar_library_playlist_details">
@@ -78,6 +79,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                                     </Link>
                                 )
                             })
+                            : <p className='show_alert'>Bạn chưa có playlist nào</p>
                         }
                         {/* <div className="nav_bar_library_playlist">
                             <img src='https://nth-audio.site/images/avt.jpg' />
@@ -89,12 +91,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                 }
                 {
                     !user &&
-                    <p style={{
-                        color: '#888',
-                        fontSize: '16px',
-                        textAlign: 'center',
-                        margin: '15px 10px 0 10px',
-                    }}>
+                    <p className='show_alert'>
                         Vui lòng đăng nhập để sử dụng chức năng này
                     </p>
                 }

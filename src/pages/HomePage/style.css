@@ -22,6 +22,7 @@
 }
 
 .show_song,
+.show_playlist,
 .home_layout,
 .queue_layout,
 .search_layout {
@@ -95,7 +96,7 @@
     background-color: #3e3e3e;
 }
 
-.bounder_layout .header_user .info_user .info_user_table ul li .info_user_table_option .info_user_table_icon{
+.bounder_layout .header_user .info_user .info_user_table ul li .info_user_table_option .info_user_table_icon {
     --sz: 16px;
     width: var(--sz);
     height: var(--sz);

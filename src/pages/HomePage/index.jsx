@@ -1,11 +1,11 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, lazy } from 'react'
 import Cookies from 'js-cookie'
 import { FiLogOut } from "react-icons/fi"
 
 
 import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
-import { Page404, SongDetail, Queue, SearchPage } from '/src/constants/layouts'
+import { Page404, SongDetail, Queue, SearchPage, PlaylistPage } from '/src/constants/layouts'
 import { urlMLServer, urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
 
@@ -19,6 +19,7 @@ const HomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(false)
+    const [isPlaylist, setIsPlaylist] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false)
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
@@ -26,7 +27,6 @@ const HomePage = () => {
 
     const infoUser = useRef()
     const infoUserTable = useRef()
-
 
     //get data user from cookies
     const [user, setUser] = useState(Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : '')
@@ -96,7 +96,13 @@ const HomePage = () => {
     // select new song, reset playinglist and rcm
     const changePlayingList = (pList) => {
         showPlayer === false && setShowPlayer(true)
-        setPlayingList([pList])
+        if (pList.length) {
+            setPlayingList(pList)
+            setIsPlaylist(true)
+        }
+        else {
+            setPlayingList([pList])
+        }
         setIsRcm(true)
     }
 
@@ -110,10 +116,11 @@ const HomePage = () => {
 
     // update current index and playing song when add new song into playinglist
     useEffect(() => {
-        playingList.length > 0 &&
-            setCurrentIndex(playingList.length - 1)
-        playingList.length > 0 &&
-            setPlayingSong(playingList[playingList.length - 1])
+        if (playingList.length > 0) {
+            setCurrentIndex(isPlaylist ? 0 : playingList.length - 1)
+            setPlayingSong(isPlaylist ? playingList[0] : playingList[playingList.length - 1])
+        }
+        setIsPlaylist(false)
     }, [playingList])
 
     // select song at playing list
@@ -194,8 +201,13 @@ const HomePage = () => {
 
     // get playlists
     useEffect(() => {
-        user && handleGetPlaylists(tokens, user, setShowPlaylist)
+        user &&
+            handleGetPlaylists(tokens, user).then(response => {
+                setShowPlaylist(response)
+                Cookies.set('playlists', JSON.stringify(response))
+            })
     }, [])
+
 
 
     const checkTargetHeaderUser = (e) => {
@@ -217,11 +229,13 @@ const HomePage = () => {
                             {
                                 <Routes>
                                     <Route path='/search'
-                                        element={<SearchBox
-                                            setResulfSearch={setResulfSearch}
-                                            setIsSearch={setIsSearch}
-                                            style={{ visibility: 'visible' }}
-                                        />}
+                                        element={
+                                            <SearchBox
+                                                setResulfSearch={setResulfSearch}
+                                                setIsSearch={setIsSearch}
+                                                style={{ visibility: 'visible' }}
+                                            />
+                                        }
                                     />
                                 </Routes>
                             }
@@ -269,12 +283,13 @@ const HomePage = () => {
                         }
                     </div>
                     <Routes>
-                        <Route path='/' element={
-                            <div className="home_layout">
-                                <ShowList link={`${urlApiAudioServer + 'songs/page/1'}`} title={'Trang 1'} changePlayingList={changePlayingList} />
-                                <ShowList link={`${urlApiAudioServer}songs/page/3`} title={'Trang 2'} changePlayingList={changePlayingList} />
-                            </div>
-                        }
+                        <Route index
+                            element={
+                                <div className="home_layout">
+                                    <ShowList link={`${urlApiAudioServer + 'songs/page/1'}`} title={'Trang 1'} changePlayingList={changePlayingList} />
+                                    <ShowList link={`${urlApiAudioServer}songs/page/3`} title={'Trang 2'} changePlayingList={changePlayingList} />
+                                </div>
+                            }
                         />
                         <Route path='queue'
                             element={
@@ -288,11 +303,20 @@ const HomePage = () => {
                                 />
                             }
                         />
-                        <Route path='/songs/:id' element={
-                            <SongDetail changePlayingList={changePlayingList} showPlaylist={showPlaylist} />
-                        } />
+                        <Route path='/songs/:id'
+                            element={
+                                <SongDetail changePlayingList={changePlayingList} showPlaylist={showPlaylist} />
+                            }
+                        />
+                        <Route path='/playlists/:id'
+                            element={
+                                <PlaylistPage changePlayingList={changePlayingList} showPlaylist={showPlaylist} user={user} tokens={tokens} />
+                            }
+                        />
                         <Route path='/search'
-                            element={<SearchPage changePlayingList={changePlayingList} resulfSearch={resulfSearch} isSearch={isSearch} />}
+                            element={
+                                <SearchPage changePlayingList={changePlayingList} resulfSearch={resulfSearch} isSearch={isSearch} />
+                            }
                         />
                         <Route path='*' element={<Page404 />} />
                     </Routes>

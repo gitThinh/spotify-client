@@ -146,6 +146,13 @@
     background-color: #222;
 }
 
+.nav_bar .nav_bar_library .show_alert {
+    color: #888;
+    font-size: 16px;
+    text-align: center;
+    margin: 15px 10px 0 10px;
+}
+
 
 
 @media (width >= 768px) and (width <= 1024px) {

@@ -1,0 +1,60 @@
+.header_playlistpage {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: end;
+    padding: 30px;
+    cursor: default;
+    border-bottom: 1px solid #222;
+}
+
+.header_playlistpage .thumb_playlist {
+    width: 220px;
+    aspect-ratio: 1;
+}
+
+.header_playlistpage .thumb_playlist img {
+    display: block;
+    width: 220px;
+    border-radius: 8px;
+    transition: scale .3s ease-in-out;
+    box-shadow: 0 4px 60px #242424;
+}
+
+.header_playlistpage .thumb_playlist:hover img {
+    scale: 1.05;
+}
+
+.header_playlistpage .detail_playlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: start;
+}
+
+.header_playlistpage .detail_playlist .type_detail {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.header_playlistpage .detail_playlist .title_playlist {
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+.header_playlistpage .detail_playlist .author_playlist {
+    font-size: 15px;
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    gap: 8px;
+    align-items: end;
+}
+
+.header_playlistpage .detail_playlist .author_playlist .user_avt {
+    width: 24px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}

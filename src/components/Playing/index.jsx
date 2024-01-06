@@ -72,8 +72,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         })
     }, [playingSong])
 
-
-
     // play and pause
     const handPlayPause = () => {
         setIsplaying(!isplaying)

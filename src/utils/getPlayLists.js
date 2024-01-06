@@ -1,7 +1,7 @@
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
+import { urlApiAudioServer, apiKey } from '/src/constants/env'
 
-const handleGetPlaylists = (tokens, user, setShowPlaylist) => {
+const handleGetPlaylists = async (tokens, user) => {
+    const playLists = await
     fetch(`${urlApiAudioServer}user/playLists`, {
         headers: {
             'x-api-key': apiKey,
@@ -11,9 +11,9 @@ const handleGetPlaylists = (tokens, user, setShowPlaylist) => {
     })
         .then(response => response.json())
         .then(data => {
-            data.statusCode === 200 &&
-                setShowPlaylist(prev => prev !== data.metadata.playLists && data.metadata.playLists)
+            return data.statusCode === 200 && data.metadata.playLists
         })
+    return playLists
 }
 
 export default handleGetPlaylists
