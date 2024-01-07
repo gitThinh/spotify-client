@@ -4,7 +4,7 @@ import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa6'
 
 import { urlApiAudioServer, urlApiImg, urlMLServer, apiKey } from '/src/constants/env'
-import { SelectOptions, SongLine } from "/src/constants/components"
+import { SelectOptionsSong , SongLine } from "/src/constants/components"
 import { Page404 } from "/src/constants/layouts"
 
 import './style.css'
@@ -74,7 +74,7 @@ const SongDetail = ({ changePlayingList }) => {
                         <button className="play_button" onClick={() => changePlayingList(songDetail)}>
                             <FaPlay size={25} />
                         </button>
-                        <SelectOptions song={songDetail} />
+                        <SelectOptionsSong song={songDetail} />
                     </div>
                     <section className="body_page_option_rcm">
                         {

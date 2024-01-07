@@ -5,13 +5,13 @@ import { FaPlay } from 'react-icons/fa6'
 
 
 import { urlApiAudioServer, urlMLServer, apiKey } from '/src/constants/env'
-import { SelectOptions, SongLine } from "/src/constants/components"
+import { SelectOptionsSong, SongLine } from "/src/constants/components"
 import handleGetPlaylists from '/src/utils/getPlayLists'
 
 import './style.css'
 
 
-const index = ({ changePlayingList, user, showPlaylist, tokens }) => {
+const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists}) => {
     const id = useParams().id
     let playlists = showPlaylist.length ? showPlaylist : JSON.parse(Cookies.get('playlists'))
     let playList =
@@ -19,7 +19,7 @@ const index = ({ changePlayingList, user, showPlaylist, tokens }) => {
             return p._id === id
     })
 
-
+    // console.log(user, tokens)
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
@@ -44,7 +44,7 @@ const index = ({ changePlayingList, user, showPlaylist, tokens }) => {
                     <button className="play_button" onClick={() => changePlayingList(playList[0].songs)}>
                         <FaPlay size={25} />
                     </button>
-                    <SelectOptions song={playList} />
+                    <SelectOptionsSong playList={playList[0]} handlePlaylists={handlePlaylists}/>
                 </div>
                 <section className="body_page_option_rcm">
                     {

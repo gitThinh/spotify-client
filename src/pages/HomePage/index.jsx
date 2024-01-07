@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useState, useEffect, useRef, lazy } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Cookies from 'js-cookie'
 import { FiLogOut } from "react-icons/fi"
 
@@ -200,12 +200,16 @@ const HomePage = () => {
     }
 
     // get playlists
-    const handlePlaylists = (tokens, user) => {
-        handleGetPlaylists(tokens, user).then(response => {
+    const handlePlaylists = () => {
+        const userTokens = tokens
+        const userInfo = user
+        handleGetPlaylists(userTokens, userInfo).then(response => {
             setShowPlaylist(response)
             Cookies.set('playlists', JSON.stringify(response))
         })
     }
+
+    //get playlist in the first render
     useEffect(() => {
         user &&
             handlePlaylists(tokens, user)
@@ -288,8 +292,16 @@ const HomePage = () => {
                         <Route index
                             element={
                                 <div className="home_layout">
-                                    <ShowList link={`${urlApiAudioServer + 'songs/page/1'}`} title={'Trang 1'} changePlayingList={changePlayingList} />
-                                    <ShowList link={`${urlApiAudioServer}songs/page/3`} title={'Trang 2'} changePlayingList={changePlayingList} />
+                                    <ShowList
+                                        link={`${urlApiAudioServer + 'songs/page/1'}`}
+                                        title={'Trang 1'}
+                                        changePlayingList={changePlayingList}
+                                    />
+                                    <ShowList
+                                        link={`${urlApiAudioServer}songs/page/3`}
+                                        title={'Trang 2'}
+                                        changePlayingList={changePlayingList}
+                                    />
                                 </div>
                             }
                         />
@@ -307,17 +319,30 @@ const HomePage = () => {
                         />
                         <Route path='/songs/:id'
                             element={
-                                <SongDetail changePlayingList={changePlayingList} showPlaylist={showPlaylist} />
+                                <SongDetail
+                                    changePlayingList={changePlayingList}
+                                    showPlaylist={showPlaylist}
+                                />
                             }
                         />
                         <Route path='/playlists/:id'
                             element={
-                                <PlaylistPage changePlayingList={changePlayingList} showPlaylist={showPlaylist} user={user} tokens={tokens} />
+                                <PlaylistPage
+                                    changePlayingList={changePlayingList}
+                                    showPlaylist={showPlaylist}
+                                    user={user}
+                                    tokens={tokens}
+                                    handlePlaylists={handlePlaylists}
+                                />
                             }
                         />
                         <Route path='/search'
                             element={
-                                <SearchPage changePlayingList={changePlayingList} resulfSearch={resulfSearch} isSearch={isSearch} />
+                                <SearchPage
+                                    changePlayingList={changePlayingList}
+                                    resulfSearch={resulfSearch}
+                                    isSearch={isSearch}
+                                />
                             }
                         />
                         <Route path='*' element={<Page404 />} />

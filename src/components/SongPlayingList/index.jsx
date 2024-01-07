@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { FaHeadphonesAlt } from 'react-icons/fa'
 import { FaPlay } from "react-icons/fa6"
 
-import { SelectOptions } from "/src/constants/components"
+import { SelectOptionsSong } from "/src/constants/components"
 import { urlApiImg } from '/src/constants/env'
 import formatTime from '/src/utils/formatTime'
 
@@ -32,7 +32,7 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt size={14} /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <SelectOptions song={song} />
+            <SelectOptionsSong song={song} />
         </div>
     )
 }
