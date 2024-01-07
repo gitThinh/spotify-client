@@ -97,10 +97,14 @@ const HomePage = () => {
     const changePlayingList = (pList) => {
         showPlayer === false && setShowPlayer(true)
         if (pList.length) {
-            setPlayingList(pList)
             setIsPlaylist(true)
+            setCurrentIndex(0)
+            setPlayingSong(pList[0])
+            setPlayingList(pList)
         }
         else {
+            setCurrentIndex(0)
+            setPlayingSong(pList)
             setPlayingList([pList])
         }
         setIsRcm(true)
@@ -108,26 +112,19 @@ const HomePage = () => {
 
     // add song into playinglist
     const addToPlayingList = (pList, index) => {
+        setPlayingSong(pList)
+        setCurrentIndex(playingList.length)
         setPlayingList(prev => [...prev, pList])
         const newArray = [...rcmList]
         newArray.splice(index, 1)
         setRcmList(newArray)
     }
 
-    // update current index and playing song when add new song into playinglist
-    useEffect(() => {
-        if (playingList.length > 0) {
-            setCurrentIndex(isPlaylist ? 0 : playingList.length - 1)
-            setPlayingSong(isPlaylist ? playingList[0] : playingList[playingList.length - 1])
-        }
-        setIsPlaylist(false)
-    }, [playingList])
-
     // select song at playing list
     const playSongInPL = (index) => {
         setIsRcm(false)
-        setPlayingSong(playingList[index])
         setCurrentIndex(index)
+        setPlayingSong(playingList[index])
     }
 
     // handle next and prev song
@@ -140,7 +137,6 @@ const HomePage = () => {
             }
             setCurrentIndex(randomIndex)
             setPlayingSong(playingList[randomIndex])
-            return
         }
         if (currentIndex < playingList.length - 1) {
             setCurrentIndex(prev => prev + 1)
@@ -153,6 +149,8 @@ const HomePage = () => {
                 let songCut = newList.shift()
                 setPlayingList(prev => [...prev, songCut])
                 setRcmList(newList)
+                setCurrentIndex(playingList.length)
+                setPlayingSong(pList)
             }
             else {
                 setCurrentIndex(0)

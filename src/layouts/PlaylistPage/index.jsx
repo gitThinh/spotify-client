@@ -19,7 +19,7 @@ const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists}
             return p._id === id
     })
 
-    // console.log(user, tokens)
+    console.log(user, tokens)
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (

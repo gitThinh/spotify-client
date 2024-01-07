@@ -65,10 +65,10 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         newAudioElement.id = 'audio'
         audioRef.current = newAudioElement
         audioElement.current.appendChild(newAudioElement)
-        audioRef.current.addEventListener("durationchange", () => {
+        audioRef.current.addEventListener("canplay", () => {
             setTimeout(() => {
                 audioRef.current.play();
-            }, 100)
+            }, 10)
         })
     }, [playingSong])
 
