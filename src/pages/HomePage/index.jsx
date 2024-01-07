@@ -200,16 +200,18 @@ const HomePage = () => {
     }
 
     // get playlists
+    const handlePlaylists = (tokens, user) => {
+        handleGetPlaylists(tokens, user).then(response => {
+            setShowPlaylist(response)
+            Cookies.set('playlists', JSON.stringify(response))
+        })
+    }
     useEffect(() => {
         user &&
-            handleGetPlaylists(tokens, user).then(response => {
-                setShowPlaylist(response)
-                Cookies.set('playlists', JSON.stringify(response))
-            })
+            handlePlaylists(tokens, user)
     }, [])
 
-
-
+    // check selected user inform
     const checkTargetHeaderUser = (e) => {
         if (infoUser.current) {
             if (!infoUser.current.contains(e.target))
@@ -222,7 +224,7 @@ const HomePage = () => {
     return (
         <div className="home_container have_scroll" onClick={checkTargetHeaderUser}>
             <div className="container">
-                <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} setShowPlaylist={setShowPlaylist} />
+                <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} />
                 <div className="bounder_layout have_scroll">
                     <div className="header_user">
                         <div>

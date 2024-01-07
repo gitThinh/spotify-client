@@ -12,7 +12,7 @@ import '/src/components/SongLine/style.css'
 
 const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) => {
 
-    
+
 
     return (
         <div className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
@@ -21,9 +21,11 @@ const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) =
             {!check && <p className="index_number content_center">{index + 1}</p>}
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
             <div className="songs_details">
-                <Link to={`/songs/${song._id}`}>
-                    <h3 className="songs_title oneline_text under_link" >{song.title}</h3>
-                </Link>
+                <div className="songs_title">
+                    <Link to={`/songs/${song._id}`}>
+                        <h3 className="songs_title oneline_text under_link" >{song.title}</h3>
+                    </Link>
+                </div>
                 <p className="songs_author under_link">{song.artist_name}</p>
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>

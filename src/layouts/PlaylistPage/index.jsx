@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import Cookies from 'js-cookie'
 import { useParams } from "react-router-dom"
 import { PiDotOutlineFill } from 'react-icons/pi'
@@ -14,8 +13,8 @@ import './style.css'
 
 const index = ({ changePlayingList, user, showPlaylist, tokens }) => {
     const id = useParams().id
-    const playlists = showPlaylist.length ? showPlaylist : JSON.parse(Cookies.get('playlists'))
-    const playList =
+    let playlists = showPlaylist.length ? showPlaylist : JSON.parse(Cookies.get('playlists'))
+    let playList =
         playlists.filter((p) => {
             return p._id === id
     })

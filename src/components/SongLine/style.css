@@ -51,6 +51,7 @@
 
 .songs_line .songs_details>a,
 .songs_line_search .songs_details>a{
+    display: block;
     width: 100%;
 }
 

@@ -25,12 +25,14 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
             }
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
             <div className="songs_details">
-                <Link to={`/songs/${song._id}`}><h3 className="songs_title oneline_text under_link" >{song.title}</h3></Link>
+                <div>
+                    <Link to={`/songs/${song._id}`}><h3 className="songs_title oneline_text under_link" >{song.title}</h3></Link>
+                </div>
                 <p className="songs_author under_link">{song.artist_name}</p>
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt size={14} /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <SelectOptions song={song}/>
+            <SelectOptions song={song} />
         </div>
     )
 }

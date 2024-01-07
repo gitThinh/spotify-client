@@ -10,9 +10,7 @@ import handleGetPlaylists from '/src/utils/getPlayLists'
 import './style.css'
 
 
-const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
-
-    console.log('render navbar');
+const NavBar = ({ user, tokens, showPlaylist, handlePlaylists }) => {
 
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {
@@ -27,7 +25,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
         })
             .then(response => response.json())
             .then(data => {
-                data.statusCode === 201 && handleGetPlaylists(tokens, user).then(response => setShowPlaylist(response))
+                data.statusCode === 201 && handlePlaylists(tokens, user)
             })
     }
 
@@ -58,7 +56,7 @@ const NavBar = ({ user, tokens, showPlaylist, setShowPlaylist }) => {
                         </svg>
                         <p>Danh Sách Phát</p>
                     </div>
-                    <div className="nav_bar_library_addplaylist" onClick={() => user ? handleAddPlaylist : ''}><FaPlus /></div>
+                    <div className="nav_bar_library_addplaylist" onClick={() => user ? handleAddPlaylist() : ''}><FaPlus /></div>
                 </div>
                 {
                     user &&
