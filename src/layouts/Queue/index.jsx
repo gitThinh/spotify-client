@@ -5,7 +5,7 @@ import { SongLine, SongPlayingList } from '/src/constants/components'
 import './style.css'
 
 
-const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL }) => {
+const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL, showPlaylist }) => {
     return (
         <div className="queue_layout noone_coppy">
             <div style={{ padding: '20px 35px' }}>
@@ -16,7 +16,7 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                             playingList.map((song, index) => {
                                 return (
                                     <div key={index}>
-                                        <SongPlayingList song={song} currentIndex={currentIndex} index={index} playSongInPL={playSongInPL} />
+                                        <SongPlayingList song={song} currentIndex={currentIndex} index={index} playSongInPL={playSongInPL} showPlaylist={showPlaylist}/>
                                     </div>
                                 )
                             })
@@ -38,6 +38,7 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                                                 song={song}
                                                 addToPlayingList={addToPlayingList}
                                                 index={index}
+                                                showPlaylist={showPlaylist}
                                             />
                                         </div>
                                     )

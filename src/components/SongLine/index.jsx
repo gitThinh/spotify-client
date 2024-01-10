@@ -10,9 +10,7 @@ import formatTime from '/src/utils/formatTime'
 import '/src/components/SongLine/style.css'
 
 
-const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) => {
-
-
+const SongLine = ({ song, addToPlayingList, changePlayingList, index, check, handlePlaylists, showPlaylist, playList}) => {
 
     return (
         <div className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
@@ -30,7 +28,7 @@ const SongLine = ({ song, addToPlayingList, changePlayingList, index, check }) =
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <SelectOptionsSong song={song} />
+            <SelectOptionsSong song={song} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} playList={playList}/>
         </div>
     )
 }

@@ -1,8 +1,8 @@
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { FiLogOut } from "react-icons/fi"
 
+import { FiLogOut } from "react-icons/fi"
 
 import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
 import { Page404, SongDetail, Queue, SearchPage, PlaylistPage } from '/src/constants/layouts'
@@ -19,7 +19,6 @@ const HomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(false)
-    const [isPlaylist, setIsPlaylist] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false)
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
@@ -96,8 +95,8 @@ const HomePage = () => {
     // select new song, reset playinglist and rcm
     const changePlayingList = (pList) => {
         showPlayer === false && setShowPlayer(true)
+        setRcmList([])
         if (pList.length) {
-            setIsPlaylist(true)
             setCurrentIndex(0)
             setPlayingSong(pList[0])
             setPlayingList(pList)
@@ -150,7 +149,6 @@ const HomePage = () => {
                 setPlayingList(prev => [...prev, songCut])
                 setRcmList(newList)
                 setCurrentIndex(playingList.length)
-                setPlayingSong(pList)
             }
             else {
                 setCurrentIndex(0)
@@ -158,7 +156,6 @@ const HomePage = () => {
             }
         }
     }
-
     const prevSong = () => {
         currentIndex &&
             setCurrentIndex(prev => prev === 0 ? prev : prev - 1)
@@ -207,11 +204,13 @@ const HomePage = () => {
         })
     }
 
-    //get playlist in the first render
+
     useEffect(() => {
+        //get playlist in the first render
         user &&
             handlePlaylists(tokens, user)
     }, [])
+
 
     // check selected user inform
     const checkTargetHeaderUser = (e) => {
@@ -340,6 +339,7 @@ const HomePage = () => {
                                     changePlayingList={changePlayingList}
                                     resulfSearch={resulfSearch}
                                     isSearch={isSearch}
+                                    showPlaylist={showPlaylist}
                                 />
                             }
                         />
@@ -347,7 +347,7 @@ const HomePage = () => {
                     </Routes>
                 </div>
             </div>
-            { //sửa thanh chạy không hiện khi chưa chọn bài
+            { //set playing controls is hidden
                 showPlayer && <Playing
                     playingSong={playingSong}
                     nextSong={nextSong}

@@ -8,7 +8,7 @@ import { urlApiImg } from '/src/constants/env'
 import formatTime from '/src/utils/formatTime'
 
 
-const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
+const SongPlayingList = ({ song, index, currentIndex, playSongInPL, showPlaylist }) => {
 
     return (
         <div key={index}
@@ -32,7 +32,7 @@ const SongPlayingList = ({ song, index, currentIndex, playSongInPL }) => {
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt size={14} /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <SelectOptionsSong song={song} />
+            <SelectOptionsSong song={song} showPlaylist={showPlaylist} />
         </div>
     )
 }

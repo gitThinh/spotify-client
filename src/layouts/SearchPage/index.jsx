@@ -9,7 +9,7 @@ import { urlApiImg, urlApiAudioServer } from '/src/constants/env'
 import './style.css'
 
 
-const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
+const SearchPage = ({ changePlayingList, resulfSearch, isSearch, showPlaylist }) => {
 
 
     return (
@@ -41,7 +41,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch }) => {
                                 resulfSearch.map((result, index) => {
                                     return (
                                         index < 5 &&
-                                        <SongLine song={result} check={1} changePlayingList={changePlayingList} />
+                                        <SongLine song={result} check={1} changePlayingList={changePlayingList} showPlaylist={showPlaylist}/>
                                     )
                                 })
                             }

@@ -4,17 +4,19 @@ import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa6'
 
 import { urlApiAudioServer, urlApiImg, urlMLServer, apiKey } from '/src/constants/env'
-import { SelectOptionsSong , SongLine } from "/src/constants/components"
+import { SelectOptionsSong, SongLine } from "/src/constants/components"
 import { Page404 } from "/src/constants/layouts"
 
 import './style.css'
 
 
 
-const SongDetail = ({ changePlayingList }) => {
+const SongDetail = ({ changePlayingList, showPlaylist }) => {
     const id = useParams().id
-    const [songDetail, setSongDetail] = useState({})
+    const [songDetail, setSongDetail] = useState()
     const [rcmList, setRcmList] = useState([])
+
+    console.log(showPlaylist)
 
     // get song details
     useEffect(() => {
@@ -74,7 +76,10 @@ const SongDetail = ({ changePlayingList }) => {
                         <button className="play_button" onClick={() => changePlayingList(songDetail)}>
                             <FaPlay size={25} />
                         </button>
-                        <SelectOptionsSong song={songDetail} />
+                        <SelectOptionsSong
+                            song={songDetail}
+                            showPlaylist={showPlaylist}
+                        />
                     </div>
                     <section className="body_page_option_rcm">
                         {
@@ -82,7 +87,12 @@ const SongDetail = ({ changePlayingList }) => {
                                 return (
                                     index < 5 &&
                                     <div key={index}>
-                                        <SongLine song={song} check={1} changePlayingList={changePlayingList} />
+                                        <SongLine
+                                            song={song}
+                                            check={1}
+                                            changePlayingList={changePlayingList}
+                                            showPlaylist={showPlaylist}
+                                        />
                                     </div>
                                 )
                             })
@@ -90,7 +100,8 @@ const SongDetail = ({ changePlayingList }) => {
                     </section>
                 </div>
             </div>
-            : <Page404/>
+            :
+            <Page404 />
     )
 }
 

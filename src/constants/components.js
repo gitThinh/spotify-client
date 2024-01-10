@@ -7,6 +7,7 @@ import SongBox from '/src/components/SongBox'
 import SongLine from '/src/components/SongLine'
 import SongPlayingList from '/src/components/SongPlayingList'
 import SelectOptionsSong from '/src/components/SelectOptionsSong'
+import SelectOptionsPlaylist from '/src/components/SelectOptionsPlaylist'
 
 export {
     InputForm,
@@ -17,5 +18,6 @@ export {
     SongBox,
     SongLine,
     SongPlayingList,
-    SelectOptionsSong
+    SelectOptionsSong,
+    SelectOptionsPlaylist
 }

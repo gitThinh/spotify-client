@@ -1,29 +1,23 @@
 import { useEffect, useState, useRef, memo } from 'react'
 import { Link } from 'react-router-dom'
 import { ScaleLoader } from 'react-spinners'
+
 import { FaPlay, FaRandom } from 'react-icons/fa'
-import {
     FaForwardStep, FaBackwardStep, FaArrowRotateRight,
     FaVolumeXmark, FaVolumeLow, FaVolumeHigh
 } from 'react-icons/fa6'
 import { HiMiniPause, HiMiniMusicalNote } from 'react-icons/hi2'
 import { PiListBold } from 'react-icons/pi'
 
-
 import formatTime from '/src/utils/formatTime'
+import { urlApiSong, urlApiImg, urlApiAudioServer, apiKey } from '/src/constants/env'
 
 
 import '/src/components/Playing/style.css'
 
 
-const urlApiSong = import.meta.env.VITE_API_URL_SONG
-const urlApiImg = import.meta.env.VITE_API_URL_IMG
-const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
-const apiKey = import.meta.env.VITE_API_API_KEY
-
 
 const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
-
 
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
@@ -67,7 +61,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         audioElement.current.appendChild(newAudioElement)
         audioRef.current.addEventListener("canplay", () => {
             setTimeout(() => {
-                audioRef.current.play();
+                audioRef.current.play()
             }, 10)
         })
     }, [playingSong])
@@ -83,7 +77,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         }
     }
 
-
     // next and prev btn
     const handleNextBtn = () => {
         israndom
@@ -94,6 +87,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         prevSong()
     }
 
+    // handle when ended songs
     useEffect(() => {
         if (isrepeat) {
             audioRef.current.currentTime = 0
@@ -167,7 +161,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
         })
     }, [playingSong])
 
-
     // send views
     useEffect(() => {
         let headers =
@@ -194,7 +187,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
             }, 20 * 1000)
         return () => clearTimeout(timerRefreshToken)
     }, [playingSong])
-
 
     // volume control 
     useEffect(() => {
@@ -286,8 +278,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
 
 
-
-    // https://nth-audio.site/images/<Tên ảnh>
     // ------------------------------------------------ RENDER ----------------------------------------------------------------
     return (
         <div className="playing_block noone_coppy">
@@ -296,9 +286,11 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
                     <div className='box_info'>
                         <img src={playingSong && `${urlApiImg + playingSong.coverArt}` || ''} alt="thumbnail" />
                         <div className="info_music_details">
-                            <Link to={`/songs/${playingSong._id}`} className='under_link'>
-                                <h4 className="oneline_text">{playingSong.title || ''}</h4>
-                            </Link>
+                            <div>
+                                <Link to={`/songs/${playingSong._id}`} className='under_link'>
+                                    <h4 className="oneline_text">{playingSong.title || ''}</h4>
+                                </Link>
+                            </div>
                             <div className='under_link'>
                                 <p className="details_author">{playingSong.artist_name || ''}</p>
                             </div>
@@ -310,7 +302,7 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
 
             <div className="playing_control">
                 <div className="btn_playing_control">
-                    <div className={"btn btn_random".concat(' ', israndom ? 'active' : '')} onClick={() => setIsrandom(!israndom)}>
+                    <div className={israndom ? 'btn btn_random active' : 'btn btn_random'} onClick={() => setIsrandom(!israndom)}>
                         <FaRandom className='btn_random_icon' />
                     </div>
                     <div className="btn btn_prev" onClick={audioRef.current ? handlePrevBtn : () => { }} >

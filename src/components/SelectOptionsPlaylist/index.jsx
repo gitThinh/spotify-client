@@ -1,21 +1,20 @@
 import { useEffect, useRef } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie'
 
-import { HiDotsHorizontal } from "react-icons/hi"
-import { FaPlus, FaMusic, FaUserPen, FaDeleteLeft } from "react-icons/fa6"
+import { HiDotsHorizontal, HiPencil } from "react-icons/hi"
+import { FaDeleteLeft, FaShare } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
 
 
-import './style.css'
+const SelectOptionsPlaylist = ({ playList, handlePlaylists }) => {
 
-const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) => {
     const moreOptionTable = useRef()
     const moreOption = useRef()
 
-    // console.log(showPlaylist)
+    const locationWeb = useNavigate()
 
     // show table when selected
     const showOptionTable = (e) => {
@@ -30,7 +29,7 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
     // handle show table with position selected
     const checkShowOptionTable = (e) => {
         const mouseX = e.clientX
-        const mouseY = e.clientY + 10
+        const mouseY = e.clientY
         const container = document.querySelector('.container')
 
         if (mouseX + moreOptionTable.current.offsetWidth > moreOption.current.parentNode.offsetWidth) {
@@ -58,17 +57,11 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
     }, [])
 
 
-    // add song into playlist
-    const handleAddSongIntoPlaylist = () => {
-
-    }
-
-
-    // delete song from playlist
-    const handleDeleteSongInPlaylist = () => {
+    // delete playlist 
+    const handleDeletePlaylist = () => {
         const user = Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : ''
         const tokens = Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : ''
-        fetch(`${urlApiAudioServer}user/removeSongFromPlaylist?songId=${song._id}&playListId=${playList._id}`, {
+        fetch(`${urlApiAudioServer}user/removePlaylist?id=${playList._id}`, {
             method: 'DELETE',
             headers: {
                 'x-api-key': apiKey,
@@ -78,8 +71,10 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
         })
             .then(respone => respone.json())
             .then(respone => {
-                respone.statusCode === 200 && handlePlaylists()
+                respone.statusCode === 200
+                    && handlePlaylists()
             })
+        locationWeb('/')
     }
 
 
@@ -90,46 +85,27 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
                 <ul>
                     <li>
                         <button className='more_options_table_option' >
-                            <FaPlus className='more_options_table_icon' />
-                            Add to playlist
-                        </button>
-                    </li>
-                    {
-                        showPlaylist.map((pl, index) => {
-                            return (
-                                <button className='more_options_table_option' key={index}>
-                                    <FaPlus className='more_options_table_icon' />
-                                    {pl._id}
-                                </button>
-                            )
-                        })
-                    }
-                    {
-                        playList &&
-                        <li>
-                            <button className='more_options_table_option' onClick={handleDeleteSongInPlaylist}>
-                                <FaDeleteLeft className='more_options_table_icon' />
-                                Remove song
-                            </button>
-                        </li>
-                    }
-                    <li>
-                        <button className='more_options_table_option' >
                             <BiAddToQueue className='more_options_table_icon' />
                             Add to queue
                         </button>
                     </li>
                     <li>
-                        <Link to={`/songs/${song._id}`} className='more_options_table_option' >
-                            <FaMusic className='more_options_table_icon' />
-                            Go to song page
-                        </Link>
+                        <button className='more_options_table_option' >
+                            <HiPencil className='more_options_table_icon' />
+                            Edit details
+                        </button>
                     </li>
                     <li>
-                        <Link to='/' className='more_options_table_option' >
-                            <FaUserPen className='more_options_table_icon' />
-                            Go to artist page
-                        </Link>
+                        <button className='more_options_table_option' onClick={handleDeletePlaylist}>
+                            <FaDeleteLeft className='more_options_table_icon' />
+                            Delete
+                        </button>
+                    </li>
+                    <li>
+                        <button className='more_options_table_option' >
+                            <FaShare className='more_options_table_icon' />
+                            Share
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -137,4 +113,4 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
     )
 }
 
-export default SelectOptionsSong
+export default SelectOptionsPlaylist

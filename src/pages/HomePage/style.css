@@ -17,7 +17,7 @@
 .home_container .container .bounder_layout {
     width: 100%;
     background-color: #000;
-    overflow: auto;
+    overflow-y: auto;
     z-index: 2;
 }
 
