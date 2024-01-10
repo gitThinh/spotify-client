@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 import { ScaleLoader } from 'react-spinners'
 
 import { FaPlay, FaRandom } from 'react-icons/fa'
-    FaForwardStep, FaBackwardStep, FaArrowRotateRight,
-    FaVolumeXmark, FaVolumeLow, FaVolumeHigh
-} from 'react-icons/fa6'
+import { FaForwardStep, FaBackwardStep, FaArrowRotateRight, FaVolumeXmark, FaVolumeLow, FaVolumeHigh } from 'react-icons/fa6'
 import { HiMiniPause, HiMiniMusicalNote } from 'react-icons/hi2'
 import { PiListBold } from 'react-icons/pi'
 
