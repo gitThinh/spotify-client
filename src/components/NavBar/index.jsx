@@ -11,6 +11,7 @@ import './style.css'
 
 const NavBar = ({ user, tokens, showPlaylist, handlePlaylists }) => {
 
+
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {
             method: 'POST',

@@ -10,11 +10,16 @@ import formatTime from '/src/utils/formatTime'
 import '/src/components/SongLine/style.css'
 
 
-const SongLine = ({ song, addToPlayingList, changePlayingList, index, check, handlePlaylists, showPlaylist, playList}) => {
+const SongLine = ({ song, addToPlayingList, changePlayingList, index, check, handlePlaylists, showPlaylist, playList }) => {
 
     return (
-        <div className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
-            onDoubleClick={() => check === 1 ? changePlayingList(song) : addToPlayingList(song, index)}
+        <div
+            className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
+            onDoubleClick={() =>
+                check === 1
+                    ? changePlayingList(song)
+                    : addToPlayingList(song, index)
+            }
         >
             {!check && <p className="index_number content_center">{index + 1}</p>}
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
@@ -28,7 +33,7 @@ const SongLine = ({ song, addToPlayingList, changePlayingList, index, check, han
             </div>
             <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>
             <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <SelectOptionsSong song={song} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} playList={playList}/>
+            <SelectOptionsSong song={song} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} playList={playList} />
         </div>
     )
 }

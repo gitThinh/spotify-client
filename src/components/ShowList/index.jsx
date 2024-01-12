@@ -40,7 +40,7 @@ const ShowList = ({ link, title, changePlayingList, range = 100 }) => {
                                 listSongs.map((song, index) => {
                                     return (
                                         index < range &&
-                                        <div key={song._id}>
+                                        <div key={index}>
                                             <SongBox song={song} changePlayingList={changePlayingList}/>
                                         </div>
                                     )

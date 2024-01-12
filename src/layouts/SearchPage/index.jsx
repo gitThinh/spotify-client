@@ -41,7 +41,14 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch, showPlaylist })
                                 resulfSearch.map((result, index) => {
                                     return (
                                         index < 5 &&
-                                        <SongLine song={result} check={1} changePlayingList={changePlayingList} showPlaylist={showPlaylist}/>
+                                        <div key={index}>
+                                            <SongLine
+                                                song={result}
+                                                check={1}
+                                                changePlayingList={changePlayingList}
+                                                showPlaylist={showPlaylist}
+                                            />
+                                        </div>
                                     )
                                 })
                             }

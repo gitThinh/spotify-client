@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useReducer } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -8,16 +8,17 @@ import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
 import { Page404, SongDetail, Queue, SearchPage, PlaylistPage } from '/src/constants/layouts'
 import { urlMLServer, urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
+import { songsPlay, playlistPlay, addToQueue, nextSong, prevSong } from '/src/Reducer/PlaySongReducer/actions'
+import playSongReducer, { initState } from '/src/Reducer/PlaySongReducer/reducer'
 
 
 import './style.css'
 
 
 const HomePage = () => {
-    const [playingList, setPlayingList] = useState([])
+    const [playingState, dispatch] = useReducer(playSongReducer, initState)
+    const { playingSong, currentIndex, playingList } = playingState
     const [rcmList, setRcmList] = useState([])
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(false)
     const [showAudio, setShowAudio] = useState(false)
     const [resulfSearch, setResulfSearch] = useState([])
@@ -77,7 +78,7 @@ const HomePage = () => {
     }, [tokens])
 
 
-    //get rcm list
+    // get rcm list
     useEffect(() => {
         playingSong !== '' & isRcm &&
             fetch(`${urlMLServer + playingSong._id}`, {
@@ -92,28 +93,32 @@ const HomePage = () => {
     }, [playingSong])
 
 
+
+
     // select new song, reset playinglist and rcm
     const changePlayingList = (pList) => {
         showAudio === false && setShowAudio(true)
-        setRcmList([])
         if (pList.length) {
-            setCurrentIndex(0)
-            setPlayingSong(pList[0])
-            setPlayingList(pList)
+            dispatch(playlistPlay(pList))
+            // setCurrentIndex(0)
+            // setPlayingSong(pList[0])
+            // setPlayingList(pList)
         }
         else {
-            setCurrentIndex(0)
-            setPlayingSong(pList)
-            setPlayingList([pList])
+            dispatch(songsPlay(pList))
+            // setCurrentIndex(0)
+            // setPlayingSong(pList)
+            // setPlayingList([pList])
         }
+        setRcmList([])
         setIsRcm(true)
     }
 
     // add song into playinglist
     const addToPlayingList = (pList, index) => {
-        setPlayingSong(pList)
-        setCurrentIndex(playingList.length)
-        setPlayingList(prev => [...prev, pList])
+        // setPlayingSong(pList)
+        // setCurrentIndex(playingList.length)
+        // setPlayingList(prev => [...prev, pList])
         const newArray = [...rcmList]
         newArray.splice(index, 1)
         setRcmList(newArray)
@@ -122,54 +127,54 @@ const HomePage = () => {
     // select song at playing list
     const playSongInPL = (index) => {
         setIsRcm(false)
-        setCurrentIndex(index)
-        setPlayingSong(playingList[index])
+        // setCurrentIndex(index)
+        // setPlayingSong(playingList[index])
     }
 
     // handle next and prev song
-    const nextSong = (type) => {
-        if (type === 1 & playingList.length > 1
-        ) {
-            let randomIndex = Math.floor(Math.random() * playingList.length)
-            while (randomIndex === currentIndex) {
-                randomIndex = Math.floor(Math.random() * playingList.length)
-            }
-            setCurrentIndex(randomIndex)
-            setPlayingSong(playingList[randomIndex])
-        }
-        if (currentIndex < playingList.length - 1) {
-            setCurrentIndex(prev => prev + 1)
-            setPlayingSong(playingList[currentIndex + 1])
-        }
-        else {
-            if (rcmList.length > 0) {
-                setPlayingSong(rcmList[0])
-                let newList = [...rcmList]
-                let songCut = newList.shift()
-                setPlayingList(prev => [...prev, songCut])
-                setRcmList(newList)
-                setCurrentIndex(playingList.length)
-            }
-            else {
-                setCurrentIndex(0)
-                setPlayingSong(playingList[0])
-            }
-        }
-    }
-    const prevSong = () => {
-        currentIndex &&
-            setCurrentIndex(prev => prev === 0 ? prev : prev - 1)
-        setPlayingSong(playingList[currentIndex !== 0 ? currentIndex - 1 : currentIndex])
-    }
+    // const nextSong = (type) => {
+    //     if (type === 1 & playingList.length > 1
+    //     ) {
+    //         let randomIndex = Math.floor(Math.random() * playingList.length)
+    //         while (randomIndex === currentIndex) {
+    //             randomIndex = Math.floor(Math.random() * playingList.length)
+    //         }
+    //         setCurrentIndex(randomIndex)
+    //         setPlayingSong(playingList[randomIndex])
+    //     }
+    //     if (currentIndex < playingList.length - 1) {
+    //         setCurrentIndex(prev => prev + 1)
+    //         setPlayingSong(playingList[currentIndex + 1])
+    //     }
+    //     else {
+    //         if (rcmList.length > 0) {
+    //             setPlayingSong(rcmList[0])
+    //             let newList = [...rcmList]
+    //             let songCut = newList.shift()
+    //             setPlayingList(prev => [...prev, songCut])
+    //             setRcmList(newList)
+    //             setCurrentIndex(playingList.length)
+    //         }
+    //         else {
+    //             setCurrentIndex(0)
+    //             setPlayingSong(playingList[0])
+    //         }
+    //     }
+    // }
+    // const prevSong = () => {
+    //     currentIndex &&
+    //         setCurrentIndex(prev => prev === 0 ? prev : prev - 1)
+    //     setPlayingSong(playingList[currentIndex !== 0 ? currentIndex - 1 : currentIndex])
+    // }
 
 
     // change container width when show playing component 
-    useEffect(() => {
-        if (playingList.length > 0) {
-            let showControler = document.querySelector('.container')
-            showControler.style.height = 'calc(100vh - var(--playing-height))'
-        }
-    }, [showAudio])
+    // useEffect(() => {
+    //     // if (playingList.length > 0) {
+    //     let showControler = document.querySelector('.container')
+    //     showControler.style.height = 'calc(100vh - var(--playing-height))'
+    //     // }
+    // }, [showAudio])
 
 
     // handle logout
@@ -350,8 +355,8 @@ const HomePage = () => {
             { //set playing controls is hidden
                 showAudio && <Playing
                     playingSong={playingSong}
-                    nextSong={nextSong}
-                    prevSong={prevSong}
+                    // nextSong={nextSong}
+                    // prevSong={prevSong}
                     userid={user.userId}
                 />
             }
