@@ -15,7 +15,7 @@ import '/src/components/Playing/style.css'
 
 
 
-const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
+const Playing = ({ playingSong, handleNextSong, handlePrevSong, userid }) => {
 
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
@@ -78,11 +78,11 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
     // next and prev btn
     const handleNextBtn = () => {
         israndom
-            ? nextSong(1)
-            : nextSong(0)
+            ? handleNextSong(1)
+            : handleNextSong(0)
     }
     const handlePrevBtn = () => {
-        prevSong()
+        handlePrevSong()
     }
 
     // handle when ended songs
@@ -91,7 +91,6 @@ const Playing = ({ playingSong, nextSong, prevSong, userid }) => {
             audioRef.current.currentTime = 0
             audioRef.current.play()
             setIsended(false)
-            return
         }
         isended && handleNextBtn()
         setIsended(false)

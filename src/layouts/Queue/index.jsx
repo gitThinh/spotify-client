@@ -5,7 +5,7 @@ import { SongLine, SongPlayingList } from '/src/constants/components'
 import './style.css'
 
 
-const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongInPL, showPlaylist }) => {
+const Queue = ({ playingList, currentIndex, rcmList, selectSongInRcm, playSongInPL, showPlaylist }) => {
     return (
         <div className="queue_layout noone_coppy">
             <div style={{ padding: '20px 35px' }}>
@@ -16,7 +16,13 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                             playingList.map((song, index) => {
                                 return (
                                     <div key={index}>
-                                        <SongPlayingList song={song} currentIndex={currentIndex} index={index} playSongInPL={playSongInPL} showPlaylist={showPlaylist}/>
+                                        <SongPlayingList
+                                            song={song}
+                                            currentIndex={currentIndex}
+                                            index={index}
+                                            playSongInPL={playSongInPL}
+                                            showPlaylist={showPlaylist}
+                                        />
                                     </div>
                                 )
                             })
@@ -36,7 +42,7 @@ const Queue = ({ playingList, currentIndex, rcmList, addToPlayingList, playSongI
                                         <div key={index}>
                                             <SongLine
                                                 song={song}
-                                                addToPlayingList={addToPlayingList}
+                                                selectSongInRcm={selectSongInRcm}
                                                 index={index}
                                                 showPlaylist={showPlaylist}
                                             />

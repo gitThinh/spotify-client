@@ -10,7 +10,7 @@ import formatTime from '/src/utils/formatTime'
 import '/src/components/SongLine/style.css'
 
 
-const SongLine = ({ song, addToPlayingList, changePlayingList, index, check, handlePlaylists, showPlaylist, playList }) => {
+const SongLine = ({ song, selectSongInRcm, changePlayingList, index, check, handlePlaylists, showPlaylist, playList }) => {
 
     return (
         <div
@@ -18,7 +18,7 @@ const SongLine = ({ song, addToPlayingList, changePlayingList, index, check, han
             onDoubleClick={() =>
                 check === 1
                     ? changePlayingList(song)
-                    : addToPlayingList(song, index)
+                    : selectSongInRcm(song, index)
             }
         >
             {!check && <p className="index_number content_center">{index + 1}</p>}
