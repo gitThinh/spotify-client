@@ -1,0 +1,12 @@
+.loading_page{
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading_animation{
+    scale: 1.5;
+    color: #fff;
+}

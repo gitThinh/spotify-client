@@ -28,6 +28,7 @@
 .search_layout {
     margin-top: 80px;
     position: relative;
+    transition: all .5s ease-in-out;
 }
 
 /* ---------------------------------------- User inform ------------------------------------------------------ */

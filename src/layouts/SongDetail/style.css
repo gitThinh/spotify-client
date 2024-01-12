@@ -17,6 +17,7 @@
 .header_songpage .thumb_song img {
     display: block;
     width: 220px;
+    aspect-ratio: 1;
     border-radius: 8px;
     transition: scale .3s ease-in-out;
     box-shadow: 0 4px 60px #242424;

@@ -87,7 +87,7 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
         <div className='more_options content_center' ref={moreOption} >
             <HiDotsHorizontal onClick={(e) => { showOptionTable(e) }} />
             <div className="more_options_table top " ref={moreOptionTable}>
-                <ul>
+                <ul className="main_table">
                     <li>
                         <button className='more_options_table_option' >
                             <FaPlus className='more_options_table_icon' />
@@ -131,6 +131,9 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
                             Go to artist page
                         </Link>
                     </li>
+                </ul>
+                <ul className="sub_table">
+                    
                 </ul>
             </div>
         </div>

@@ -19,7 +19,7 @@ const HomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [playingSong, setPlayingSong] = useState('')
     const [isRcm, setIsRcm] = useState(false)
-    const [showPlayer, setShowPlayer] = useState(false)
+    const [showAudio, setShowAudio] = useState(false)
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
     const [showPlaylist, setShowPlaylist] = useState([])
@@ -94,7 +94,7 @@ const HomePage = () => {
 
     // select new song, reset playinglist and rcm
     const changePlayingList = (pList) => {
-        showPlayer === false && setShowPlayer(true)
+        showAudio === false && setShowAudio(true)
         setRcmList([])
         if (pList.length) {
             setCurrentIndex(0)
@@ -169,7 +169,7 @@ const HomePage = () => {
             let showControler = document.querySelector('.container')
             showControler.style.height = 'calc(100vh - var(--playing-height))'
         }
-    }, [showPlayer])
+    }, [showAudio])
 
 
     // handle logout
@@ -348,7 +348,7 @@ const HomePage = () => {
                 </div>
             </div>
             { //set playing controls is hidden
-                showPlayer && <Playing
+                showAudio && <Playing
                     playingSong={playingSong}
                     nextSong={nextSong}
                     prevSong={prevSong}

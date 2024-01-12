@@ -5,7 +5,9 @@ import { FaPlay } from 'react-icons/fa6'
 
 import { urlApiAudioServer, urlApiImg, urlMLServer, apiKey } from '/src/constants/env'
 import { SelectOptionsSong, SongLine } from "/src/constants/components"
-import { Page404 } from "/src/constants/layouts"
+
+import { LoadingPage, Page404 } from '/src/constants/layouts'
+
 
 import './style.css'
 
@@ -15,8 +17,8 @@ const SongDetail = ({ changePlayingList, showPlaylist }) => {
     const id = useParams().id
     const [songDetail, setSongDetail] = useState()
     const [rcmList, setRcmList] = useState([])
+    const [checkSong, setCheckSong] = useState(true)
 
-    console.log(showPlaylist)
 
     // get song details
     useEffect(() => {
@@ -28,13 +30,17 @@ const SongDetail = ({ changePlayingList, showPlaylist }) => {
                 }
             })
             const data = await response.json()
-            setSongDetail(data.metadata)
+            data.statusCode === 200
+                ? setSongDetail(data.metadata)
+                : setCheckSong(false)
         }
         handleLoadSong()
     }, [id])
 
     // get rcm list
     useEffect(() => {
+        setRcmList([])
+        checkSong &&
         fetch(`${urlMLServer + id}`, {
             method: 'GET',
             headers: {
@@ -101,7 +107,9 @@ const SongDetail = ({ changePlayingList, showPlaylist }) => {
                 </div>
             </div>
             :
-            <Page404 />
+            checkSong
+                ? <LoadingPage />
+                : <Page404 />
     )
 }
 
