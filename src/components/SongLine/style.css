@@ -15,7 +15,6 @@
     display: grid;
     grid-template-columns: 30px 80px 7fr 1fr 1fr .5fr;
     text-align: center;
-    border-radius: 0;
     width: 100%;
     padding: 8px;
     background-color: #000;
@@ -34,7 +33,7 @@
 
 .songs_line .songs_thumb,
 .songs_line_search .songs_thumb {
-    width: 50px;
+    width: 52px;
     aspect-ratio: 1;
     margin: 0 auto;
 }
