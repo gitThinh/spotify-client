@@ -11,6 +11,7 @@ import './style.css'
 
 const NavBar = ({ user, tokens, showPlaylist, handlePlaylists }) => {
 
+    // console.log(tokens.accessToken)
 
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {

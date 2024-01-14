@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useReducer } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -8,19 +8,18 @@ import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
 import { Page404, SongDetail, Queue, SearchPage, PlaylistPage } from '/src/constants/layouts'
 import { urlMLServer, urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
-import { songsPlay, playlistPlay, addToQueue, nextSong, prevSong, selectSongPlay } from '/src/Reducer/PlaySongReducer/actions'
-import playSongReducer, { initState } from '/src/Reducer/PlaySongReducer/reducer'
+
+import { PlaySongContext, actions } from '/src/constants/stores'
 
 
 import './style.css'
 
 
 const HomePage = () => {
-    const [playingState, dispatch] = useReducer(playSongReducer, initState)
-    const { playingSong, currentIndex, playingList } = playingState
+    const [playingState, dispatch] = useContext(PlaySongContext)
+    const { playingSong, currentIndex, playingList, isNewPlaying } = playingState
     const [rcmList, setRcmList] = useState([])
-    const [isRcm, setIsRcm] = useState(false)
-    const [showAudio, setShowAudio] = useState(false)
+    const [randomList, setRandomList] = useState([])
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
     const [showPlaylist, setShowPlaylist] = useState([])
@@ -80,8 +79,10 @@ const HomePage = () => {
 
     // get rcm list
     useEffect(() => {
-        playingSong !== '' & isRcm &&
-            fetch(`${urlMLServer + playingSong._id}`, {
+        playingSong !== '' & isNewPlaying
+            && setRcmList([])
+        playingSong !== '' & isNewPlaying
+            && fetch(`${urlMLServer + playingSong._id}`, {
                 method: 'GET',
                 headers: {
                     'x-api-key': apiKey
@@ -89,80 +90,70 @@ const HomePage = () => {
             })
                 .then(response => response.json())
                 .then(data => data.statusCode === 200 && setRcmList(data.metadata))
-        setIsRcm(false)
     }, [playingSong])
 
 
-
-
-    // select new song, reset playinglist and rcm
-    const changePlayingList = (pList) => {
-        showAudio === false && setShowAudio(true)
-        if (pList.length) {
-            dispatch(playlistPlay(pList))
-        }
-        else {
-            dispatch(songsPlay(pList))
-        }
-        setRcmList([])
-        setIsRcm(true)
-    }
-
     // add song from rcm list
     const selectSongInRcm = (pList, index) => {
-        dispatch(addToQueue(pList))
-        dispatch(selectSongPlay(playingList.length))
+        dispatch(actions.addToQueue(pList))
+        dispatch(actions.selectSongPlay(playingList.length))
         const newArray = [...rcmList]
         newArray.splice(index, 1)
         setRcmList(newArray)
     }
 
-    // select song at playing list
-    const playSongInPL = (index) => {
-        setIsRcm(false)
-        dispatch(selectSongPlay(index))
+    // randomly select
+    function generateRandomArray(length) {
+        const result = []
+        for (let i = 0; i < length; i++) {
+            result.push(i)
+        }
+        // Fisher-Yates Shuffle
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [result[i], result[j]] = [result[j], result[i]]
+        }
+        return result
     }
+
+    // create a random list
+    useEffect(() => {
+        setRandomList(generateRandomArray(playingList.length))
+    }, [playingList.length])
 
     // handle next and prev song
     const handleNextSong = (type) => {
-        // if (type === 1 & playingList.length > 1
-        // ) {
-        //     let randomIndex = Math.floor(Math.random() * playingList.length)
-        //     while (randomIndex === currentIndex) {
-        //         randomIndex = Math.floor(Math.random() * playingList.length)
-        //     }
-        //     setCurrentIndex(randomIndex)
-        //     setPlayingSong(playingList[randomIndex])
-        // }
-        if (currentIndex < playingList.length - 1) {
-            dispatch(nextSong())
+        if (type === 1 & playingList.length > 1
+        ) {
+            randomList.length <= 1 && setRandomList(generateRandomArray(playingList.length))
+            dispatch(actions.selectSongPlay(randomList.shift()))
         }
         else {
-            if (rcmList.length > 0) {
-                let newList = [...rcmList]
-                let songCut = newList.shift()
-                dispatch(addToQueue(songCut))
-                dispatch(selectSongPlay(playingList.length))
-                setRcmList(newList)
+            if (currentIndex < playingList.length - 1) {
+                dispatch(actions.nextSong())
             }
             else {
-                dispatch(selectSongPlay(0))
+                if (rcmList.length > 0) {
+                    let newList = [...rcmList]
+                    let songCut = newList.shift()
+                    dispatch(actions.addToQueue(songCut))
+                    dispatch(actions.selectSongPlay(playingList.length))
+                    setRcmList(newList)
+                }
+                else {
+                    dispatch(actions.selectSongPlay(0))
+                }
             }
         }
     }
-    const handlePrevSong = () => {
-        currentIndex &&
-            dispatch(prevSong())
-    }
-
 
     // change container width when show playing component 
     useEffect(() => {
-        if (playingList.length > 0) {
+        if (isNewPlaying) {
             let showControler = document.querySelector('.container')
             showControler.style.height = 'calc(100vh - var(--playing-height))'
         }
-    }, [showAudio])
+    }, [playingSong])
 
 
     // handle logout
@@ -285,12 +276,10 @@ const HomePage = () => {
                                     <ShowList
                                         link={`${urlApiAudioServer + 'songs/page/1'}`}
                                         title={'Trang 1'}
-                                        changePlayingList={changePlayingList}
                                     />
                                     <ShowList
                                         link={`${urlApiAudioServer}songs/page/3`}
                                         title={'Trang 2'}
-                                        changePlayingList={changePlayingList}
                                     />
                                 </div>
                             }
@@ -298,11 +287,8 @@ const HomePage = () => {
                         <Route path='queue'
                             element={
                                 <Queue
-                                    playingList={playingList}
-                                    currentIndex={currentIndex}
                                     rcmList={rcmList}
                                     selectSongInRcm={selectSongInRcm}
-                                    playSongInPL={playSongInPL}
                                     showPlaylist={showPlaylist}
                                 />
                             }
@@ -310,7 +296,6 @@ const HomePage = () => {
                         <Route path='/songs/:id'
                             element={
                                 <SongDetail
-                                    changePlayingList={changePlayingList}
                                     showPlaylist={showPlaylist}
                                 />
                             }
@@ -318,7 +303,6 @@ const HomePage = () => {
                         <Route path='/playlists/:id'
                             element={
                                 <PlaylistPage
-                                    changePlayingList={changePlayingList}
                                     showPlaylist={showPlaylist}
                                     user={user}
                                     tokens={tokens}
@@ -329,7 +313,6 @@ const HomePage = () => {
                         <Route path='/search'
                             element={
                                 <SearchPage
-                                    changePlayingList={changePlayingList}
                                     resulfSearch={resulfSearch}
                                     isSearch={isSearch}
                                     showPlaylist={showPlaylist}
@@ -341,10 +324,9 @@ const HomePage = () => {
                 </div>
             </div>
             { //set playing controls is hidden
-                showAudio && <Playing
+                playingSong && <Playing
                     playingSong={playingSong}
                     handleNextSong={handleNextSong}
-                    handlePrevSong={handlePrevSong}
                     userid={user.userId}
                 />
             }

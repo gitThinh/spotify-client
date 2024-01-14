@@ -1,16 +1,18 @@
-import { useRef } from "react"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { FaCircleXmark } from "react-icons/fa6"
 import { FaPlay } from "react-icons/fa6"
 
 import { ShowList, SongLine } from "/src/constants/components"
 import { urlApiImg, urlApiAudioServer } from '/src/constants/env'
+import { PlaySongContext, actions } from '/src/constants/stores'
 
 import './style.css'
 
 
-const SearchPage = ({ changePlayingList, resulfSearch, isSearch, showPlaylist }) => {
+const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
 
+    const [playingState, dispatch] = useContext(PlaySongContext)
 
     return (
         <div className="search_layout">
@@ -27,7 +29,7 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch, showPlaylist })
                                     <button className="start_song"
                                         onClick={(e) => {
                                             e.preventDefault()
-                                            changePlayingList(resulfSearch[0], 1)
+                                            dispatch(actions.songsPlay(resulfSearch[0]))
                                         }}
                                     >
                                         <FaPlay />
@@ -45,7 +47,6 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch, showPlaylist })
                                             <SongLine
                                                 song={result}
                                                 check={1}
-                                                changePlayingList={changePlayingList}
                                                 showPlaylist={showPlaylist}
                                             />
                                         </div>
@@ -64,7 +65,6 @@ const SearchPage = ({ changePlayingList, resulfSearch, isSearch, showPlaylist })
             <ShowList
                 link={`${urlApiAudioServer}songs/page/2`}
                 title={'Có thể bạn thích:'}
-                changePlayingList={changePlayingList}
             />
         </div>
     )

@@ -1,11 +1,15 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 
 import { SongLine, SongPlayingList } from '/src/constants/components'
+import { PlaySongContext } from '/src/constants/stores'
 
 import './style.css'
 
 
-const Queue = ({ playingList, currentIndex, rcmList, selectSongInRcm, playSongInPL, showPlaylist }) => {
+const Queue = ({ rcmList, selectSongInRcm, showPlaylist }) => {
+    const [playingState, dispatch] = useContext(PlaySongContext)
+    const { playingList } = playingState
+
     return (
         <div className="queue_layout noone_coppy">
             <div style={{ padding: '20px 35px' }}>
@@ -18,9 +22,7 @@ const Queue = ({ playingList, currentIndex, rcmList, selectSongInRcm, playSongIn
                                     <div key={index}>
                                         <SongPlayingList
                                             song={song}
-                                            currentIndex={currentIndex}
                                             index={index}
-                                            playSongInPL={playSongInPL}
                                             showPlaylist={showPlaylist}
                                         />
                                     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useContext } from "react"
 import { Link } from "react-router-dom"
 import Cookies from 'js-cookie'
 
@@ -7,11 +7,15 @@ import { FaPlus, FaMusic, FaUserPen, FaDeleteLeft } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
+import { PlaySongContext, actions } from '/src/constants/stores'
 
 
 import './style.css'
 
 const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) => {
+
+    const [playingState, dispatch] = useContext(PlaySongContext)
+
     const moreOptionTable = useRef()
     const moreOption = useRef()
 
@@ -114,7 +118,7 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
                         </li>
                     }
                     <li>
-                        <button className='more_options_table_option' >
+                        <button className='more_options_table_option' onClick={() => {dispatch(actions.addToQueue(song))}} >
                             <BiAddToQueue className='more_options_table_icon' />
                             Add to queue
                         </button>

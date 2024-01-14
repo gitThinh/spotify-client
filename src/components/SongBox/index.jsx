@@ -1,12 +1,16 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+
 import { FaPlay } from 'react-icons/fa'
 
+import { PlaySongContext, actions } from '/src/constants/stores'
 import { urlApiImg } from '/src/constants/env'
 
-import '/src/components/SongBox/style.css'
+import './style.css'
 
 
-const SongBox = ({ song, changePlayingList }) => {
+const SongBox = ({ song }) => {
+    const [playingState, dispatch] = useContext(PlaySongContext)
     // --------------------------------------- RENDER ------------------------------------
     return (
         <Link to={`/songs/${song._id}`}>
@@ -19,7 +23,7 @@ const SongBox = ({ song, changePlayingList }) => {
                 <button className="play_button"
                     onClick={(e) => {
                         e.preventDefault()
-                        changePlayingList(song)
+                        dispatch(actions.songsPlay(song))
                     }}
                 >
                     <FaPlay className='play_button_icon' />

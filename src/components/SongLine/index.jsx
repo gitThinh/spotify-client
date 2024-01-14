@@ -1,23 +1,27 @@
-import { useRef } from "react"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { FaHeadphonesAlt } from 'react-icons/fa'
 
 import { SelectOptionsSong } from "/src/constants/components"
 import { urlApiImg } from '/src/constants/env'
+import { PlaySongContext, actions } from '/src/constants/stores'
 import formatTime from '/src/utils/formatTime'
 
 
 import '/src/components/SongLine/style.css'
 
 
-const SongLine = ({ song, selectSongInRcm, changePlayingList, index, check, handlePlaylists, showPlaylist, playList }) => {
+const SongLine = ({ song, selectSongInRcm, index, check, handlePlaylists, showPlaylist, playList }) => {
+    
+    const [playingState, dispatch] = useContext(PlaySongContext)
+
 
     return (
         <div
             className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
             onDoubleClick={() =>
                 check === 1
-                    ? changePlayingList(song)
+                    ? dispatch(actions.songsPlay(song))
                     : selectSongInRcm(song, index)
             }
         >

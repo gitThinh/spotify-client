@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, memo } from 'react'
+import { useEffect, useState, useRef, memo, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { ScaleLoader } from 'react-spinners'
 
@@ -9,13 +9,17 @@ import { PiListBold } from 'react-icons/pi'
 
 import formatTime from '/src/utils/formatTime'
 import { urlApiSong, urlApiImg, urlApiAudioServer, apiKey } from '/src/constants/env'
+import { PlaySongContext, actions } from '/src/constants/stores'
 
 
 import '/src/components/Playing/style.css'
 
 
 
-const Playing = ({ playingSong, handleNextSong, handlePrevSong, userid }) => {
+const Playing = ({ handleNextSong, userid }) => {
+
+    const [playingState, dispatch] = useContext(PlaySongContext)
+    const { playingSong } = playingState
 
     const [isplaying, setIsplaying] = useState(false)
     const [isended, setIsended] = useState(false)
@@ -34,7 +38,7 @@ const Playing = ({ playingSong, handleNextSong, handlePrevSong, userid }) => {
     const volumeContainer = useRef()
 
     // ------------------------------------------------ FUNCTIONS ----------------------------------------------------------------
-
+    // setting audio
     useEffect(() => {
         playingSong && setIsLoading(true)
         playingSong ? setIsplaying(true) : setIsplaying(false)
@@ -82,7 +86,9 @@ const Playing = ({ playingSong, handleNextSong, handlePrevSong, userid }) => {
             : handleNextSong(0)
     }
     const handlePrevBtn = () => {
-        handlePrevSong()
+        israndom
+            ? handleNextSong(1)
+            : dispatch(actions.prevSong())
     }
 
     // handle when ended songs
@@ -102,10 +108,10 @@ const Playing = ({ playingSong, handleNextSong, handlePrevSong, userid }) => {
             const containerWidth = progressContainer.current.clientWidth
             const clickX = event.clientX - progressContainer.current.getBoundingClientRect().left
             const progress = (clickX / containerWidth)
+            const newTime = progress * audioRef.current.duration
 
             progressBar.current.style.width = `${progress * 100}%`
 
-            const newTime = progress * audioRef.current.duration
             audioRef.current.currentTime = newTime
         }
 

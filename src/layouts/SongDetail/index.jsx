@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useParams } from "react-router-dom"
+
 import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa6'
 
 import { urlApiAudioServer, urlApiImg, urlMLServer, apiKey } from '/src/constants/env'
 import { SelectOptionsSong, SongLine } from "/src/constants/components"
-
 import { LoadingPage, Page404 } from '/src/constants/layouts'
+import { PlaySongContext, actions } from '/src/constants/stores'
 
 
 import './style.css'
 
 
 
-const SongDetail = ({ changePlayingList, showPlaylist }) => {
+const SongDetail = ({ showPlaylist }) => {
+    const [playingState, dispatch] = useContext(PlaySongContext)
+
     const id = useParams().id
     const [songDetail, setSongDetail] = useState()
     const [rcmList, setRcmList] = useState([])
@@ -79,7 +82,7 @@ const SongDetail = ({ changePlayingList, showPlaylist }) => {
                 </div>
                 <div className="body_songpage">
                     <div className="body_page_option">
-                        <button className="play_button" onClick={() => changePlayingList(songDetail)}>
+                        <button className="play_button" onClick={() => dispatch(actions.songsPlay(songDetail))}>
                             <FaPlay size={25} />
                         </button>
                         <SelectOptionsSong
@@ -96,7 +99,6 @@ const SongDetail = ({ changePlayingList, showPlaylist }) => {
                                         <SongLine
                                             song={song}
                                             check={1}
-                                            changePlayingList={changePlayingList}
                                             showPlaylist={showPlaylist}
                                         />
                                     </div>

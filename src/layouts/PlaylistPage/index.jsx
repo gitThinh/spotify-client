@@ -1,15 +1,20 @@
-import Cookies from 'js-cookie'
+import { useContext } from "react"
 import { useParams } from "react-router-dom"
+import Cookies from 'js-cookie'
+
 import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa6'
 
-
 import { SelectOptionsPlaylist, SongLine } from "/src/constants/components"
+import { PlaySongContext, actions } from '/src/constants/stores'
 
 import './style.css'
 
 
 const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists }) => {
+
+    const [playingState, dispatch] = useContext(PlaySongContext)
+
     const id = useParams().id
     let playlists = showPlaylist.length ? showPlaylist : JSON.parse(Cookies.get('playlists'))
     let [playList] =
@@ -17,7 +22,6 @@ const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists 
             return p._id === id
         })
 
-    // console.log(user.userId, tokens.accessToken)
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
@@ -39,7 +43,7 @@ const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists 
             </div>
             <div className="body_songpage">
                 <div className="body_page_option">
-                    <button className="play_button" onClick={() => playList.songs.length > 0 && changePlayingList(playList.songs)}>
+                    <button className="play_button" onClick={() => playList.songs.length > 0 && dispatch(actions.playlistPlay(playList.songs))}>
                         <FaPlay size={25} />
                     </button>
                     <SelectOptionsPlaylist playList={playList} handlePlaylists={handlePlaylists} />
@@ -52,7 +56,6 @@ const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists 
                                     <SongLine
                                         song={song}
                                         check={1}
-                                        changePlayingList={changePlayingList}
                                         playList={playList}
                                         handlePlaylists={handlePlaylists}
                                         showPlaylist={playlists}
