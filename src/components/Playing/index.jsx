@@ -97,6 +97,7 @@ const Playing = ({ handleNextSong, userid }) => {
             audioRef.current.currentTime = 0
             audioRef.current.play()
             setIsended(false)
+            return
         }
         isended && handleNextBtn()
         setIsended(false)
