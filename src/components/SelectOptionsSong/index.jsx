@@ -99,16 +99,6 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
                         </button>
                     </li>
                     {
-                        showPlaylist.map((pl, index) => {
-                            return (
-                                <button className='more_options_table_option' key={index}>
-                                    <FaPlus className='more_options_table_icon' />
-                                    {pl._id}
-                                </button>
-                            )
-                        })
-                    }
-                    {
                         playList &&
                         <li>
                             <button className='more_options_table_option' onClick={handleDeleteSongInPlaylist}>
@@ -118,7 +108,7 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
                         </li>
                     }
                     <li>
-                        <button className='more_options_table_option' onClick={() => {dispatch(actions.addToQueue(song))}} >
+                        <button className='more_options_table_option' onClick={() => { dispatch(actions.addToQueue(song)) }} >
                             <BiAddToQueue className='more_options_table_icon' />
                             Add to queue
                         </button>
@@ -137,7 +127,16 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
                     </li>
                 </ul>
                 <ul className="sub_table">
-                    
+                    {
+                        showPlaylist.map((pl, index) => {
+                            return (
+                                <button className='more_options_table_option' key={index}>
+                                    <FaPlus className='more_options_table_icon' />
+                                    {pl._id}
+                                </button>
+                            )
+                        })
+                    }
                 </ul>
             </div>
         </div>
