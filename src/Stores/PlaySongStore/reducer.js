@@ -31,24 +31,13 @@ const playSongReducer = (state = initState, action) => {
             }
             break
         case ADD_TO_QUEUE:
-            const payloadItem = action.payload
-            const uniqueNewItems = payloadItem.length && payloadItem.filter(item => !state.playingList.includes(item))
-
-            newState =
-                action.payload.length
-                    ? {
-                        ...state,
-                        playingList: [...state.playingList, ...uniqueNewItems],
-                        isNewPlaying: false
-                    }
-                    : {
-                        ...state,
-                        playingList:
-                            !state.playingList.includes(payloadItem)
-                                ? [...state.playingList, action.payload]
-                                : [...state.playingList],
-                        isNewPlaying: false
-                    }
+            newState = {
+                ...state,
+                playingList: action.payload.length
+                    ? [...state.playingList, ...action.payload]
+                    : [...state.playingList, action.payload],
+                isNewPlaying: false
+            }
             break
         case NEXT_SONG:
             newState = {

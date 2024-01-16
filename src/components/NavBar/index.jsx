@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
-import { FaCompass, FaPlus } from 'react-icons/fa6'
+import { FaCompass, FaPlus, FaMusic } from 'react-icons/fa6'
 
 
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
@@ -61,14 +61,16 @@ const NavBar = ({ user, tokens, showPlaylist, handlePlaylists }) => {
                 </div>
                 {
                     user &&
-                    <div className="nav_bar_library_playlists have_scroll">
+                    <div className="nav_bar_library_playlists">
                         {
                             showPlaylist.length > 0 ?
                                 showPlaylist.map((playlist, index) => {
                                     return (
                                         <Link to={`/playlists/${playlist._id}`} style={{ width: '100%' }} key={index}>
                                             <div className="nav_bar_library_playlist">
-                                                <img src='https://nth-audio.site/images/avt.jpg' />
+                                                <div className='nav_bar_library_playlist_thumb'>
+                                                    <FaMusic />
+                                                </div>
                                                 <div className="nav_bar_library_playlist_details">
                                                     <h3 className='oneline_text'>{playlist.playListName}</h3>
                                                     <p className='oneline_text'>Playlist . {user.userName}</p>

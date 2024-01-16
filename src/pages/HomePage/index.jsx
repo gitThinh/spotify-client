@@ -193,7 +193,7 @@ const HomePage = () => {
     useEffect(() => {
         //get playlist in the first render
         user &&
-            handlePlaylists(tokens, user)
+            handlePlaylists()
     }, [])
 
 
@@ -208,10 +208,10 @@ const HomePage = () => {
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
-        <div className="home_container have_scroll" onClick={checkTargetHeaderUser}>
+        <div className="home_container" onClick={checkTargetHeaderUser}>
             <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} />
-                <div className="bounder_layout have_scroll">
+                <div className="bounder_layout">
                     <div className="header_user">
                         <div>
                             {
