@@ -4,4 +4,4 @@ import LoginPage from '/src/pages/LoginPage'
 import ResetPass from '/src/pages/ResetPass'
 import SigninPage from '/src/pages/SigninPage'
 
-export {ForgotPass, HomePage, LoginPage, ResetPass, SigninPage}
+export { ForgotPass, HomePage, LoginPage, ResetPass, SigninPage,  }

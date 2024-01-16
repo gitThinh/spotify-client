@@ -7,12 +7,13 @@ import { FaDeleteLeft, FaShare } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
-import { PlaySongContext, actions } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists } from '/src/constants/stores'
 
 
-const SelectOptionsPlaylist = ({ playList, handlePlaylists }) => {
+const SelectOptionsPlaylist = ({ playList }) => {
 
     const [playingState, dispatch] = useContext(PlaySongContext)
+    const handlePlaylists = useContext(methodsHandlePlaylists)
 
     const moreOptionTable = useRef()
     const moreOption = useRef()

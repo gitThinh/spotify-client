@@ -8,13 +8,14 @@ import { FaPlus, FaMusic, FaUserPen, FaDeleteLeft } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
-import { PlaySongContext, actions } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists } from '/src/constants/stores'
 
 
 import './style.css'
 
-const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) => {
+const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
     const [playingState, dispatch] = useContext(PlaySongContext)
+    const handlePlaylists = useContext(methodsHandlePlaylists)
     const { playingList } = playingState
 
     const moreOptionTable = useRef()
@@ -62,7 +63,10 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
     }, [])
 
     const checkAvailableSong = (song, list) => {
-        return list.length ? !list.includes(song) : true
+        const check = list.some(item => {
+            return item._id === song._id
+        })
+        return list.length ? !check : true
     }
 
     // add song into playlist

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef, useContext, createContext } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -13,6 +13,8 @@ import { PlaySongContext, actions } from '/src/constants/stores'
 
 
 import './style.css'
+
+export const methodsHandlePlaylists = createContext()
 
 
 const HomePage = () => {
@@ -211,118 +213,119 @@ const HomePage = () => {
         <div className="home_container" onClick={checkTargetHeaderUser}>
             <div className="container">
                 <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} />
-                <div className="bounder_layout">
-                    <div className="header_user">
-                        <div>
+                <methodsHandlePlaylists.Provider value={handlePlaylists}>
+                    <div className="bounder_layout">
+                        <div className="header_user">
+                            <div>
+                                {
+                                    <Routes>
+                                        <Route path='/search'
+                                            element={
+                                                <SearchBox
+                                                    setResulfSearch={setResulfSearch}
+                                                    setIsSearch={setIsSearch}
+                                                    style={{ visibility: 'visible' }}
+                                                />
+                                            }
+                                        />
+                                    </Routes>
+                                }
+                            </div>
                             {
-                                <Routes>
-                                    <Route path='/search'
-                                        element={
-                                            <SearchBox
-                                                setResulfSearch={setResulfSearch}
-                                                setIsSearch={setIsSearch}
-                                                style={{ visibility: 'visible' }}
-                                            />
-                                        }
-                                    />
-                                </Routes>
+                                user !== '' ?
+                                    <div className="info_user noone_coppy" ref={infoUser}>
+                                        <img src='https://nth-audio.site/images/avt.jpg'
+                                            onClick={() => {
+                                                const detailsUser = document.querySelector('.info_user_table')
+                                                detailsUser.style.display === 'none'
+                                                    ? detailsUser.style.display = 'block'
+                                                    : detailsUser.style.display = 'none'
+                                            }}
+                                        />
+                                        <div className="info_user_table" style={{ display: 'none' }} ref={infoUserTable}>
+                                            <ul>
+                                                <li>
+                                                    <button className='info_user_table_option' >Profile</button>
+                                                </li>
+                                                <li>
+                                                    <button className='info_user_table_option' >Contact</button>
+                                                </li>
+                                                <li>
+                                                    <a href='/' className='info_user_table_option' >Support</a>
+                                                </li>
+                                                <li>
+                                                    <button className='info_user_table_option' onClick={handleLogout}>
+                                                        Đăng xuất
+                                                        <FiLogOut className='info_user_table_icon' />
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="login_signin info_user noone_coppy">
+                                        <a href="/signin" className='signin_btn login_signin_btn'>
+                                            Đăng Ký
+                                        </a>
+                                        <a href="/login" className='login_btn login_signin_btn'>
+                                            Đăng Nhập
+                                        </a>
+                                    </div>
                             }
                         </div>
-                        {
-                            user !== '' ?
-                                <div className="info_user noone_coppy" ref={infoUser}>
-                                    <img src='https://nth-audio.site/images/avt.jpg'
-                                        onClick={() => {
-                                            const detailsUser = document.querySelector('.info_user_table')
-                                            detailsUser.style.display === 'none'
-                                                ? detailsUser.style.display = 'block'
-                                                : detailsUser.style.display = 'none'
-                                        }}
-                                    />
-                                    <div className="info_user_table" style={{ display: 'none' }} ref={infoUserTable}>
-                                        <ul>
-                                            <li>
-                                                <button className='info_user_table_option' >Profile</button>
-                                            </li>
-                                            <li>
-                                                <button className='info_user_table_option' >Contact</button>
-                                            </li>
-                                            <li>
-                                                <a href='/' className='info_user_table_option' >Support</a>
-                                            </li>
-                                            <li>
-                                                <button className='info_user_table_option' onClick={handleLogout}>
-                                                    Đăng xuất
-                                                    <FiLogOut className='info_user_table_icon' />
-                                                </button>
-                                            </li>
-                                        </ul>
+                        <Routes>
+                            <Route index
+                                element={
+                                    <div className="home_layout">
+                                        <ShowList
+                                            link={`${urlApiAudioServer + 'songs/page/1'}`}
+                                            title={'Trang 1'}
+                                        />
+                                        <ShowList
+                                            link={`${urlApiAudioServer}songs/page/3`}
+                                            title={'Trang 2'}
+                                        />
                                     </div>
-                                </div>
-                                :
-                                <div className="login_signin info_user noone_coppy">
-                                    <a href="/signin" className='signin_btn login_signin_btn'>
-                                        Đăng Ký
-                                    </a>
-                                    <a href="/login" className='login_btn login_signin_btn'>
-                                        Đăng Nhập
-                                    </a>
-                                </div>
-                        }
+                                }
+                            />
+                            <Route path='queue'
+                                element={
+                                    <Queue
+                                        rcmList={rcmList}
+                                        selectSongInRcm={selectSongInRcm}
+                                        showPlaylist={showPlaylist}
+                                    />
+                                }
+                            />
+                            <Route path='/songs/:id'
+                                element={
+                                    <SongDetail
+                                        showPlaylist={showPlaylist}
+                                    />
+                                }
+                            />
+                            <Route path='/playlists/:id'
+                                element={
+                                    <PlaylistPage
+                                        showPlaylist={showPlaylist}
+                                        user={user}
+                                        tokens={tokens}
+                                    />
+                                }
+                            />
+                            <Route path='/search'
+                                element={
+                                    <SearchPage
+                                        resulfSearch={resulfSearch}
+                                        isSearch={isSearch}
+                                        showPlaylist={showPlaylist}
+                                    />
+                                }
+                            />
+                            <Route path='*' element={<Page404 />} />
+                        </Routes>
                     </div>
-                    <Routes>
-                        <Route index
-                            element={
-                                <div className="home_layout">
-                                    <ShowList
-                                        link={`${urlApiAudioServer + 'songs/page/1'}`}
-                                        title={'Trang 1'}
-                                    />
-                                    <ShowList
-                                        link={`${urlApiAudioServer}songs/page/3`}
-                                        title={'Trang 2'}
-                                    />
-                                </div>
-                            }
-                        />
-                        <Route path='queue'
-                            element={
-                                <Queue
-                                    rcmList={rcmList}
-                                    selectSongInRcm={selectSongInRcm}
-                                    showPlaylist={showPlaylist}
-                                />
-                            }
-                        />
-                        <Route path='/songs/:id'
-                            element={
-                                <SongDetail
-                                    showPlaylist={showPlaylist}
-                                />
-                            }
-                        />
-                        <Route path='/playlists/:id'
-                            element={
-                                <PlaylistPage
-                                    showPlaylist={showPlaylist}
-                                    user={user}
-                                    tokens={tokens}
-                                    handlePlaylists={handlePlaylists}
-                                />
-                            }
-                        />
-                        <Route path='/search'
-                            element={
-                                <SearchPage
-                                    resulfSearch={resulfSearch}
-                                    isSearch={isSearch}
-                                    showPlaylist={showPlaylist}
-                                />
-                            }
-                        />
-                        <Route path='*' element={<Page404 />} />
-                    </Routes>
-                </div>
+                </methodsHandlePlaylists.Provider>
             </div>
             { //set playing controls is hidden
                 playingSong && <Playing
