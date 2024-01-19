@@ -1,15 +1,19 @@
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import { Link } from 'react-router-dom'
+
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
 import { FaCompass, FaPlus, FaMusic } from 'react-icons/fa6'
 
-
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
+import { methodsHandleAlert, methodsHandlePlaylists } from '/src/constants/stores'
 
 import './style.css'
 
 
-const NavBar = ({ user, tokens, showPlaylist, handlePlaylists }) => {
+const NavBar = ({ user, tokens, showPlaylist }) => {
+
+    const handleShowAlerts = useContext(methodsHandleAlert)
+    const handlePlaylists = useContext(methodsHandlePlaylists)
 
     // console.log(tokens.accessToken)
 
@@ -26,7 +30,13 @@ const NavBar = ({ user, tokens, showPlaylist, handlePlaylists }) => {
         })
             .then(response => response.json())
             .then(data => {
-                data.statusCode === 201 && handlePlaylists(tokens, user)
+                if(data.statusCode === 201) {
+                    handlePlaylists()
+                    handleShowAlerts('Tạo playlist thành công!')
+                }
+                else{
+                    handleShowAlerts(data.message)
+                }
             })
     }
 

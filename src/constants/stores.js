@@ -1,5 +1,5 @@
 import PlaySongProvider, { PlaySongContext, actions } from '/src/Stores/PlaySongStore'
-import { methodsHandlePlaylists } from '/src/pages/HomePage'
+import { methodsHandlePlaylists, methodsHandleAlert } from '/src/pages/HomePage'
 
-export { PlaySongContext, PlaySongProvider, actions, methodsHandlePlaylists }
+export { PlaySongContext, PlaySongProvider, actions, methodsHandlePlaylists, methodsHandleAlert }
 

@@ -8,7 +8,7 @@ import '/src/components/ShowList/style.css'
 
 
 
-const ShowList = ({ link, title, range = 100 }) => {
+const ShowList = ({ link, title, range = 100 }) => {  
     const [listSongs, setListSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
@@ -24,7 +24,7 @@ const ShowList = ({ link, title, range = 100 }) => {
             setListSongs(data.metadata.songs)
         }
         loadSongs()
-    }, [link])
+    }, [])
 
 
     //------------------------------------------------- RENDER -------------------------------------------------

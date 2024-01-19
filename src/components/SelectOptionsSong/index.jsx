@@ -8,15 +8,16 @@ import { FaPlus, FaMusic, FaUserPen, FaDeleteLeft } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
-import { PlaySongContext, actions, methodsHandlePlaylists } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists, methodsHandleAlert } from '/src/constants/stores'
 
 
 import './style.css'
 
 const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
     const [playingState, dispatch] = useContext(PlaySongContext)
-    const handlePlaylists = useContext(methodsHandlePlaylists)
     const { playingList } = playingState
+    const handlePlaylists = useContext(methodsHandlePlaylists)
+    const handleShowAlerts = useContext(methodsHandleAlert)
 
     const moreOptionTable = useRef()
     const moreOption = useRef()
@@ -90,7 +91,13 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
             })
                 .then(respone => respone.json())
                 .then(respone => {
-                    respone.statusCode === 200 && handlePlaylists()
+                    if (respone.statusCode === 200) {
+                        handlePlaylists()
+                        handleShowAlerts('Thêm thành công!')
+                    }
+                    else {
+                        handleShowAlerts(respone.message)
+                    }
                 })
     }
 
@@ -109,7 +116,13 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
         })
             .then(respone => respone.json())
             .then(respone => {
-                respone.statusCode === 200 && handlePlaylists()
+                if (respone.statusCode === 200) {
+                    handlePlaylists()
+                    handleShowAlerts('Xóa thành công!')
+                }
+                else {
+                    handleShowAlerts(respone.message)
+                }
             })
     }
 
@@ -125,21 +138,23 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
                             Add to playlist
                             <RiArrowRightSFill className="more_options_table_arrow" />
                         </div>
-                        <ul className="sub_table">
-                            {
-                                showPlaylist.map((pl, index) => {
-                                    return (
-                                        <button
-                                            className='more_options_table_option'
-                                            key={index}
-                                            onClick={() => { handleAddSongIntoPlaylist(pl) }}
-                                        >
-                                            <p className="oneline_text">{pl.playListName}</p>
-                                        </button>
-                                    )
-                                })
-                            }
-                        </ul>
+                        {showPlaylist.length > 0 &&
+                            <ul className="sub_table">
+                                {
+                                    showPlaylist.map((pl, index) => {
+                                        return (
+                                            <button
+                                                className='more_options_table_option'
+                                                key={index}
+                                                onClick={() => { handleAddSongIntoPlaylist(pl) }}
+                                            >
+                                                <p className="oneline_text">{pl.playListName}</p>
+                                            </button>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        }
                     </li>
                     {
                         playList &&

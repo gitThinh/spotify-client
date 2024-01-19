@@ -7,13 +7,14 @@ import { FaDeleteLeft, FaShare } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
-import { PlaySongContext, actions, methodsHandlePlaylists } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists, methodsHandleAlert } from '/src/constants/stores'
 
 
 const SelectOptionsPlaylist = ({ playList }) => {
 
     const [playingState, dispatch] = useContext(PlaySongContext)
     const handlePlaylists = useContext(methodsHandlePlaylists)
+    const handleShowAlert = useContext(methodsHandleAlert)
 
     const moreOptionTable = useRef()
     const moreOption = useRef()
@@ -62,7 +63,7 @@ const SelectOptionsPlaylist = ({ playList }) => {
 
 
     // delete playlist 
-    const handleDeletePlaylist = () => {
+    const handleDeletePlaylist = async () => {
         const user = Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : ''
         const tokens = Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : ''
         fetch(`${urlApiAudioServer}user/removePlaylist?id=${playList._id}`, {
@@ -75,8 +76,13 @@ const SelectOptionsPlaylist = ({ playList }) => {
         })
             .then(respone => respone.json())
             .then(respone => {
-                respone.statusCode === 200
-                    && handlePlaylists()
+                if (respone.statusCode === 200) {
+                    handlePlaylists()
+                    handleShowAlert("Xóa playlist thành công!")
+                }
+                else {
+                    handleShowAlert(respone.message)
+                }
             })
         locationWeb('/')
     }
