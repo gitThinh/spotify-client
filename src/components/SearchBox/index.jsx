@@ -3,7 +3,7 @@ import { HiMagnifyingGlass } from 'react-icons/hi2'
 
 import { urlApiAudioServer, apiKey } from '/src/constants/env'
 
-import '/src/components/searchBox/style.css'
+import './style.css'
 
 
 const SearchBox = ({ setResulfSearch, setIsSearch }) => {

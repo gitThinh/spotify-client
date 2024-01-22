@@ -12,17 +12,20 @@
 .header_playlistpage .thumb_playlist {
     width: 220px;
     aspect-ratio: 1;
+    box-shadow: 0 0 10px #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: all .3s linear;
 }
 
-.header_playlistpage .thumb_playlist img {
-    display: block;
-    width: 220px;
-    border-radius: 8px;
-    transition: scale .3s ease-in-out;
-    box-shadow: 0 4px 60px #242424;
+.header_playlistpage .thumb_playlist > svg{
+    width: 90px;
+    aspect-ratio: 1;
 }
 
-.header_playlistpage .thumb_playlist:hover img {
+.header_playlistpage .thumb_playlist:hover {
     scale: 1.05;
 }
 

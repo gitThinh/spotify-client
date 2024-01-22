@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.more_options>svg{
+.more_options>svg {
     cursor: pointer;
     --sz-icon: 22px;
     width: var(--sz-icon);
@@ -10,31 +10,32 @@
     color: #ddd;
 }
 
-.more_options:hover>svg{
+.more_options:hover>svg {
     color: #fff;
 }
 
-.more_options .more_options_table{
+.more_options .more_options_table {
     display: none;
     width: 200px;
     position: absolute;
-    z-index: 999999;
+    z-index: 1000;
     top: 50px;
     left: 0;
     background-color: #181818;
     padding: 5px;
     border-radius: 5px;
+    border: 1px solid #000;
 }
 
-.more_options .more_options_table.right{
+.more_options .more_options_table.right {
     translate: -80% 0;
 }
 
-.more_options .more_options_table.top{
+.more_options .more_options_table.top {
     transform: translateY(-115%);
 }
 
-.more_options .more_options_table .more_options_table_option{
+.more_options .more_options_table .more_options_table_option {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,17 +50,46 @@
     transition: background-color .2s linear;
 }
 
-.more_options .more_options_table .more_options_table_option:hover{
+.more_options .more_options_table .more_options_table_option:hover {
     background-color: #242424;
 }
 
-.more_options .more_options_table .more_options_table_icon{
+.more_options .more_options_table .more_options_table_icon {
     --sz-icon: 20px;
     width: var(--sz-icon);
     height: var(--sz-icon);
 }
 
 .more_options .more_options_table .more_options_table_icon:nth-child(1),
-.more_options .more_options_table .more_options_table_icon:nth-child(2){
-    --sz-icon: 16px ;
+.more_options .more_options_table .more_options_table_icon:nth-child(2) {
+    --sz-icon: 16px;
+}
+
+.more_options .more_options_table .more_options_table_arrow {
+    position: absolute;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+}
+
+.more_options .more_options_table .main_table .sub_table {
+    display: none;
+    width: 150px;
+    overflow: hidden;
+    position: absolute;
+    top: 5px;
+    z-index: 10001;
+    left: 98%;
+    background-color: #181818;
+    box-shadow: 0 0 5px #000;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.more_options .more_options_table.right .sub_table{
+    left: -145px;
+}
+
+.more_options .more_options_table ul li:nth-child(1):hover .sub_table{
+    display: block;
 }

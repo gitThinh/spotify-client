@@ -15,7 +15,7 @@
 
 
 /* custom scroll bar */
-.have_scroll::-webkit-scrollbar {
+html *::-webkit-scrollbar {
   position: absolute;
   right: 6px;
   width: 6px;
@@ -23,7 +23,7 @@
   z-index: 1;
 }
 
-.have_scroll::-webkit-scrollbar-thumb {
+html *::-webkit-scrollbar-thumb {
   background-color: #666;
   border-radius: 6px;
 }
@@ -61,11 +61,11 @@
     --navbar_width: 220px;
   }
 
-  .have_scroll::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
   }
 
-  .have_scroll::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     display: none;
   }
 }
@@ -75,11 +75,11 @@
     --navbar_width: 70px;
   }
 
-  .have_scroll::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
   }
 
-  .have_scroll::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     display: none;
   }
 }
