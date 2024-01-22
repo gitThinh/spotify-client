@@ -100,25 +100,25 @@ const SelectOptionsPlaylist = ({ playList }) => {
                             }}
                         >
                             <BiAddToQueue className='more_options_table_icon' />
-                            Add to queue
+                            Thêm vào hàng chờ
                         </button>
                     </li>
                     <li>
                         <button className='more_options_table_option' >
                             <HiPencil className='more_options_table_icon' />
-                            Edit details
+                            Tùy chỉnh
                         </button>
                     </li>
                     <li>
                         <button className='more_options_table_option' onClick={handleDeletePlaylist}>
                             <FaDeleteLeft className='more_options_table_icon' />
-                            Delete
+                            Xóa Playlist
                         </button>
                     </li>
                     <li>
                         <button className='more_options_table_option' >
                             <FaShare className='more_options_table_icon' />
-                            Share
+                            chia sẻ
                         </button>
                     </li>
                 </ul>

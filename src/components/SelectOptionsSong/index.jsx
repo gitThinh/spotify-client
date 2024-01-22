@@ -135,7 +135,7 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
                     <li>
                         <div className='more_options_table_option' >
                             <FaPlus className='more_options_table_icon' />
-                            Add to playlist
+                            Thêm vào playlist
                             <RiArrowRightSFill className="more_options_table_arrow" />
                         </div>
                         {showPlaylist.length > 0 &&
@@ -161,7 +161,7 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
                         <li>
                             <button className='more_options_table_option' onClick={handleDeleteSongInPlaylist}>
                                 <FaDeleteLeft className='more_options_table_icon' />
-                                Remove song
+                                Xóa khỏi playlist
                             </button>
                         </li>
                     }
@@ -173,19 +173,19 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
                             }}
                         >
                             <BiAddToQueue className='more_options_table_icon' />
-                            Add to queue
+                            Thêm vào hàng chờ
                         </button>
                     </li>
                     <li>
                         <Link to={`/songs/${song._id}`} className='more_options_table_option' >
                             <FaMusic className='more_options_table_icon' />
-                            Go to song page
+                            Thông tin bài hát
                         </Link>
                     </li>
                     <li>
                         <Link to='/' className='more_options_table_option' >
                             <FaUserPen className='more_options_table_icon' />
-                            Go to artist page
+                            Thông tin nghệ sĩ
                         </Link>
                     </li>
                 </ul>

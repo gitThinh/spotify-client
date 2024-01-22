@@ -9,7 +9,7 @@ const initState = {
 }
 
 const playSongReducer = (state = initState, action) => {
-    console.log(action);
+    // console.log(action);
     let newState
     switch (action.type) {
         case SONGS_PLAY:
