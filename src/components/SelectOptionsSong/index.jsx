@@ -2,24 +2,26 @@ import { useEffect, useRef, useContext } from "react"
 import { Link } from "react-router-dom"
 import Cookies from 'js-cookie'
 
+import { RiArrowRightSFill } from "react-icons/ri"
 import { HiDotsHorizontal } from "react-icons/hi"
 import { FaPlus, FaMusic, FaUserPen, FaDeleteLeft } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
-import { PlaySongContext, actions } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists, methodsHandleAlert } from '/src/constants/stores'
 
 
 import './style.css'
 
-const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) => {
-
+const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
     const [playingState, dispatch] = useContext(PlaySongContext)
+    const { playingList } = playingState
+    const handlePlaylists = useContext(methodsHandlePlaylists)
+    const handleShowAlerts = useContext(methodsHandleAlert)
 
     const moreOptionTable = useRef()
     const moreOption = useRef()
 
-    // console.log(showPlaylist)
 
     // show table when selected
     const showOptionTable = (e) => {
@@ -61,10 +63,42 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
         }
     }, [])
 
+    const checkAvailableSong = (song, list) => {
+        const check = list.some(item => {
+            return item._id === song._id
+        })
+        return list.length ? !check : true
+    }
 
     // add song into playlist
-    const handleAddSongIntoPlaylist = () => {
-
+    const handleAddSongIntoPlaylist = (payload) => {
+        const user = Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : ''
+        const tokens = Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : ''
+        const data = {
+            "songId": song._id,
+            "playListId": payload._id
+        }
+        checkAvailableSong(song, payload.songs) &&
+            fetch(`${urlApiAudioServer}user/playList/addSong`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey,
+                    'x-r-token': tokens.refreshToken,
+                    'x-client-id': user.userId
+                },
+                body: JSON.stringify(data)
+            })
+                .then(respone => respone.json())
+                .then(respone => {
+                    if (respone.statusCode === 200) {
+                        handlePlaylists()
+                        handleShowAlerts('Thêm thành công!')
+                    }
+                    else {
+                        handleShowAlerts(respone.message)
+                    }
+                })
     }
 
 
@@ -82,7 +116,13 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
         })
             .then(respone => respone.json())
             .then(respone => {
-                respone.statusCode === 200 && handlePlaylists()
+                if (respone.statusCode === 200) {
+                    handlePlaylists()
+                    handleShowAlerts('Xóa thành công!')
+                }
+                else {
+                    handleShowAlerts(respone.message)
+                }
             })
     }
 
@@ -90,54 +130,64 @@ const SelectOptionsSong = ({ song, playList, handlePlaylists, showPlaylist }) =>
     return (
         <div className='more_options content_center' ref={moreOption} >
             <HiDotsHorizontal onClick={(e) => { showOptionTable(e) }} />
-            <div className="more_options_table top " ref={moreOptionTable}>
+            <div className="more_options_table top" ref={moreOptionTable}>
                 <ul className="main_table">
                     <li>
-                        <button className='more_options_table_option' >
+                        <div className='more_options_table_option' >
                             <FaPlus className='more_options_table_icon' />
-                            Add to playlist
-                        </button>
+                            Thêm vào playlist
+                            <RiArrowRightSFill className="more_options_table_arrow" />
+                        </div>
+                        {showPlaylist.length > 0 &&
+                            <ul className="sub_table">
+                                {
+                                    showPlaylist.map((pl, index) => {
+                                        return (
+                                            <button
+                                                className='more_options_table_option'
+                                                key={index}
+                                                onClick={() => { handleAddSongIntoPlaylist(pl) }}
+                                            >
+                                                <p className="oneline_text">{pl.playListName}</p>
+                                            </button>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        }
                     </li>
-                    {
-                        showPlaylist.map((pl, index) => {
-                            return (
-                                <button className='more_options_table_option' key={index}>
-                                    <FaPlus className='more_options_table_icon' />
-                                    {pl._id}
-                                </button>
-                            )
-                        })
-                    }
                     {
                         playList &&
                         <li>
                             <button className='more_options_table_option' onClick={handleDeleteSongInPlaylist}>
                                 <FaDeleteLeft className='more_options_table_icon' />
-                                Remove song
+                                Xóa khỏi playlist
                             </button>
                         </li>
                     }
                     <li>
-                        <button className='more_options_table_option' onClick={() => {dispatch(actions.addToQueue(song))}} >
+                        <button
+                            className='more_options_table_option'
+                            onClick={() => {
+                                playingList.length ? dispatch(actions.addToQueue(song)) : dispatch(actions.songsPlay(song))
+                            }}
+                        >
                             <BiAddToQueue className='more_options_table_icon' />
-                            Add to queue
+                            Thêm vào hàng chờ
                         </button>
                     </li>
                     <li>
                         <Link to={`/songs/${song._id}`} className='more_options_table_option' >
                             <FaMusic className='more_options_table_icon' />
-                            Go to song page
+                            Thông tin bài hát
                         </Link>
                     </li>
                     <li>
                         <Link to='/' className='more_options_table_option' >
                             <FaUserPen className='more_options_table_icon' />
-                            Go to artist page
+                            Thông tin nghệ sĩ
                         </Link>
                     </li>
-                </ul>
-                <ul className="sub_table">
-                    
                 </ul>
             </div>
         </div>

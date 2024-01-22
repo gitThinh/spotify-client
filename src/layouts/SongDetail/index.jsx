@@ -83,7 +83,7 @@ const SongDetail = ({ showPlaylist }) => {
                 <div className="body_songpage">
                     <div className="body_page_option">
                         <button className="play_button" onClick={() => dispatch(actions.songsPlay(songDetail))}>
-                            <FaPlay size={25} />
+                            <FaPlay />
                         </button>
                         <SelectOptionsSong
                             song={songDetail}

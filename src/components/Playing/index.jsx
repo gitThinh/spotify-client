@@ -188,10 +188,10 @@ const Playing = ({ handleNextSong, userid }) => {
                     headers: headers,
                     body: JSON.stringify({ 'songId': playingSong._id })
                 })
-            }, 20 * 1000)
+            }, playingSong.duration * 0.7 * 1000)
+            console.log('send view');
         return () => clearTimeout(timerRefreshToken)
     }, [playingSong])
-
     // volume control 
     useEffect(() => {
         audioRef.current.volume = volumes < 0.08 ? 0 : volumes

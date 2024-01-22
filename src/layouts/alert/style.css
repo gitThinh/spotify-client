@@ -1,0 +1,21 @@
+.bouder_alert {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    z-index: 1000000000000000000;
+    transition: all .5s ease-in-out;
+    opacity: 0.9;
+}
+
+.bouder_alert .show_alert {
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    background-color: #fff;
+}
+
+.bouder_alert .show_alert .alert_text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+}

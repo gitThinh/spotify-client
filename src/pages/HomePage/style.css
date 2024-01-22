@@ -9,15 +9,16 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    display: grid;
-    grid-template-columns: var(--navbar_width) auto;
+    /* display: grid;
+    grid-template-columns: var(--navbar_width) auto; */
+    display: flex;
     z-index: 0;
 }
 
 .home_container .container .bounder_layout {
     width: 100%;
     background-color: #000;
-    overflow-y: auto;
+    overflow-y: overlay;
     z-index: 2;
 }
 

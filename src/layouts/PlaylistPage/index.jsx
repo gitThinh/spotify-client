@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import Cookies from 'js-cookie'
 
 import { PiDotOutlineFill } from 'react-icons/pi'
-import { FaPlay } from 'react-icons/fa6'
+import { FaPlay, FaMusic } from 'react-icons/fa6'
 
 import { SelectOptionsPlaylist, SongLine } from "/src/constants/components"
 import { PlaySongContext, actions } from '/src/constants/stores'
@@ -28,7 +28,7 @@ const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists 
         <div className="show_playlist">
             <div className="header_playlistpage">
                 <div className="thumb_playlist noone_coppy">
-                    <img src='https://nth-audio.site/images/avt.jpg' />
+                    <FaMusic size={100}/>
                 </div>
                 <div className="detail_playlist">
                     <p className="type_detail">Playlist</p>

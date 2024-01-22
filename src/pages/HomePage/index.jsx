@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef, useContext, createContext } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import { FiLogOut } from "react-icons/fi"
 
 import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
-import { Page404, SongDetail, Queue, SearchPage, PlaylistPage } from '/src/constants/layouts'
+import { Page404, SongDetail, Queue, SearchPage, PlaylistPage, Alert } from '/src/constants/layouts'
 import { urlMLServer, urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
 
@@ -13,6 +13,9 @@ import { PlaySongContext, actions } from '/src/constants/stores'
 
 
 import './style.css'
+
+export const methodsHandlePlaylists = createContext()
+export const methodsHandleAlert = createContext()
 
 
 const HomePage = () => {
@@ -23,6 +26,8 @@ const HomePage = () => {
     const [resulfSearch, setResulfSearch] = useState([])
     const [isSearch, setIsSearch] = useState(false)
     const [showPlaylist, setShowPlaylist] = useState([])
+    const [messageAlert, setMessageAlert] = useState('')
+
 
     const infoUser = useRef()
     const infoUserTable = useRef()
@@ -54,6 +59,7 @@ const HomePage = () => {
 
     // -------------------------------------------- FUNCTION ------------------------------------------
     // refreshToken
+    // console.log(tokens.accessToken);
     useEffect(() => {
         const timerRefreshToken = tokens && setTimeout(() => {
             fetch(`${urlApiAudioServer}user/refreshToken`, {
@@ -188,11 +194,25 @@ const HomePage = () => {
         })
     }
 
+    // handle show alerts
+    const handleShowAlerts = (message) => {
+        setMessageAlert(message)
+    }
+    useEffect(() => {
+        let time
+        if (messageAlert) {
+            time = setTimeout(() => {
+                setMessageAlert('')
+            }, 2000)
+        }
+        return (() => clearTimeout(time))
+    }, [messageAlert])
+
 
     useEffect(() => {
         //get playlist in the first render
         user &&
-            handlePlaylists(tokens, user)
+            handlePlaylists()
     }, [])
 
 
@@ -207,134 +227,138 @@ const HomePage = () => {
 
     // -------------------------------------------- RENDER ------------------------------------------
     return (
-        <div className="home_container have_scroll" onClick={checkTargetHeaderUser}>
-            <div className="container">
-                <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} />
-                <div className="bounder_layout have_scroll">
-                    <div className="header_user">
-                        <div>
-                            {
-                                <Routes>
-                                    <Route path='/search'
-                                        element={
-                                            <SearchBox
-                                                setResulfSearch={setResulfSearch}
-                                                setIsSearch={setIsSearch}
-                                                style={{ visibility: 'visible' }}
+        <methodsHandleAlert.Provider value={handleShowAlerts}>
+            <methodsHandlePlaylists.Provider value={handlePlaylists}>
+                <div className="home_container" onClick={checkTargetHeaderUser}>
+                    <Alert message={messageAlert} />
+                    <div className="container">
+                        <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist}/>
+                        <div className="bounder_layout">
+                            <div className="header_user">
+                                <div>
+                                    {
+                                        <Routes>
+                                            <Route path='/search'
+                                                element={
+                                                    <SearchBox
+                                                        setResulfSearch={setResulfSearch}
+                                                        setIsSearch={setIsSearch}
+                                                        style={{ visibility: 'visible' }}
+                                                    />
+                                                }
                                             />
-                                        }
-                                    />
-                                </Routes>
-                            }
+                                        </Routes>
+                                    }
+                                </div>
+                                {
+                                    user !== '' ?
+                                        <div className="info_user noone_coppy" ref={infoUser}>
+                                            <img src='https://nth-audio.site/images/avt.jpg'
+                                                onClick={() => {
+                                                    const detailsUser = document.querySelector('.info_user_table')
+                                                    detailsUser.style.display === 'none'
+                                                        ? detailsUser.style.display = 'block'
+                                                        : detailsUser.style.display = 'none'
+                                                }}
+                                            />
+                                            <div className="info_user_table" style={{ display: 'none' }} ref={infoUserTable}>
+                                                <ul>
+                                                    <li>
+                                                        <button className='info_user_table_option' >Profile</button>
+                                                    </li>
+                                                    <li>
+                                                        <button className='info_user_table_option' >Contact</button>
+                                                    </li>
+                                                    <li>
+                                                        <a href='/' className='info_user_table_option' >Support</a>
+                                                    </li>
+                                                    <li>
+                                                        <button className='info_user_table_option' onClick={handleLogout}>
+                                                            Đăng xuất
+                                                            <FiLogOut className='info_user_table_icon' />
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className="login_signin info_user noone_coppy">
+                                            <a href="/signin" className='signin_btn login_signin_btn'>
+                                                Đăng Ký
+                                            </a>
+                                            <a href="/login" className='login_btn login_signin_btn'>
+                                                Đăng Nhập
+                                            </a>
+                                        </div>
+                                }
+                            </div>
+                            <Routes>
+                                <Route index
+                                    element={
+                                        <div className="home_layout">
+                                            <ShowList
+                                                link={`${urlApiAudioServer + 'songs/page/1'}`}
+                                                title={'Trang 1'}
+                                            />
+                                            <ShowList
+                                                link={`${urlApiAudioServer}songs/page/3`}
+                                                title={'Trang 2'}
+                                            />
+                                        </div>
+                                    }
+                                />
+                                <Route path='queue'
+                                    element={
+                                        <Queue
+                                            rcmList={rcmList}
+                                            selectSongInRcm={selectSongInRcm}
+                                            showPlaylist={showPlaylist}
+                                        />
+                                    }
+                                />
+                                <Route path='/songs/:id'
+                                    element={
+                                        <SongDetail
+                                            showPlaylist={showPlaylist}
+                                        />
+                                    }
+                                />
+                                <Route path='/playlists/:id'
+                                    element={
+                                        <PlaylistPage
+                                            showPlaylist={showPlaylist}
+                                            user={user}
+                                            tokens={tokens}
+                                        />
+                                    }
+                                />
+                                <Route path='/search'
+                                    element={
+                                        <SearchPage
+                                            resulfSearch={resulfSearch}
+                                            isSearch={isSearch}
+                                            showPlaylist={showPlaylist}
+                                        />
+                                    }
+                                />
+                                <Route path='*' element={<Page404 />} />
+                            </Routes>
                         </div>
-                        {
-                            user !== '' ?
-                                <div className="info_user noone_coppy" ref={infoUser}>
-                                    <img src='https://nth-audio.site/images/avt.jpg'
-                                        onClick={() => {
-                                            const detailsUser = document.querySelector('.info_user_table')
-                                            detailsUser.style.display === 'none'
-                                                ? detailsUser.style.display = 'block'
-                                                : detailsUser.style.display = 'none'
-                                        }}
-                                    />
-                                    <div className="info_user_table" style={{ display: 'none' }} ref={infoUserTable}>
-                                        <ul>
-                                            <li>
-                                                <button className='info_user_table_option' >Profile</button>
-                                            </li>
-                                            <li>
-                                                <button className='info_user_table_option' >Contact</button>
-                                            </li>
-                                            <li>
-                                                <a href='/' className='info_user_table_option' >Support</a>
-                                            </li>
-                                            <li>
-                                                <button className='info_user_table_option' onClick={handleLogout}>
-                                                    Đăng xuất
-                                                    <FiLogOut className='info_user_table_icon' />
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                :
-                                <div className="login_signin info_user noone_coppy">
-                                    <a href="/signin" className='signin_btn login_signin_btn'>
-                                        Đăng Ký
-                                    </a>
-                                    <a href="/login" className='login_btn login_signin_btn'>
-                                        Đăng Nhập
-                                    </a>
-                                </div>
-                        }
                     </div>
-                    <Routes>
-                        <Route index
-                            element={
-                                <div className="home_layout">
-                                    <ShowList
-                                        link={`${urlApiAudioServer + 'songs/page/1'}`}
-                                        title={'Trang 1'}
-                                    />
-                                    <ShowList
-                                        link={`${urlApiAudioServer}songs/page/3`}
-                                        title={'Trang 2'}
-                                    />
-                                </div>
-                            }
+                    { //set playing controls is hidden
+                        playingSong && <Playing
+                            playingSong={playingSong}
+                            handleNextSong={handleNextSong}
+                            userid={user.userId}
                         />
-                        <Route path='queue'
-                            element={
-                                <Queue
-                                    rcmList={rcmList}
-                                    selectSongInRcm={selectSongInRcm}
-                                    showPlaylist={showPlaylist}
-                                />
-                            }
-                        />
-                        <Route path='/songs/:id'
-                            element={
-                                <SongDetail
-                                    showPlaylist={showPlaylist}
-                                />
-                            }
-                        />
-                        <Route path='/playlists/:id'
-                            element={
-                                <PlaylistPage
-                                    showPlaylist={showPlaylist}
-                                    user={user}
-                                    tokens={tokens}
-                                    handlePlaylists={handlePlaylists}
-                                />
-                            }
-                        />
-                        <Route path='/search'
-                            element={
-                                <SearchPage
-                                    resulfSearch={resulfSearch}
-                                    isSearch={isSearch}
-                                    showPlaylist={showPlaylist}
-                                />
-                            }
-                        />
-                        <Route path='*' element={<Page404 />} />
-                    </Routes>
+                    }
+                    {/* playlist setting */}
+                    <div className="playlist_setting">
+                        <div className="playlist_setting__header"></div>
+                    </div>
                 </div>
-            </div>
-            { //set playing controls is hidden
-                playingSong && <Playing
-                    playingSong={playingSong}
-                    handleNextSong={handleNextSong}
-                    userid={user.userId}
-                />
-            }
-            {/* playlist setting */}
-            <div className="playlist_setting">
-                <div className="playlist_setting__header"></div>
-            </div>
-        </div>
+            </methodsHandlePlaylists.Provider>
+        </methodsHandleAlert.Provider>
     )
 }
 

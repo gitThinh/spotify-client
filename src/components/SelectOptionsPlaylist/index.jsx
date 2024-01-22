@@ -7,12 +7,14 @@ import { FaDeleteLeft, FaShare } from "react-icons/fa6"
 import { BiAddToQueue } from "react-icons/bi"
 
 import { apiKey, urlApiAudioServer } from "/src/constants/env"
-import { PlaySongContext, actions } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists, methodsHandleAlert } from '/src/constants/stores'
 
 
-const SelectOptionsPlaylist = ({ playList, handlePlaylists }) => {
+const SelectOptionsPlaylist = ({ playList }) => {
 
     const [playingState, dispatch] = useContext(PlaySongContext)
+    const handlePlaylists = useContext(methodsHandlePlaylists)
+    const handleShowAlert = useContext(methodsHandleAlert)
 
     const moreOptionTable = useRef()
     const moreOption = useRef()
@@ -61,7 +63,7 @@ const SelectOptionsPlaylist = ({ playList, handlePlaylists }) => {
 
 
     // delete playlist 
-    const handleDeletePlaylist = () => {
+    const handleDeletePlaylist = async () => {
         const user = Cookies.get('User') !== undefined ? JSON.parse(Cookies.get('User')) : ''
         const tokens = Cookies.get('Tokens') !== undefined ? JSON.parse(Cookies.get('Tokens')) : ''
         fetch(`${urlApiAudioServer}user/removePlaylist?id=${playList._id}`, {
@@ -74,8 +76,13 @@ const SelectOptionsPlaylist = ({ playList, handlePlaylists }) => {
         })
             .then(respone => respone.json())
             .then(respone => {
-                respone.statusCode === 200
-                    && handlePlaylists()
+                if (respone.statusCode === 200) {
+                    handlePlaylists()
+                    handleShowAlert("Xóa playlist thành công!")
+                }
+                else {
+                    handleShowAlert(respone.message)
+                }
             })
         locationWeb('/')
     }
@@ -93,25 +100,25 @@ const SelectOptionsPlaylist = ({ playList, handlePlaylists }) => {
                             }}
                         >
                             <BiAddToQueue className='more_options_table_icon' />
-                            Add to queue
+                            Thêm vào hàng chờ
                         </button>
                     </li>
                     <li>
                         <button className='more_options_table_option' >
                             <HiPencil className='more_options_table_icon' />
-                            Edit details
+                            Tùy chỉnh
                         </button>
                     </li>
                     <li>
                         <button className='more_options_table_option' onClick={handleDeletePlaylist}>
                             <FaDeleteLeft className='more_options_table_icon' />
-                            Delete
+                            Xóa Playlist
                         </button>
                     </li>
                     <li>
                         <button className='more_options_table_option' >
                             <FaShare className='more_options_table_icon' />
-                            Share
+                            chia sẻ
                         </button>
                     </li>
                 </ul>
