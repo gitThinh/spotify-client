@@ -5,16 +5,6 @@ import './style.css'
 
 const index = ({ message }) => {
 
-    // useEffect(() => {
-    //     let time
-    //     if (message) {
-    //         time = setTimeout(() => {
-    //             setIsVisibleAlert(false)
-    //         }, 5000)
-    //     }
-    //     return (() => clearTimeout(time))
-    // }, [])
-
     return message && (
         <div className='bouder_alert noone_coppy'>
             <div className={`show_alert`}>
