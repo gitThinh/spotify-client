@@ -4,7 +4,7 @@ import SearchPage from '/src/layouts/SearchPage'
 import SongDetail from '/src/layouts/SongDetail'
 import PlaylistPage from '/src/layouts/PlaylistPage'
 import LoadingPage from '/src/layouts/LoadingPage'
-import Alert from '/src/layouts/alert'
+import Alert from '/src/layouts/Alert'
 
 
 export { Page404, Queue, SearchPage, SongDetail, PlaylistPage, LoadingPage, Alert }
