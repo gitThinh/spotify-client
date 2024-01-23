@@ -54,7 +54,7 @@ const Queue = ({ rcmList, selectSongInRcm, showPlaylist }) => {
                             }
                         </div>
                         :
-                        <div className="rcmList" style={{ marginTop: '30px' }}>
+                        <div style={{ marginTop: '30px' }}>
                             <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
                             <h2 style={{ textAlign: 'center' }}>Danh sách đề xuất trống</h2>
                         </div>

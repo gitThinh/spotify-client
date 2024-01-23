@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay } from 'react-icons/fa6'
@@ -44,14 +44,14 @@ const SongDetail = ({ showPlaylist }) => {
     useEffect(() => {
         setRcmList([])
         checkSong &&
-        fetch(`${urlMLServer + id}`, {
-            method: 'GET',
-            headers: {
-                'x-api-key': apiKey
-            },
-        })
-            .then(response => response.json())
-            .then(data => data.statusCode === 200 && setRcmList(data.metadata))
+            fetch(`${urlMLServer + id}`, {
+                method: 'GET',
+                headers: {
+                    'x-api-key': apiKey
+                },
+            })
+                .then(response => response.json())
+                .then(data => data.statusCode === 200 && setRcmList(data.metadata))
     }, [id])
 
 
@@ -90,7 +90,14 @@ const SongDetail = ({ showPlaylist }) => {
                             showPlaylist={showPlaylist}
                         />
                     </div>
-                    <section className="body_page_option_rcm">
+                    <section className="body_page_sections body_page_section_rcm">
+                        <div className="header_section">
+                            <div className="inform_section">
+                                <div className="title_section">
+                                    <h3>Đề xuất:</h3>
+                                </div>
+                            </div>
+                        </div>
                         {
                             rcmList.map((song, index) => {
                                 return (

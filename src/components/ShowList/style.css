@@ -1,6 +1,7 @@
 .showlist_box,
 .loading_box {
-    padding-top: 20px;
+    padding: 20px;
+
 }
 
 .showlist_box h2 {
@@ -35,7 +36,6 @@
     grid-template-columns: repeat(var(--index-item), 1fr);
     column-gap: 20px;
     row-gap: 1.5rem;
-    padding: 20px;
 }
 
 @media (width >=786px) and (width <=1024px) {
