@@ -25,6 +25,7 @@ const SongDetail = ({ showPlaylist }) => {
 
     // get song details
     useEffect(() => {
+        setSongDetail('')
         const handleLoadSong = async () => {
             const response = await fetch(`${urlApiAudioServer}songs/${id}`, {
                 method: 'GET',
@@ -90,29 +91,32 @@ const SongDetail = ({ showPlaylist }) => {
                             showPlaylist={showPlaylist}
                         />
                     </div>
-                    <section className="body_page_sections body_page_section_rcm">
-                        <div className="header_section">
-                            <div className="inform_section">
-                                <div className="title_section">
-                                    <h3>Đề xuất:</h3>
+                    {
+                        rcmList.length > 0 &&
+                        <section className="body_page_sections body_page_section_rcm">
+                            <div className="header_section">
+                                <div className="inform_section">
+                                    <div className="title_section">
+                                        <h3>Đề xuất:</h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {
-                            rcmList.map((song, index) => {
-                                return (
-                                    index < 5 &&
-                                    <div key={index}>
-                                        <SongLine
-                                            song={song}
-                                            check={1}
-                                            showPlaylist={showPlaylist}
-                                        />
-                                    </div>
-                                )
-                            })
-                        }
-                    </section>
+                            {
+                                rcmList.map((song, index) => {
+                                    return (
+                                        index < 5 &&
+                                        <div key={index}>
+                                            <SongLine
+                                                song={song}
+                                                check={1}
+                                                showPlaylist={showPlaylist}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }
+                        </section>
+                    }
                 </div>
             </div>
             :

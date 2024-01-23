@@ -346,10 +346,11 @@ const HomePage = () => {
                         </div>
                     </div>
                     { //set playing controls is hidden
-                        playingSong && <Playing
+                        playingSong && 
+                        <Playing
                             playingSong={playingSong}
-                            handleNextSong={handleNextSong}
                             userid={user.userId}
+                            handleNextSong={handleNextSong}
                         />
                     }
                     {/* playlist setting */}
