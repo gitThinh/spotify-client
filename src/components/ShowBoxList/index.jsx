@@ -6,11 +6,11 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { SongBox } from "/src/constants/components"
 import { apiKey } from '/src/constants/env'
 
-import '/src/components/ShowList/style.css'
+import './style.css'
 
 
 
-const ShowList = ({ link, title, range = 100 }) => {
+const ShowList = ({ link, range = 100, ...header }) => {
     const [listSongs, setListSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
@@ -38,8 +38,15 @@ const ShowList = ({ link, title, range = 100 }) => {
                     <div className="showlist_box">
                         <div className="header_section">
                             <div className="inform_section">
+                                {
+                                    header.thumb &&
+                                    <div className="thumb_section">
+                                        <img src={header.thumb} alt="" />
+                                    </div>
+                                }
                                 <div className="title_section">
-                                    <h3 to=''>{title}</h3>
+                                    {header.title && <h3>{header.title}</h3>}
+                                    {header.desc && <p>{header.desc}</p>}
                                 </div>
                             </div>
                             <div className="header_section_btn">

@@ -18,8 +18,8 @@
     display: none;
     width: 200px;
     position: absolute;
-    z-index: 1000;
-    top: 50px;
+    z-index: 6;
+    top: 30px;
     left: 0;
     background-color: #181818;
     padding: 5px;
@@ -78,7 +78,7 @@
     overflow: hidden;
     position: absolute;
     top: 5px;
-    z-index: 10001;
+    z-index: 7;
     left: 98%;
     background-color: #181818;
     box-shadow: 0 0 5px #000;

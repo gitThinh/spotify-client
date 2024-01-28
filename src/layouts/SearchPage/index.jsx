@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { FaCircleXmark } from "react-icons/fa6"
 import { FaPlay } from "react-icons/fa6"
 
-import { ShowList, SongLine } from "/src/constants/components"
+import { ShowBoxList, SongLine } from "/src/constants/components"
 import { urlApiImg, urlApiAudioServer } from '/src/constants/env'
 import { PlaySongContext, actions } from '/src/constants/stores'
 
@@ -45,6 +45,7 @@ const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
                                         index < 5 &&
                                         <div key={index}>
                                             <SongLine
+                                                index={index}
                                                 song={result}
                                                 check={1}
                                                 showPlaylist={showPlaylist}
@@ -62,7 +63,7 @@ const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
                         <h2>Không tìm thấy kết quả</h2>
                     </div>
             }
-            <ShowList
+            <ShowBoxList
                 link={`${urlApiAudioServer}songs/page/2`}
                 title={'Có thể bạn thích:'}
             />

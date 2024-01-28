@@ -98,6 +98,7 @@ const SongDetail = ({ showPlaylist }) => {
                                 <div className="inform_section">
                                     <div className="title_section">
                                         <h3>Đề xuất:</h3>
+                                        <p>Dựa trên bài hát</p>
                                     </div>
                                 </div>
                             </div>
@@ -107,6 +108,7 @@ const SongDetail = ({ showPlaylist }) => {
                                         index < 5 &&
                                         <div key={index}>
                                             <SongLine
+                                                index={index}
                                                 song={song}
                                                 check={1}
                                                 showPlaylist={showPlaylist}
@@ -117,6 +119,7 @@ const SongDetail = ({ showPlaylist }) => {
                             }
                         </section>
                     }
+
                 </div>
             </div>
             :

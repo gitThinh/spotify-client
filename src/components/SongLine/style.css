@@ -7,13 +7,10 @@
     color: #1ED760;
 }
 
-.songs_line_search {
-    grid-template-columns: 80px 6fr 1fr 1fr .5fr !important;
-}
 
 .songs_line {
     display: grid;
-    grid-template-columns: 30px 80px 7fr 1fr 1fr .5fr;
+    grid-template-columns: 30px 80px 4fr 1fr;
     text-align: center;
     width: 100%;
     padding: 8px;
@@ -22,24 +19,21 @@
     border-radius: 8px;
 }
 
-.songs_line:hover,
-.songs_line_search:hover {
+.songs_line:hover{
     background-color: #121212;
 }
 
-.songs_line .index_number{
+.songs_line .index_number {
     font-size: 14px;
 }
 
-.songs_line .songs_thumb,
-.songs_line_search .songs_thumb {
+.songs_line .songs_thumb{
     width: 52px;
     aspect-ratio: 1;
     margin: 0 auto;
 }
 
-.songs_line .songs_details,
-.songs_line_search .songs_details {
+.songs_line .songs_details{
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -48,25 +42,31 @@
     text-align: left;
 }
 
-.songs_line .songs_details>a,
-.songs_line_search .songs_details>a{
+.songs_line .songs_details>a{
     display: block;
     width: 100%;
 }
 
-.songs_line .songs_details .songs_title,
-.songs_line_search .songs_details .songs_title {
+.songs_line .songs_details .songs_title{
     color: #fff;
     font-size: 17px;
 }
 
-.songs_line .songs_details .songs_author,
-.songs_line_search .songs_details .songs_author {
+.songs_line .songs_details .songs_author{
     color: #aaa;
     font-size: 13px;
 }
 
-.songs_line .songs_count {
+.songs_line .songs_view {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-right: 10px;
+}
+
+.songs_line .songs_view .songs_count {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -75,13 +75,13 @@
     font-size: 14px;
 }
 
-.songs_line .songs_count .songs_count_icon {
+.songs_line .songs_view .songs_count .songs_count_icon {
     --sz-icon: 14px;
     width: var(--sz-icon);
     height: var(--sz-icon);
 }
 
-.songs_line .songs_timer {
+.songs_line .songs_view .songs_timer {
     font-size: 15px;
     letter-spacing: .60px;
 }

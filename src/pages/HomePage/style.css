@@ -19,7 +19,6 @@
     width: 100%;
     background-color: #000;
     overflow-y: overlay;
-    z-index: 2;
 }
 
 .show_song,
@@ -36,7 +35,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    z-index: 10000;
+    z-index: 5;
     position: sticky;
     top: 0;
     width: 100%;

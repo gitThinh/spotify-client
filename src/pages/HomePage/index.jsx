@@ -4,8 +4,8 @@ import Cookies from 'js-cookie'
 
 import { FiLogOut } from "react-icons/fi"
 
-import { NavBar, Playing, SearchBox, ShowList } from '/src/constants/components'
-import { Page404, SongDetail, Queue, SearchPage, PlaylistPage, Alert } from '/src/constants/layouts'
+import { NavBar, Playing, SearchBox, ShowBoxList } from '/src/constants/components'
+import { Page404, SongDetail, Queue, SearchPage, PlaylistPage, Alert, RecentList } from '/src/constants/layouts'
 import { urlMLServer, urlApiAudioServer, apiKey } from '/src/constants/env'
 import handleGetPlaylists from '/src/utils/getPlayLists'
 
@@ -59,7 +59,6 @@ const HomePage = () => {
 
     // -------------------------------------------- FUNCTION ------------------------------------------
     // refreshToken
-    // console.log(tokens.accessToken);
     useEffect(() => {
         const timerRefreshToken = tokens && setTimeout(() => {
             fetch(`${urlApiAudioServer}user/refreshToken`, {
@@ -209,8 +208,8 @@ const HomePage = () => {
     }, [messageAlert])
 
 
+    //get playlist in the first render
     useEffect(() => {
-        //get playlist in the first render
         user &&
             handlePlaylists()
     }, [])
@@ -232,7 +231,7 @@ const HomePage = () => {
                 <div className="home_container" onClick={checkTargetHeaderUser}>
                     <Alert message={messageAlert} />
                     <div className="container">
-                        <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist}/>
+                        <NavBar user={user} tokens={tokens} showPlaylist={showPlaylist} />
                         <div className="bounder_layout">
                             <div className="header_user">
                                 <div>
@@ -296,11 +295,11 @@ const HomePage = () => {
                                 <Route index
                                     element={
                                         <div className="home_layout">
-                                            <ShowList
+                                            <ShowBoxList
                                                 link={`${urlApiAudioServer + 'songs/page/1'}`}
                                                 title={'Trang 1'}
                                             />
-                                            <ShowList
+                                            <ShowBoxList
                                                 link={`${urlApiAudioServer}songs/page/3`}
                                                 title={'Trang 2'}
                                             />
@@ -341,12 +340,15 @@ const HomePage = () => {
                                         />
                                     }
                                 />
+                                <Route path='/playlists/recent' element={
+                                    <RecentList user={user} tokens={tokens} showPlaylist={showPlaylist} />}
+                                />
                                 <Route path='*' element={<Page404 />} />
                             </Routes>
                         </div>
                     </div>
                     { //set playing controls is hidden
-                        playingSong && 
+                        playingSong &&
                         <Playing
                             playingSong={playingSong}
                             userid={user.userId}
