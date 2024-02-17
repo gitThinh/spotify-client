@@ -1,14 +1,16 @@
 import { useState, useEffect, memo } from "react"
+import { Link } from 'react-router-dom'
+
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import { SongBox } from "/src/constants/components"
 import { apiKey } from '/src/constants/env'
 
-import '/src/components/ShowList/style.css'
+import './style.css'
 
 
 
-const ShowList = ({ link, title, range = 100 }) => {  
+const ShowList = ({ link, range = 100, ...header }) => {
     const [listSongs, setListSongs] = useState([])
 
     //------------------------------------------------- FUNCTIONS -------------------------------------------------
@@ -34,7 +36,23 @@ const ShowList = ({ link, title, range = 100 }) => {
             {
                 listSongs.length > 0 ?
                     <div className="showlist_box">
-                        <h2>{title}</h2>
+                        <div className="header_section">
+                            <div className="inform_section">
+                                {
+                                    header.thumb &&
+                                    <div className="thumb_section">
+                                        <img src={header.thumb} alt="" />
+                                    </div>
+                                }
+                                <div className="title_section">
+                                    {header.title && <h3>{header.title}</h3>}
+                                    {header.desc && <p>{header.desc}</p>}
+                                </div>
+                            </div>
+                            <div className="header_section_btn">
+                                <Link to=''>Xem thêm</Link>
+                            </div>
+                        </div>
                         <div className="bounder_showlist_grid_box">
                             <div className="showlist_grid_box">
                                 {
@@ -52,31 +70,31 @@ const ShowList = ({ link, title, range = 100 }) => {
                     </div>
                     :
                     <div className="loading_box">
-                        <Skeleton width={200} height={30} style={{ margin: '0 20px' }} />
+                        <Skeleton width={200} height={30} className="header_section" />
                         <div className="loading_grid_box" >
                             <div className="box_skeleton">
                                 <Skeleton className="box_skeleton_thumb" />
-                                <Skeleton  className="box_skeleton_text" count={2} />
+                                <Skeleton className="box_skeleton_text" count={2} />
                             </div>
                             <div className="box_skeleton">
-                                <Skeleton  className="box_skeleton_thumb" />
-                                <Skeleton  className="box_skeleton_text" count={2} />
+                                <Skeleton className="box_skeleton_thumb" />
+                                <Skeleton className="box_skeleton_text" count={2} />
                             </div>
                             <div className="box_skeleton">
-                                <Skeleton  className="box_skeleton_thumb" />
-                                <Skeleton  className="box_skeleton_text" count={2} />
+                                <Skeleton className="box_skeleton_thumb" />
+                                <Skeleton className="box_skeleton_text" count={2} />
                             </div>
                             <div className="box_skeleton">
-                                <Skeleton  className="box_skeleton_thumb" />
-                                <Skeleton  className="box_skeleton_text" count={2} />
+                                <Skeleton className="box_skeleton_thumb" />
+                                <Skeleton className="box_skeleton_text" count={2} />
                             </div>
                             <div className="box_skeleton">
-                                <Skeleton  className="box_skeleton_thumb" />
-                                <Skeleton  className="box_skeleton_text" count={2} />
+                                <Skeleton className="box_skeleton_thumb" />
+                                <Skeleton className="box_skeleton_text" count={2} />
                             </div>
                             <div className="box_skeleton">
-                                <Skeleton  className="box_skeleton_thumb" />
-                                <Skeleton  className="box_skeleton_text" count={2} />
+                                <Skeleton className="box_skeleton_thumb" />
+                                <Skeleton className="box_skeleton_text" count={2} />
                             </div>
                         </div>
                     </div>

@@ -6,14 +6,15 @@ import { PiDotOutlineFill } from 'react-icons/pi'
 import { FaPlay, FaMusic } from 'react-icons/fa6'
 
 import { SelectOptionsPlaylist, SongLine } from "/src/constants/components"
-import { PlaySongContext, actions } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists } from '/src/constants/stores'
 
 import './style.css'
 
 
-const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists }) => {
+const index = ({ user, showPlaylist, tokens }) => {
 
     const [playingState, dispatch] = useContext(PlaySongContext)
+    const handlePlaylists = useContext(methodsHandlePlaylists)
 
     const id = useParams().id
     let playlists = showPlaylist.length ? showPlaylist : JSON.parse(Cookies.get('playlists'))
@@ -54,10 +55,10 @@ const index = ({ changePlayingList, user, showPlaylist, tokens, handlePlaylists 
                             return (
                                 <div key={index}>
                                     <SongLine
+                                        index={index}
                                         song={song}
                                         check={1}
                                         playList={playList}
-                                        handlePlaylists={handlePlaylists}
                                         showPlaylist={playlists}
                                     />
                                 </div>

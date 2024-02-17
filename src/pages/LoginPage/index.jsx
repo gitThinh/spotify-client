@@ -48,7 +48,7 @@ const LoginPages = () => {
                     }
                 }
             )
-            .catch(err => console.log(err))
+            .catch(err => new Error(err.message))
     }
 
 

@@ -170,6 +170,7 @@ const SelectOptionsSong = ({ song, playList, showPlaylist }) => {
                             className='more_options_table_option'
                             onClick={() => {
                                 playingList.length ? dispatch(actions.addToQueue(song)) : dispatch(actions.songsPlay(song))
+                                handleShowAlerts("Đã thêm vào hàng đợi!")
                             }}
                         >
                             <BiAddToQueue className='more_options_table_icon' />

@@ -39,14 +39,16 @@ const SongPlayingList = ({ song, index, showPlaylist }) => {
                 </div>
                 <p className="songs_author under_link">{song.artist_name}</p>
             </div>
-            <p className="songs_count content_center">
-                {song.views}
-                <FaHeadphonesAlt size={14} />
-            </p>
-            <p className="songs_timer content_center">
-                {formatTime(song.duration)}
-            </p>
-            <SelectOptionsSong song={song} showPlaylist={showPlaylist} />
+            <div className="songs_view">
+                <p className="songs_count content_center">
+                    {song.views}
+                    <FaHeadphonesAlt size={14} />
+                </p>
+                <p className="songs_timer content_center">
+                    {formatTime(song.duration)}
+                </p>
+                <SelectOptionsSong song={song} showPlaylist={showPlaylist} />
+            </div>
         </div>
     )
 }

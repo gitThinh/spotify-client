@@ -1,4 +1,4 @@
-import { memo, useContext } from 'react'
+import { memo, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { HiHome, HiMagnifyingGlass } from 'react-icons/hi2'
@@ -16,7 +16,7 @@ const NavBar = ({ user, tokens, showPlaylist }) => {
     const handlePlaylists = useContext(methodsHandlePlaylists)
 
     // console.log(tokens.accessToken)
-
+    // create a new SongList custom
     const handleAddPlaylist = () => {
         fetch(`${urlApiAudioServer}user/createPlaylist`, {
             method: 'POST',
@@ -30,11 +30,11 @@ const NavBar = ({ user, tokens, showPlaylist }) => {
         })
             .then(response => response.json())
             .then(data => {
-                if(data.statusCode === 201) {
+                if (data.statusCode === 201) {
                     handlePlaylists()
                     handleShowAlerts('Tạo playlist thành công!')
                 }
-                else{
+                else {
                     handleShowAlerts(data.message)
                 }
             })
@@ -72,6 +72,20 @@ const NavBar = ({ user, tokens, showPlaylist }) => {
                 {
                     user &&
                     <div className="nav_bar_library_playlists">
+                        {
+                            user &&
+                            <Link to='/playlists/recent' style={{ width: '100%' }}>
+                                <div className="nav_bar_library_playlist">
+                                    <div className='nav_bar_library_playlist_thumb'>
+                                        <FaMusic />
+                                    </div>
+                                    <div className="nav_bar_library_playlist_details">
+                                        <h3 className='oneline_text'>Nghe gần đây</h3>
+                                        <p className='oneline_text'>Playlist . {user.userName}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        }
                         {
                             showPlaylist.length > 0 ?
                                 showPlaylist.map((playlist, index) => {

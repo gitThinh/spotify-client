@@ -19,7 +19,6 @@
     width: 100%;
     background-color: #000;
     overflow-y: overlay;
-    z-index: 2;
 }
 
 .show_song,
@@ -27,7 +26,6 @@
 .home_layout,
 .queue_layout,
 .search_layout {
-    margin-top: 80px;
     position: relative;
     transition: all .5s ease-in-out;
 }
@@ -37,10 +35,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    z-index: 10000;
-    position: fixed;
-    right: 0;
-    width: calc(100% - var(--navbar_width));
+    z-index: 5;
+    position: sticky;
+    top: 0;
+    width: 100%;
     height: 80px;
     padding: 14px;
     background-color: #000;

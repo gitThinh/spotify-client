@@ -13,7 +13,7 @@ const Queue = ({ rcmList, selectSongInRcm, showPlaylist }) => {
     return (
         <div className="queue_layout noone_coppy">
             <div style={{ padding: '20px 35px' }}>
-                <div className="playingSongs">
+                <div>
                     <h3 style={{ marginBottom: '20px' }}>Bài đang phát:</h3>
                     {
                         playingList.length > 0 ?
@@ -29,7 +29,7 @@ const Queue = ({ rcmList, selectSongInRcm, showPlaylist }) => {
                                 )
                             })
                             :
-                            <div className="nononono">
+                            <div>
                                 <h3 className="alert">Chưa có bài hát nào</h3>
                             </div>
                     }
@@ -54,7 +54,7 @@ const Queue = ({ rcmList, selectSongInRcm, showPlaylist }) => {
                             }
                         </div>
                         :
-                        <div className="rcmList" style={{ marginTop: '30px' }}>
+                        <div style={{ marginTop: '30px' }}>
                             <h3 style={{ marginBottom: '20px' }}>Danh sách đề xuất:</h3>
                             <h2 style={{ textAlign: 'center' }}>Danh sách đề xuất trống</h2>
                         </div>

@@ -4,28 +4,29 @@ import { FaHeadphonesAlt } from 'react-icons/fa'
 
 import { SelectOptionsSong } from "/src/constants/components"
 import { urlApiImg } from '/src/constants/env'
-import { PlaySongContext, actions } from '/src/constants/stores'
+import { PlaySongContext, actions, methodsHandlePlaylists } from '/src/constants/stores'
 import formatTime from '/src/utils/formatTime'
 
 
 import '/src/components/SongLine/style.css'
 
 
-const SongLine = ({ song, selectSongInRcm, index, check, handlePlaylists, showPlaylist, playList }) => {
-    
+const SongLine = ({ song, selectSongInRcm, index, check, showPlaylist, playList }) => {
+
     const [playingState, dispatch] = useContext(PlaySongContext)
+    const handlePlaylists = useContext(methodsHandlePlaylists)
 
 
     return (
         <div
-            className={check === 1 ? "songs_line_search songs_line noone_coppy" : "songs_line noone_coppy"}
+            className="songs_line noone_coppy"
             onDoubleClick={() =>
                 check === 1
                     ? dispatch(actions.songsPlay(song))
                     : selectSongInRcm(song, index)
             }
         >
-            {!check && <p className="index_number content_center">{index + 1}</p>}
+            <p className="index_number content_center">{index + 1}</p>
             <img className="songs_thumb" src={`${urlApiImg + song.coverArt}`} />
             <div className="songs_details">
                 <div className="songs_title">
@@ -35,9 +36,11 @@ const SongLine = ({ song, selectSongInRcm, index, check, handlePlaylists, showPl
                 </div>
                 <p className="songs_author under_link">{song.artist_name}</p>
             </div>
-            <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>
-            <p className="songs_timer content_center">{formatTime(song.duration)}</p>
-            <SelectOptionsSong song={song} showPlaylist={showPlaylist} handlePlaylists={handlePlaylists} playList={playList} />
+            <div className="songs_view">
+                <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>
+                <p className="songs_timer content_center">{formatTime(song.duration)}</p>
+                <SelectOptionsSong song={song} showPlaylist={showPlaylist} playList={playList} />
+            </div>
         </div>
     )
 }

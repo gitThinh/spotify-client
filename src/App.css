@@ -1,6 +1,7 @@
 #root {
   --playing-height: 70px;
   --navbar_width: 290px;
+  
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
@@ -20,7 +21,7 @@ html *::-webkit-scrollbar {
   right: 6px;
   width: 6px;
   background-color: transparent;
-  z-index: 1;
+  z-index: 0;
 }
 
 html *::-webkit-scrollbar-thumb {
@@ -55,6 +56,79 @@ html *::-webkit-scrollbar-thumb {
   -ms-user-select: none !important;
   user-select: none !important;
 }
+
+/* custom header section 
+  header_section 
+    - inform setion
+      -- thumb section
+      -- title section
+        --- h2
+        --- p
+    - header_section_btn
+      -- button 
+*/
+.header_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  cursor: default;
+}
+
+.header_section .inform_section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header_section .inform_section .thumb_section {
+  width: 55px;
+  height: 55px;
+}
+
+.header_section .inform_section .thumb_section img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.header_section .inform_section .title_section {
+  display: block;
+}
+
+.header_section .inform_section .title_section h3 {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 26px;
+  letter-spacing: .32px;
+  color: #fff;
+}
+
+.header_section .inform_section .title_section p {
+  font-weight: 600;
+  font-size: 14px;
+  color: #848484;
+}
+
+.header_section .header_section_btn {
+  display: flex;
+  align-items: center;
+}
+
+.header_section .header_section_btn a {
+  background-color: transparent;
+  color: #a2a2a2;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header_section .header_section_btn a:hover {
+  color: #ddd;
+  text-decoration: underline;
+}
+
+
 
 @media (width >=768px) and (width <=1024px) {
   #root {
