@@ -252,7 +252,7 @@ const HomePage = () => {
                                 {
                                     user !== '' ?
                                         <div className="info_user noone_coppy" ref={infoUser}>
-                                            <img src='https://nth-audio.site/images/avt.jpg'
+                                            <img src='src/assets/images/avt.jpg'
                                                 onClick={() => {
                                                     const detailsUser = document.querySelector('.info_user_table')
                                                     detailsUser.style.display === 'none'

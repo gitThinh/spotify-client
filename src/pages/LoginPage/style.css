@@ -53,11 +53,12 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
     border: 1px solid #666;
     border-radius: 50px;
     opacity: .6;
     transition: all .3s linear;
+    gap: 10px;
 }
 
 .group_options_login .option_login:hover {
