@@ -18,9 +18,12 @@
 .songs_box .songs_thumb {
     min-width: 100px;
     width: 100%;
+    aspect-ratio: 1;
     flex-shrink: 1;
     border-radius: inherit;
     flex: 0;
+    width: 152px;
+    height: 152px;
 }
 .songs_box .songs_inform {
     display: flex;
