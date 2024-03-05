@@ -282,10 +282,10 @@ const HomePage = () => {
                                         </div>
                                         :
                                         <div className="login_signin info_user noone_coppy">
-                                            <a href="/spotify-client/signin" className='signin_btn login_signin_btn'>
+                                            <a href="/signin" className='signin_btn login_signin_btn'>
                                                 Đăng Ký
                                             </a>
-                                            <a href="/spotify-client/login" className='login_btn login_signin_btn'>
+                                            <a href="/login" className='login_btn login_signin_btn'>
                                                 Đăng Nhập
                                             </a>
                                         </div>
