@@ -7,11 +7,11 @@ const Routing = () => {
     return (
         <Router>
             <Routes>
-                <Route path='/login' element={<LoginPage/>} />
-                <Route path='/forgot' element={<ForgotPass/>} />
-                <Route path='/repass' element={<ResetPass/>} />
-                <Route path='/signin' element={<SigninPage/>} />
-                <Route path='/*' element={<HomePage/>} />
+                <Route path='/spotify-client/login' element={<LoginPage/>} />
+                <Route path='/spotify-client/forgot' element={<ForgotPass/>} />
+                <Route path='/spotify-client/repass' element={<ResetPass/>} />
+                <Route path='/spotify-client/signin' element={<SigninPage/>} />
+                <Route path='/spotify-client/*' element={<HomePage/>} />
             </Routes>
         </Router>
     )
