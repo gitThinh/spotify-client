@@ -4,7 +4,17 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [react()]
+  plugins: [
+    html({
+      inject: {
+        injectTo: 'head',
+        html: {
+          transform: (html) => html.replace(/\/assets\//g, './assets/'),
+        },
+      },
+    }),
+    react()
+  ],
 })
 
 

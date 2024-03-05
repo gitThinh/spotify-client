@@ -21,6 +21,7 @@
     "react-spinners": "^0.13.8"
   },
   "devDependencies": {
+    "@rollup/plugin-html": "^1.0.3",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
