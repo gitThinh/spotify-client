@@ -45,7 +45,7 @@ const index = ({ user, showPlaylist, tokens }) => {
             <div className="body_songpage">
                 <div className="body_page_option">
                     <button className="play_button" onClick={() => playList.songs.length > 0 && dispatch(actions.playlistPlay(playList.songs))}>
-                        <FaPlay size={25} />
+                        <FaPlay size={25} color='black'/>
                     </button>
                     <SelectOptionsPlaylist playList={playList} handlePlaylists={handlePlaylists} />
                 </div>

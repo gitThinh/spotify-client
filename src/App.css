@@ -1,7 +1,7 @@
 #root {
   --playing-height: 70px;
   --navbar_width: 290px;
-  
+
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
@@ -11,9 +11,8 @@
   cursor: pointer;
   text-decoration: underline;
   color: inherit;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
-
 
 /* custom scroll bar */
 html *::-webkit-scrollbar {
@@ -28,7 +27,6 @@ html *::-webkit-scrollbar-thumb {
   background-color: #666;
   border-radius: 6px;
 }
-
 
 /* custom oneline text */
 .oneline_text {
@@ -101,7 +99,7 @@ html *::-webkit-scrollbar-thumb {
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
-  letter-spacing: .32px;
+  letter-spacing: 0.32px;
   color: #fff;
 }
 
@@ -127,8 +125,6 @@ html *::-webkit-scrollbar-thumb {
   color: #ddd;
   text-decoration: underline;
 }
-
-
 
 @media (width >=768px) and (width <=1024px) {
   #root {
