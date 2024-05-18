@@ -13,6 +13,7 @@ import {
 import "./style.css";
 
 const NavBar = ({ user, tokens, showPlaylist }) => {
+  console.log(user);
   const handleShowAlerts = useContext(methodsHandleAlert);
   const handlePlaylists = useContext(methodsHandlePlaylists);
 
@@ -28,7 +29,7 @@ const NavBar = ({ user, tokens, showPlaylist }) => {
         "x-client-id": user.userId,
       },
       body: JSON.stringify({
-        playListName: `My playlist #${showPlaylist.length}`,
+        playListName: `My playlist #${showPlaylist?.length ?? 0}`,
       }),
     })
       .then((response) => response.json())
