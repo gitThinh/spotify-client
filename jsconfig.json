@@ -3,7 +3,7 @@
       "module": "CommonJS",
       "target": "ES6",
       "jsx": "react",
-      "baseUrl": "./src"
+      "baseUrl": "./"
     },
-    "include" : ["src/**/*"],
+    "include" : ["src/**/*"]
 }

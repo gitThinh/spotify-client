@@ -37,6 +37,10 @@
   color: #ddd;
 }
 
+.nav_bar .nav_bar_options a:hover {
+  color: #fff;
+}
+
 .nav_bar .nav_bar_options a p {
   font-size: 15px;
   font-weight: 600;

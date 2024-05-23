@@ -9,6 +9,7 @@ import SongPlayingList from '/src/components/SongPlayingList'
 import SelectOptionsSong from '/src/components/SelectOptionsSong'
 import SelectOptionsPlaylist from '/src/components/SelectOptionsPlaylist'
 import TableSongList from '/src/components/TableSongList'
+import CateBox from '/src/components/CateBox'
 
 export {
     InputForm,
@@ -21,5 +22,6 @@ export {
     SongPlayingList,
     SelectOptionsSong,
     SelectOptionsPlaylist,
-    TableSongList
+    TableSongList,
+    CateBox
 }
