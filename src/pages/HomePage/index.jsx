@@ -315,12 +315,16 @@ const HomePage = () => {
                   element={
                     <div className="home_layout">
                       <ShowBoxList
-                        link={`${urlApiAudioServer + "songs/page/1"}`}
-                        title={"Demo title"}
+                        link={`${urlApiAudioServer}songs/page/${Math.floor(
+                          320 * Math.random()
+                        )}`}
+                        title={"Những bài hát nổi bật"}
                       />
                       <ShowBoxList
-                        link={`${urlApiAudioServer}songs/page/3`}
-                        title={"Demo title"}
+                        link={`${urlApiAudioServer}songs/page/${Math.floor(
+                          320 * Math.random()
+                        )}`}
+                        title={"Mọi người nghe gì?"}
                       />
                     </div>
                   }

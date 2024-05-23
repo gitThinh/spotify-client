@@ -13,7 +13,6 @@ import {
 import "./style.css";
 
 const NavBar = ({ user, tokens, showPlaylist }) => {
-  console.log(user);
   const handleShowAlerts = useContext(methodsHandleAlert);
   const handlePlaylists = useContext(methodsHandlePlaylists);
 

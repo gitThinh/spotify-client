@@ -4,6 +4,12 @@ import { CateBox } from "/src/constants/components";
 
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+const titleMap = {
+  Vietnamese: "Nhạc Việt",
+  World: "Nhạc quốc tế",
+  Chill: "Thư giãn",
+};
+
 const index = () => {
   const [listCate, setListCate] = useState([]);
   useEffect(() => {
@@ -22,7 +28,10 @@ const index = () => {
         {listCate.length > 0 ? (
           listCate.map((list, index) => (
             <div key={index}>
-              <CateBox title={list.key} data={list.values} />
+              <CateBox
+                title={titleMap[list.key] || list.key}
+                data={list.values}
+              />
             </div>
           ))
         ) : (
