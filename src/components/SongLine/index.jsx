@@ -37,7 +37,7 @@ const SongLine = ({ song, selectSongInRcm, index, check, showPlaylist, playList 
                 <p className="songs_author under_link">{song.artist_name}</p>
             </div>
             <div className="songs_view">
-                <p className="songs_count content_center">{song.views}<FaHeadphonesAlt className="songs_count_icon" /></p>
+                <p className="songs_count content_center">{song.views || 0}<FaHeadphonesAlt className="songs_count_icon" /></p>
                 <p className="songs_timer content_center">{formatTime(song.duration)}</p>
                 <SelectOptionsSong song={song} showPlaylist={showPlaylist} playList={playList} />
             </div>
