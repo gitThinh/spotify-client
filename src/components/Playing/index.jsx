@@ -188,9 +188,7 @@ const Playing = ({ handleNextSong, userid }) => {
           "Content-Type": "application/json",
         };
 
-    if (playingSong) {
-      localStorage.setItem("recentSong", JSON.stringify(playingSong));
-    }
+    
 
     let timerRefreshToken =
       playingSong !== "" &&
@@ -200,9 +198,12 @@ const Playing = ({ handleNextSong, userid }) => {
           headers: headers,
           body: JSON.stringify({ songId: playingSong._id }),
         });
+        if (playingSong) {
+          localStorage.setItem("recentSong", JSON.stringify(playingSong));
+        }
       }, playingSong.duration * 0.7 * 1000);
     return () => clearTimeout(timerRefreshToken);
-  }, [playingSong]);
+  }, [playingSong, isended]);
 
   // volume control
   useEffect(() => {
