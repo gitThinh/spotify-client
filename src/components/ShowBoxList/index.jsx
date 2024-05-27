@@ -23,7 +23,7 @@ const ShowList = ({ link, range = 100, ...header }) => {
                 },
             })
             const data = await response.json()
-            setListSongs(data.metadata.songs)
+            setListSongs(data.metadata.songs ?? data.metadata)
         }
         loadSongs()
     }, [])

@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaCircleXmark } from "react-icons/fa6";
 import { FaPlay } from "react-icons/fa6";
 
 import { ShowBoxList, SongLine } from "/src/constants/components";
-import { urlApiImg, urlApiAudioServer } from "/src/constants/env";
+import { urlApiImg, urlApiAudioServer, urlMLServer } from "/src/constants/env";
 import { PlaySongContext, actions } from "/src/constants/stores";
 
 import "./style.css";
 
 const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
   const [playingState, dispatch] = useContext(PlaySongContext);
+  const recentSong = JSON.parse(localStorage.getItem("recentSong"));
 
   return (
     <div className="search_layout">
@@ -46,10 +47,11 @@ const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
             <h3 className="section_title">Bài hát</h3>
             {resulfSearch.map((result, index) => {
               return (
-                index < 5 && (
+                index > 0 &&
+                index < 6 && (
                   <div key={index}>
                     <SongLine
-                      index={index}
+                      index={index - 1}
                       song={result}
                       check={1}
                       showPlaylist={showPlaylist}
@@ -69,7 +71,7 @@ const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
         )
       )}
       <ShowBoxList
-        link={`${urlApiAudioServer}songs/page/2`}
+        link={`${urlMLServer}${recentSong._id}`}
         title={"Có thể bạn thích:"}
       />
     </div>
