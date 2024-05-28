@@ -153,7 +153,7 @@ const SongDetail = ({ showPlaylist }) => {
             <div className="bounder_showlist_grid_box">
               <div className="showlist_grid_box">
                 {songDetail?.fromSameArtist[0].songs.map((song, index) => {
-                  return (
+                  return index < 12 && (
                       <div key={index}>
                         <SongBox song={song} />
                       </div>

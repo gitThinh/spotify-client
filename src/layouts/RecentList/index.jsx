@@ -57,7 +57,7 @@ const index = ({ user, tokens, showPlaylist }) => {
             />
             <p className="user_name">{user.userName}</p>
             <PiDotOutlineFill />
-            <p>{arrSongs.length} bài hát</p>
+            <p>{arrSongs.length > 20 ? 20 : arrSongs.length} bài hát</p>
           </div>
         </div>
       </div>
