@@ -5,9 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: './',
   plugins: [react()],
-  build: {
-    outDir: '/home/hung/api-gateway/API-Gateway/public'
-  }
+  // build: {
+  //   outDir: '/home/hung/api-gateway/API-Gateway/public'
+  // }
 })
 
 
