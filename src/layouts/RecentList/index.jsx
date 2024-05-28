@@ -40,7 +40,7 @@ const index = ({ user, tokens, showPlaylist }) => {
       });
   }, []);
 
-  return (
+  return !isLoading ? (
     <div style={{ paddingTop: "10px" }}>
       {/* <h1 style={{ textAlign: 'center' }}>Nghe gần đây</h1> */}
       <div className="header_playlistpage">
@@ -79,7 +79,8 @@ const index = ({ user, tokens, showPlaylist }) => {
         <div style={{fontSize: '24px', fontWeight: '700', margin: '0 auto', width: "max-content"}}>Bạn chưa nghe bài hát nào trên hệ thống</div>
       )}
     </div>
-  );
+  ):
+  <LoadingPage />
 };
 
 export default index;
