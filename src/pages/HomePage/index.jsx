@@ -19,6 +19,7 @@ import {
   Alert,
   RecentList,
   KhamPha,
+  CateList
 } from "/src/constants/layouts";
 import { urlMLServer, urlApiAudioServer, apiKey } from "/src/constants/env";
 import handleGetPlaylists from "/src/utils/getPlayLists";
@@ -343,6 +344,10 @@ const HomePage = () => {
                 <Route
                   path="/songs/:id"
                   element={<SongDetail showPlaylist={showPlaylist} />}
+                />
+                <Route
+                  path="/khampha/cate/:slug"
+                  element={<CateList showPlaylist={showPlaylist} />}
                 />
                 <Route
                   path="/playlists/:id"

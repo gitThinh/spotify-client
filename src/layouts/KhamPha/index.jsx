@@ -29,7 +29,7 @@ const index = () => {
           listCate.map((list, index) => (
             <div key={index}>
               <CateBox
-                title={titleMap[list.key] || list.key}
+                title={list.key}
                 data={list.values}
               />
             </div>

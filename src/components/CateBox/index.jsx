@@ -8,6 +8,12 @@ import { SongBox } from "/src/constants/components";
 import { memo } from "react";
 
 const CateBox = ({ title, data }) => {
+
+  const titleMap = {
+    Vietnamese: "Nhạc Việt",
+    World: "Nhạc quốc tế",
+    Chill: "Thư giãn",
+  };
   //------------------------------------------------- RENDER -------------------------------------------------
 
   return (
@@ -16,10 +22,10 @@ const CateBox = ({ title, data }) => {
         <div className="showlist_box">
           <div className="header_section">
             <div className="inform_section">
-              <div className="title_section">{title && <h3>{title}</h3>}</div>
+              <div className="title_section">{title && <h3>{titleMap[title] || title}</h3>}</div>
             </div>
             <div className="header_section_btn">
-              <Link to="">Xem thêm</Link>
+              <Link to={`cate/${title}`}>Xem thêm</Link>
             </div>
           </div>
           <div className="bounder_showlist_grid_box">
