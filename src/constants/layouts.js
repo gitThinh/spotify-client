@@ -7,7 +7,8 @@ import LoadingPage from '/src/layouts/LoadingPage'
 import Alert from '/src/layouts/Alert'
 import RecentList from '/src/layouts/RecentList'
 import KhamPha from '/src/layouts/KhamPha'
+import CateList from '/src/layouts/CateList'
 
 
 
-export { Page404, Queue, SearchPage, SongDetail, PlaylistPage, LoadingPage, Alert, RecentList, KhamPha }
+export { Page404, Queue, SearchPage, SongDetail, PlaylistPage, LoadingPage, Alert, RecentList, KhamPha, CateList }
