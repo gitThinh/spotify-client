@@ -71,7 +71,13 @@ const SearchPage = ({ resulfSearch, isSearch, showPlaylist }) => {
         )
       )}
       <ShowBoxList
-        link={`${urlMLServer}${recentSong._id}`}
+        link={
+          recentSong?._id
+            ? `${urlMLServer}${recentSong._id}`
+            : `${urlApiAudioServer}songs/page/${Math.floor(
+                320 * Math.random()
+              )}`
+        }
         title={"Có thể bạn thích:"}
       />
     </div>
