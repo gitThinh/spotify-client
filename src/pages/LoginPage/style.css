@@ -190,7 +190,7 @@ button[type="submit"].active:focus{
     border-radius: 5px;
 }
 .policy .checkmark::after{
-    content: "✔";
+    content: "X";
     line-height: 20px;
     color: #000;
     text-align: center;

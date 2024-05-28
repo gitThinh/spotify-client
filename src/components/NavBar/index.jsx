@@ -16,7 +16,8 @@ const NavBar = ({ user, tokens, showPlaylist }) => {
   const handleShowAlerts = useContext(methodsHandleAlert);
   const handlePlaylists = useContext(methodsHandlePlaylists);
 
-  // console.log(tokens.accessToken)
+  console.log(tokens.accessToken)
+  console.log(user.userId)
   // create a new SongList custom
   const handleAddPlaylist = () => {
     fetch(`${urlApiAudioServer}user/createPlaylist`, {
