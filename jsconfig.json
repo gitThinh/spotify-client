@@ -5,5 +5,8 @@
       "jsx": "react",
       "baseUrl": "./"
     },
-    "include" : ["src/**/*"]
+    "include" : ["src/**/*"],
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/" }
+    ]
 }
