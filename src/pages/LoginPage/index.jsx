@@ -14,7 +14,7 @@ const urlApiAudioServer = import.meta.env.VITE_API_URL_AUDIOSERVER
 const apiKey = import.meta.env.VITE_API_API_KEY
 
 
-const LoginPages = () => {
+const LoginPage = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
@@ -114,4 +114,4 @@ const LoginPages = () => {
     );
 };
 
-export default LoginPages;
+export default LoginPage;
